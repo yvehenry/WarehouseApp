@@ -1,0 +1,153 @@
+namespace ca.mcgill.ecse.WareFlow.model;
+
+class WareFlow {
+	1 <@>- * User users;
+	1 <@>- * UserRole userRoles;
+	1 <@>- * ShipmentOrder shipmentOrders;
+	1 <@>- * Area areas;
+	1 <@>- * Container containers;
+	1 <@>- * Item items;
+	1 <@>- * ShipmentNote shipmentNotes;
+  	1 <@>- * ManagerTask managerTasks;
+}
+
+
+class User {
+  lazy String username;
+  String password;
+  String phoneNumber = null;
+  String name = null;
+}
+
+class UserRole {
+	abstract;
+}
+
+class Area {
+  String areaName;
+}
+
+class Slot {
+  unique int slotNo;
+
+}
+
+class Item {
+  String itemType;
+  int lifeSpan;
+}
+
+enum OrderStatus {CLOSED, IN_PROGRESS, RETURNED}
+
+enum Priority {URGENT, NORMAL, LOW}
+
+enum TimeEstimate {
+  LESS_THAN_A_DAY, ONE_TO_THREE_DAYS, THREE_TO_SEVEN_DAYS, ONE_TO_THREE_WEEKS, MORE_THAN_THREE_WEEKS
+}
+
+class ShipmentOrder {
+  int orderNumber;
+  String description;
+  String shipmentAddress;
+  String receiver;
+  int quantity;
+  OrderStatus orderStatus;
+}
+
+class Container {
+  unique int containerNumber;
+  Date addedDate;
+}
+
+class ShipmentNote {
+  Date date;
+  String note;
+}
+
+class Employee {
+  isA UserRole;
+}
+
+class Client {
+  isA UserRole;
+  String address;
+}
+
+class Manager {
+  isA Employee;
+  password = "manager";
+  username = "manager";
+}
+
+association {
+  1 User user -- 0..2 UserRole userRole;
+  1 Item itemsInContainer -- * Container container;
+  * Employee assignedEmployees -- * ShipmentOrder assignedOrders;
+  * Employee noteAuthors -- * ShipmentNote notesWritten;
+  * Client orderClients -- * ShipmentOrder ordersOpened;
+  1 ShipmentOrder linkedOrders -- * Container containersPerOrder;
+  1 ShipmentOrder orderToBeNoted -- 1 ShipmentNote note;
+  1 Area containerArea -- * Container containerInArea;
+  1 Area slotArea <@>- * Slot slots;
+    
+}
+
+associationClass ManagerTask {
+  boolean requiresManagerApproval;
+  Priority priority;
+  TimeEstimate timeEstimate;
+  * Manager;
+  1 ShipmentOrder;
+}
+
+
+namespace -;
+
+
+class User
+{
+  position 43 52 170.094 92.3594;
+}
+
+class ShipmentOrder
+{
+  position 948 335 190.75 126.359;
+}
+
+class Container
+{
+  position 923 58 168.219 92.3594;
+}
+
+class ShipmentNote
+{
+  position 25 342 119.062 75.3594;
+}
+
+class Employee
+{
+  position 914 658 109 41.3594;
+}
+
+class Client
+{
+  position 362 73 127.703 58.3594;
+}
+
+class Manager
+{
+  position 124 230 138.766 58.3594;
+}
+
+class Item
+{
+  position 603 112 158.797 75.3594;
+}
+
+class ManagerTask
+{
+  position 382 430 258.562 58.3594;
+  position.association ManagerTask__ShipmentOrder 203,1 0,126;
+  position.association Manager__ManagerTask 0,10 83,75;
+}
+
