@@ -9,7 +9,6 @@ class WareFlow {
   	1 <@>- * ManagerTask managerTasks;
 }
 
-
 class User {
   lazy String username;
   String password;
