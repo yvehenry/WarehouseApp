@@ -1,0 +1,26 @@
+namespace ca.mcgill.ecse.wareflow.controller;
+
+class TOShipmentOrder {
+  immutable;
+  Integer id;
+  Integer quantity;
+  Date placedOnDate;
+  String description;
+  String orderPlacer;
+
+  // the following five attributes are set to null (String/Date) / -1 (Integer) if no item container is specified for the order yet
+  String itemName;
+  Integer expectedLifeSpanInDays;
+  Date addedOnDate;
+  Integer areaNumber;
+  Integer slotNumber;
+
+  0..1 -> * TOShipmentNote notes;
+}
+
+class TOShipmentNote {
+  immutable;
+  Date date;
+  String description;
+  String noteTakerUsername;
+}
