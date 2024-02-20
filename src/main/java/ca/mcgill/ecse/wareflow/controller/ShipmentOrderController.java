@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.List;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.*;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
 import java.util.ArrayList;
 
 public class ShipmentOrderController {
