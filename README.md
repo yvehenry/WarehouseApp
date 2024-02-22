@@ -14,8 +14,8 @@ For more information about the WareFlow application, please consult the [wiki](.
 | Name          | GitHub username |
 | ------------- | --------------- |
 | Team Member A | yvehenry             |
-| Team Member B | ...             |
-| Team Member C | ...             |
-| Team Member D | ...             |
-| Team Member E | ...             |
-| Team Member F | ...             |
+| Team Member B | Tsha0             |
+| Team Member C | Neeshal-Imrit             |
+| Team Member D | BB885             |
+| Team Member E | FaysalHaidar1810             |
+| Team Member F | jordanbuch13             |
