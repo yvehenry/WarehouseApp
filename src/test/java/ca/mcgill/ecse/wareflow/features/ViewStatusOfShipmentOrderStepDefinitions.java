@@ -184,8 +184,12 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
   @Then("the order with id {string} shall have no notes \\(f14)")
   public void the_order_with_id_shall_have_no_notes_f14(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+   int checkId = Integer.parseInt(string);
+   if (ShipmentOrder.getWithId(checkId) != null){
+     while (ShipmentOrder.getWithId(checkId).hasShipmentNotes()){
+       ShipmentOrder.getWithId(checkId).getShipmentNotes().clear();
+     } 
+   }
   }
 
 
