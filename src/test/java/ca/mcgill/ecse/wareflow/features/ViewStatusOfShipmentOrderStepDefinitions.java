@@ -1,34 +1,36 @@
 package ca.mcgill.ecse.wareflow.features;
-
+import java.util.List;
+import java.util.Map;
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.model.Manager;
+import ca.mcgill.ecse.wareflow.model.WareFlow;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class ViewStatusOfShipmentOrderStepDefinitions {
+
+  private WareFlow wareFlow = WareFlowApplication.getWareFlow();
+
+  
   @Given("the following employees exist in the system \\(f14)")
   public void the_following_employees_exist_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    List <Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+    for (Map<String, String> row : list) {
+      wareFlow.addEmployee(row.get("username"), row.get("password"), row.get("name"),
+          row.get("phoneNumber"));
+    }
   }
 
   @Given("the following manager exists in the system \\(f14)")
   public void the_following_manager_exists_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+            List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+    Manager manager =
+        new Manager(list.get(0).get("username"), null, list.get(0).get("password"), null, wareFlow);
+    wareFlow.setManager(manager);
+    
   }
 
   @Given("the following item types exist in the system \\(f14)")
