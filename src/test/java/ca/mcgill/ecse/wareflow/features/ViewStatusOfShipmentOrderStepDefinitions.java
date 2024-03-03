@@ -12,11 +12,16 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
   private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
-  
+  /**
+   * Gherkin Scenario: Create employees
+   * 
+   * @author Neeshal Imrit
+   * @param dataTable Cucumber data table containing username, name, password, and phone number
+   */
   @Given("the following employees exist in the system \\(f14)")
   public void the_following_employees_exist_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
-        
+
     List <Map<String, String>> list = dataTable.asMaps(String.class, String.class);
     for (Map<String, String> row : list) {
       wareFlow.addEmployee(row.get("username"), row.get("name"),row.get("password"),
@@ -24,6 +29,11 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     }
   }
 
+  /**
+   * Gherkin Scenario: Create a manager
+   * @author Neeshal Imrit
+   * @param dataTable Cucumber data table containing username and password of manager
+   */
   @Given("the following manager exists in the system \\(f14)")
   public void the_following_manager_exists_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
