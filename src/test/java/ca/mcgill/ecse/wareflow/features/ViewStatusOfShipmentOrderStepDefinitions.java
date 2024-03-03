@@ -19,11 +19,8 @@ import static org.junit.Assert.assertNotNull;
 
 public class ViewStatusOfShipmentOrderStepDefinitions {
 
-
+    private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
     private List<TOShipmentOrder> orders;
-
-
-    private static WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     @Given("the following employees exist in the system \\(f14)")
     public void the_following_employees_exist_in_the_system_f14(
@@ -199,4 +196,7 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
             ShipmentOrder.getWithId(checkId).getShipmentNotes().clear();
         }
     }
+
 }
+
+
