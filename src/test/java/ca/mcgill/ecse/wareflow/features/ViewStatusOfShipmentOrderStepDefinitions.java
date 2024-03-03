@@ -10,15 +10,16 @@ import io.cucumber.java.en.When;
 
 public class ViewStatusOfShipmentOrderStepDefinitions {
 
-  private WareFlow wareFlow = WareFlowApplication.getWareFlow();
+  private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
   
   @Given("the following employees exist in the system \\(f14)")
   public void the_following_employees_exist_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
+        
     List <Map<String, String>> list = dataTable.asMaps(String.class, String.class);
     for (Map<String, String> row : list) {
-      wareFlow.addEmployee(row.get("username"), row.get("password"), row.get("name"),
+      wareFlow.addEmployee(row.get("username"), row.get("name"),row.get("password"),
           row.get("phoneNumber"));
     }
   }
@@ -26,9 +27,9 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
   @Given("the following manager exists in the system \\(f14)")
   public void the_following_manager_exists_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
-            List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
-    Manager manager =
-        new Manager(list.get(0).get("username"), null, list.get(0).get("password"), null, wareFlow);
+
+    List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
+    Manager manager = new Manager(list.get(0).get("username"), null, list.get(0).get("password"), null, wareFlow);
     wareFlow.setManager(manager);
     
   }
