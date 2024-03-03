@@ -121,10 +121,10 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     for (var row : rows) {
       TOShipmentNote currentNote = currentOrderNotes.get(i);
       String noteTaker = row.get("noteTaker");
-      assertEquals(noteTaker, currentNote.getNoteTakerUsername());
       Date date = Date.valueOf(row.get("date"));
-      assertEquals(date, currentNote.getDate());
       String description = row.get("description");
+      assertEquals(noteTaker, currentNote.getNoteTakerUsername());
+      assertEquals(date, currentNote.getDate());
       assertEquals(description, currentNote.getDescription());
       i++;
     }
