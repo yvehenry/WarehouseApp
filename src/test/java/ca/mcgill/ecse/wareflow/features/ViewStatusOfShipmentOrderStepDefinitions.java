@@ -83,10 +83,10 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     }
 
     /**
-     * Method to check if following order(s) exist in the WareFlow application.
-     * Author: Al-Faysal Haidar
+     * Gherkin Scenario: Check if the following order(s) exist in the WareFlow application.
      *
      * @param dataTable Data Table containing an ID, an order placer, a placed-on-date, a description, a container number and a quantity.
+     * @author Al-Faysal Haidar
      */
     @Given("the following orders exist in the system \\(f14)")
     public void the_following_orders_exist_in_the_system_f14(
@@ -111,10 +111,10 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     }
 
     /**
-     * Method to check if following note(s) exist in the WareFlow application.
-     * Author: Al-Faysal Haidar
+     * Gherkin Scenario: Check if following note(s) exist in the WareFlow application.
      *
      * @param dataTable Data Table containing a note taker, an order ID, a date and a description.
+     * @author Al-Faysal Haidar
      */
     @Given("the following notes exist in the system \\(f14)")
     public void the_following_notes_exist_in_the_system_f14(
