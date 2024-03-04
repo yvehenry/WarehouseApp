@@ -1,16 +1,10 @@
 package ca.mcgill.ecse.wareflow.features;
 
-
-import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
-import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.Manager;
-import ca.mcgill.ecse.wareflow.model.ShipmentNote;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.WareFlow;
+import ca.mcgill.ecse.wareflow.model.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,14 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-
 public class ViewStatusOfShipmentOrderStepDefinitions {
-
-
     private List<TOShipmentOrder> orders;
     private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
@@ -40,7 +29,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following employees exist in the system \\(f14)")
     public void the_following_employees_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> row : list) {
             wareFlow.addEmployee(row.get("username"), row.get("name"), row.get("password"),
@@ -57,38 +45,42 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following manager exists in the system \\(f14)")
     public void the_following_manager_exists_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         Manager manager = new Manager(list.get(0).get("username"), null, list.get(0).get("password"), null, wareFlow);
         wareFlow.setManager(manager);
-
     }
 
-  @Given("the following item types exist in the system \\(f14)")
-  public void the_following_item_types_exist_in_the_system_f14(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+    /**
+     * Gherkin step definition to add item types to the WareFlow app.
+     *
+     * @param dataTable Cucumber DataTable with the name and lifespan of the items
+     * @author Yvehenry Samee Julsain
+     */
+    @Given("the following item types exist in the system \\(f14)")
+    public void the_following_item_types_exist_in_the_system_f14(
+            io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> items = dataTable.asMaps();
 
-  @Given("the following containers exist in the system \\(f14)")
-  public void the_following_containers_exist_in_the_system_f14(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+        for (Map<String, String> item : items) {
+            wareFlow.addItemType(item.get("name"), Integer.parseInt(item.get("expectedLifeSpanInDays")));
+        }
+    }
+
+    /**
+     * Gherkin step definition to add containers to the WareFlow app.
+     *
+     * @param dataTable Cucumber DataTable with the container number, item type in container, date the container was added, area number, and slot number
+     * @author Yvehenry Samee Julsain
+     */
+    @Given("the following containers exist in the system \\(f14)")
+    public void the_following_containers_exist_in_the_system_f14(
+            io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> containers = dataTable.asMaps();
+
+        for (Map<String, String> container : containers) {
+            wareFlow.addItemContainer(Integer.parseInt(container.get("containerNumber")), Integer.parseInt(container.get("areaNumber")), Integer.parseInt(container.get("slotNumber")), Date.valueOf(container.get("addedOnDate")), ItemType.getWithName(container.get("type")));
+        }
+    }
 
     /**
      * Gherkin Scenario: Check if the following order(s) exist in the WareFlow application.
@@ -99,13 +91,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following orders exist in the system \\(f14)")
     public void the_following_orders_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
         List<Map<String, String>> rows = dataTable.asMaps();
         for (var row : rows) {
             int id = Integer.parseInt(row.get("id"));
@@ -127,13 +112,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following notes exist in the system \\(f14)")
     public void the_following_notes_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
         List<Map<String, String>> rows = dataTable.asMaps();
         for (var row : rows) {
             String noteTaker = row.get("noteTaker");
@@ -210,13 +188,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
             i++;
         }
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
     }
 
 
