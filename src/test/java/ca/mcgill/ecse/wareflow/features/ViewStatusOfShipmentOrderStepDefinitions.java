@@ -22,9 +22,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Create employees
-     *
-     * @param dataTable Cucumber data table containing username, name, password, and phone number
      * @author Neeshal Imrit
+     * @param dataTable Cucumber data table containing username, name, password, and phone number
      */
     @Given("the following employees exist in the system \\(f14)")
     public void the_following_employees_exist_in_the_system_f14(
@@ -38,9 +37,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Create a manager
-     *
-     * @param dataTable Cucumber data table containing username and password of manager
      * @author Neeshal Imrit
+     * @param dataTable Cucumber data table containing username and password of manager
      */
     @Given("the following manager exists in the system \\(f14)")
     public void the_following_manager_exists_in_the_system_f14(
@@ -52,9 +50,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin step definition to add item types to the WareFlow app.
-     *
-     * @param dataTable Cucumber DataTable with the name and lifespan of the items
      * @author Yvehenry Samee Julsain
+     * @param dataTable Cucumber DataTable with the name and lifespan of the items
      */
     @Given("the following item types exist in the system \\(f14)")
     public void the_following_item_types_exist_in_the_system_f14(
@@ -67,10 +64,9 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     }
 
     /**
-     * Gherkin step definition to add containers to the WareFlow app.
-     *
-     * @param dataTable Cucumber DataTable with the container number, item type in container, date the container was added, area number, and slot number
+     * Gherkin Scenario: add containers to the WareFlow app.
      * @author Yvehenry Samee Julsain
+     * @param dataTable Cucumber DataTable with the container number, item type in container, date the container was added, area number, and slot number
      */
     @Given("the following containers exist in the system \\(f14)")
     public void the_following_containers_exist_in_the_system_f14(
@@ -84,9 +80,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Check if the following order(s) exist in the WareFlow application.
-     *
-     * @param dataTable Data Table containing an ID, an order placer, a placed-on-date, a description, a container number and a quantity.
      * @author Al-Faysal Haidar
+     * @param dataTable Data Table containing an ID, an order placer, a placed-on-date, a description, a container number and a quantity.
      */
     @Given("the following orders exist in the system \\(f14)")
     public void the_following_orders_exist_in_the_system_f14(
@@ -105,9 +100,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Check if following note(s) exist in the WareFlow application.
-     *
-     * @param dataTable Data Table containing a note taker, an order ID, a date and a description.
      * @author Al-Faysal Haidar
+     * @param dataTable Data Table containing a note taker, an order ID, a date and a description.
      */
     @Given("the following notes exist in the system \\(f14)")
     public void the_following_notes_exist_in_the_system_f14(
@@ -124,7 +118,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Test the ShipmentOrderController by getting all the orders in the system.
-     *
      * @author Jason Shao
      */
     @When("the manager attempts to view all shipment orders in the system \\(f14)")
@@ -134,9 +127,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: display the 3 shipment orders that should be presented when the manager attempts to view all the shipment orders in the system.
-     *
-     * @param dataTable Cucumber data table containing id, orderPlacer, placedOnDate, description, itemName, expectedLifeSpanInDays, addedOnData, areaNumber, slotNumber, quantity of the orders shown.
      * @author Jason Shao
+     * @param dataTable Cucumber data table containing id, orderPlacer, placedOnDate, description, itemName, expectedLifeSpanInDays, addedOnData, areaNumber, slotNumber, quantity of the orders shown.
      */
     @Then("the following shipment orders shall be presented \\(f14)")
     public void the_following_shipment_orders_shall_be_presented_f14(
@@ -193,9 +185,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Look up order ID in the table
-     *
-     * @param dataTable Cucumber data table containing note taker, date and description of order ID
      * @author Ben Bouhdana
+     * @param dataTable Cucumber data table containing note taker, date and description of order ID
      */
     @Then("the order with id {string} shall have the following notes \\(f14)")
     public void the_order_with_id_shall_have_the_following_notes_f14(String string,
@@ -222,9 +213,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     /**
      * Gherkin Scenario: Search for order ID in the table
-     *
-     * @param string Cucumber containing shipment order information
      * @author Jordan Buchanan
+     * @param string Cucumber containing shipment order information
      */
     @Then("the order with id {string} shall have no notes \\(f14)")
     public void the_order_with_id_shall_have_no_notes_f14(String string) {
