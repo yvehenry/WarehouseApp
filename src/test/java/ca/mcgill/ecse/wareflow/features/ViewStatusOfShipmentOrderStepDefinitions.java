@@ -192,7 +192,7 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
   /**
    * Gherkin Scenario: Search for order ID in the table
    * @author Jordan Buchanan
-   * @param dataTable Cucumber data table checks if shipment notes is zero
+   * @param dataTable Cucumber containing shipment order information
    */
    @Then("the order with id {string} shall have no notes \\(f14)")
   public void the_order_with_id_shall_have_no_notes_f14(String string) {
