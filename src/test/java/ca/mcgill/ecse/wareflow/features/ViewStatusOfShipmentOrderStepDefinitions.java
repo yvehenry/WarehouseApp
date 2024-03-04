@@ -1,6 +1,8 @@
 package ca.mcgill.ecse.wareflow.features;
 
 
+import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
@@ -18,13 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
 public class ViewStatusOfShipmentOrderStepDefinitions {
 
-    private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
+
     private List<TOShipmentOrder> orders;
+    private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     /**
      * Gherkin Scenario: Create employees
@@ -59,31 +64,31 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     }
 
-    @Given("the following item types exist in the system \\(f14)")
-    public void the_following_item_types_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following item types exist in the system \\(f14)")
+  public void the_following_item_types_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
-    @Given("the following containers exist in the system \\(f14)")
-    public void the_following_containers_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following containers exist in the system \\(f14)")
+  public void the_following_containers_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
     /**
      * Gherkin Scenario: Check if the following order(s) exist in the WareFlow application.
