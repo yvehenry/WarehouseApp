@@ -1,6 +1,10 @@
 package ca.mcgill.ecse.wareflow.features;
 
+
+import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.model.Manager;
@@ -16,13 +20,16 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 
 public class ViewStatusOfShipmentOrderStepDefinitions {
 
-    private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
+
     private List<TOShipmentOrder> orders;
+    private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     /**
      * Gherkin Scenario: Create employees
@@ -57,32 +64,38 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     }
 
-    @Given("the following item types exist in the system \\(f14)")
-    public void the_following_item_types_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following item types exist in the system \\(f14)")
+  public void the_following_item_types_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
-    @Given("the following containers exist in the system \\(f14)")
-    public void the_following_containers_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following containers exist in the system \\(f14)")
+  public void the_following_containers_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
+    /**
+     * Gherkin Scenario: Check if the following order(s) exist in the WareFlow application.
+     *
+     * @param dataTable Data Table containing an ID, an order placer, a placed-on-date, a description, a container number and a quantity.
+     * @author Al-Faysal Haidar
+     */
     @Given("the following orders exist in the system \\(f14)")
     public void the_following_orders_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
@@ -93,9 +106,24 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         // Double, Byte, Short, Long, BigInteger or BigDecimal.
         //
         // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
+        List<Map<String, String>> rows = dataTable.asMaps();
+        for (var row : rows) {
+            int id = Integer.parseInt(row.get("id"));
+            String orderPlacer = row.get("orderPlacer");
+            Date placedOnDate = Date.valueOf(row.get("placedOnDate"));
+            String description = row.get("description");
+            int containerNumber = Integer.parseInt(row.get("containerNumber"));
+            int quantity = Integer.parseInt(row.get("quantity"));
+            ShipmentOrderController.addShipmentOrder(id, placedOnDate, description, orderPlacer, containerNumber, quantity);
+        }
     }
 
+    /**
+     * Gherkin Scenario: Check if following note(s) exist in the WareFlow application.
+     *
+     * @param dataTable Data Table containing a note taker, an order ID, a date and a description.
+     * @author Al-Faysal Haidar
+     */
     @Given("the following notes exist in the system \\(f14)")
     public void the_following_notes_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
@@ -106,7 +134,14 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         // Double, Byte, Short, Long, BigInteger or BigDecimal.
         //
         // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
+        List<Map<String, String>> rows = dataTable.asMaps();
+        for (var row : rows) {
+            String noteTaker = row.get("noteTaker");
+            int orderId = Integer.parseInt(row.get("orderId"));
+            Date date = Date.valueOf(row.get("date"));
+            String description = row.get("description");
+            ShipmentNoteController.addShipmentNote(date, description, orderId, noteTaker);
+        }
     }
 
     /**
@@ -227,7 +262,4 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         assertNotNull(aShipmentOrder);
         assertEquals(aShipmentOrder.getShipmentNotes().size(), 0);
     }
-
 }
-
-
