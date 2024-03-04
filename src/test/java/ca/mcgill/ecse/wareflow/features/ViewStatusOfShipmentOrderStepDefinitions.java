@@ -29,7 +29,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following employees exist in the system \\(f14)")
     public void the_following_employees_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         for (Map<String, String> row : list) {
             wareFlow.addEmployee(row.get("username"), row.get("name"), row.get("password"),
@@ -46,7 +45,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following manager exists in the system \\(f14)")
     public void the_following_manager_exists_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         Manager manager = new Manager(list.get(0).get("username"), null, list.get(0).get("password"), null, wareFlow);
         wareFlow.setManager(manager);
@@ -61,7 +59,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following item types exist in the system \\(f14)")
     public void the_following_item_types_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-
         List<Map<String, String>> items = dataTable.asMaps();
 
         for (Map<String, String> item : items) {
@@ -78,7 +75,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following containers exist in the system \\(f14)")
     public void the_following_containers_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-
         List<Map<String, String>> containers = dataTable.asMaps();
 
         for (Map<String, String> container : containers) {
@@ -95,13 +91,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following orders exist in the system \\(f14)")
     public void the_following_orders_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
         List<Map<String, String>> rows = dataTable.asMaps();
         for (var row : rows) {
             int id = Integer.parseInt(row.get("id"));
@@ -123,13 +112,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     @Given("the following notes exist in the system \\(f14)")
     public void the_following_notes_exist_in_the_system_f14(
             io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
         List<Map<String, String>> rows = dataTable.asMaps();
         for (var row : rows) {
             String noteTaker = row.get("noteTaker");
@@ -206,13 +188,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
             i++;
         }
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
     }
 
 
