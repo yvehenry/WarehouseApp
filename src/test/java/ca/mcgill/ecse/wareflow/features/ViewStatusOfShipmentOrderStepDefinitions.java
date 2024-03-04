@@ -1,5 +1,7 @@
 package ca.mcgill.ecse.wareflow.features;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
@@ -48,57 +50,57 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         throw new io.cucumber.java.PendingException();
     }
 
-    @Given("the following item types exist in the system \\(f14)")
-    public void the_following_item_types_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following item types exist in the system \\(f14)")
+  public void the_following_item_types_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
-    @Given("the following containers exist in the system \\(f14)")
-    public void the_following_containers_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following containers exist in the system \\(f14)")
+  public void the_following_containers_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
-    @Given("the following orders exist in the system \\(f14)")
-    public void the_following_orders_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following orders exist in the system \\(f14)")
+  public void the_following_orders_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
-    @Given("the following notes exist in the system \\(f14)")
-    public void the_following_notes_exist_in_the_system_f14(
-            io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Given("the following notes exist in the system \\(f14)")
+  public void the_following_notes_exist_in_the_system_f14(
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
     /**
      * Gherkin Scenario: Test the ShipmentOrderController by getting all the orders in the system.
@@ -175,18 +177,18 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         // For other transformations you can register a DataTableType.
     }
 
-    @Then("the order with id {string} shall have the following notes \\(f14)")
-    public void the_order_with_id_shall_have_the_following_notes_f14(String string,
-                                                                     io.cucumber.datatable.DataTable dataTable) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-        // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-        // Double, Byte, Short, Long, BigInteger or BigDecimal.
-        //
-        // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
-    }
+  @Then("the order with id {string} shall have the following notes \\(f14)")
+  public void the_order_with_id_shall_have_the_following_notes_f14(String string,
+      io.cucumber.datatable.DataTable dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    // For automatic transformation, change DataTable to one of
+    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
+    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
+    // Double, Byte, Short, Long, BigInteger or BigDecimal.
+    //
+    // For other transformations you can register a DataTableType.
+    throw new io.cucumber.java.PendingException();
+  }
 
 
     /**
@@ -202,7 +204,7 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         assertNotNull(aShipmentOrder);
         assertEquals(aShipmentOrder.getShipmentNotes.size(), 0);
     }
-
+  
 }
 
 
