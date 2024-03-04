@@ -140,13 +140,22 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         }
     }
 
-    // #7
+    /**
+     * Gherkin Scenario: Test the ShipmentOrderController by getting all the orders in the system.
+     *
+     * @author Jason Shao
+     */
     @When("the manager attempts to view all shipment orders in the system \\(f14)")
     public void the_manager_attempts_to_view_all_shipment_orders_in_the_system_f14() {
         orders = ShipmentOrderController.getOrders();
     }
 
-    // #8
+    /**
+     * Gherkin Scenario: display the 3 shipment orders that should be presented when the manager attempts to view all the shipment orders in the system.
+     *
+     * @param dataTable Cucumber data table containing id, orderPlacer, placedOnDate, description, itemName, expectedLifeSpanInDays, addedOnData, areaNumber, slotNumber, quantity of the orders shown.
+     * @author Jason Shao
+     */
     @Then("the following shipment orders shall be presented \\(f14)")
     public void the_following_shipment_orders_shall_be_presented_f14(
             io.cucumber.datatable.DataTable dataTable) {
