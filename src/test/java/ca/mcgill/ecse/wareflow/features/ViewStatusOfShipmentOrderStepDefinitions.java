@@ -1,8 +1,5 @@
 package ca.mcgill.ecse.wareflow.features;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.ItemType;
 
@@ -19,7 +16,10 @@ import ca.mcgill.ecse.wareflow.model.WareFlow;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import java.sql.Date;
 import java.util.List;
