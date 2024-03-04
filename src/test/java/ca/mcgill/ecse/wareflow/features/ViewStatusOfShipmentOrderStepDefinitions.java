@@ -115,17 +115,38 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  
+  /**
+   * Gherkin Scenario: Look up order ID in the table
+   * @author Ben Bouhdana
+   * @param dataTable Cucumber data table containing note taker, date and description of order ID
+   */
   @Then("the order with id {string} shall have the following notes \\(f14)")
   public void the_order_with_id_shall_have_the_following_notes_f14(String string,
       io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    int orderID = Integer.parseInt(string);
+    TOShipmentOrder currentOrder = null;
+    for (var order : orders) {
+      if (order.getID() == orderID) {
+        currentOrder = order;
+      }
+    }
+
+    assertNotNull(currentOrder);
+
+    List<TOShipmentNote> currentOrderNotes = currentOrder.getNotes();
+    List<Map<String,String>> rows = dataTable.asMaps();
+    int i = 0;
+    for (var row : rows) {
+      TOShipmentNote currentNote = currentOrderNotes.get(i);
+      String noteTaker = row.get("noteTaker");
+      Date date = Date.valueOf(row.get("date"));
+      String description = row.get("description");
+      assertEquals(noteTaker, currentNote.getNoteTakerUsername());
+      assertEquals(date, currentNote.getDate());
+      assertEquals(description, currentNote.getDescription());
+      i++;
+    }
   }
 
   @Then("the order with id {string} shall have no notes \\(f14)")
