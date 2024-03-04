@@ -1,18 +1,10 @@
 package ca.mcgill.ecse.wareflow.features;
 
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
-import ca.mcgill.ecse.wareflow.model.ItemType;
-
-import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
-import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
-import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.Manager;
-import ca.mcgill.ecse.wareflow.model.ShipmentNote;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.WareFlow;
+import ca.mcgill.ecse.wareflow.model.*;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,19 +13,10 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-
 public class ViewStatusOfShipmentOrderStepDefinitions {
-
-
     private List<TOShipmentOrder> orders;
     private final static WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
@@ -67,40 +50,41 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         List<Map<String, String>> list = dataTable.asMaps(String.class, String.class);
         Manager manager = new Manager(list.get(0).get("username"), null, list.get(0).get("password"), null, wareFlow);
         wareFlow.setManager(manager);
-
     }
 
-  /**
-   * Gherkin step definition to add item types to the WareFlow app.
-   * @author Yvehenry Samee Julsain
-   * @param dataTable Cucumber DataTable with the name and lifespan of the items
-  */
-  @Given("the following item types exist in the system \\(f14)") //TODO
-  public void the_following_item_types_exist_in_the_system_f14(
-      io.cucumber.datatable.DataTable dataTable) {
+    /**
+     * Gherkin step definition to add item types to the WareFlow app.
+     *
+     * @param dataTable Cucumber DataTable with the name and lifespan of the items
+     * @author Yvehenry Samee Julsain
+     */
+    @Given("the following item types exist in the system \\(f14)")
+    public void the_following_item_types_exist_in_the_system_f14(
+            io.cucumber.datatable.DataTable dataTable) {
 
         List<Map<String, String>> items = dataTable.asMaps();
 
-        for (Map<String, String> item : items)
-          wareFlow.addItemType(item.get("name"), Integer.parseInt(item.get("expectedLifeSpanInDays")));
+        for (Map<String, String> item : items) {
+            wareFlow.addItemType(item.get("name"), Integer.parseInt(item.get("expectedLifeSpanInDays")));
+        }
+    }
 
-  }
+    /**
+     * Gherkin step definition to add containers to the WareFlow app.
+     *
+     * @param dataTable Cucumber DataTable with the container number, item type in container, date the container was added, area number, and slot number
+     * @author Yvehenry Samee Julsain
+     */
+    @Given("the following containers exist in the system \\(f14)")
+    public void the_following_containers_exist_in_the_system_f14(
+            io.cucumber.datatable.DataTable dataTable) {
 
-  /**
-   * Gherkin step definition to add containers to the WareFlow app.
-   * @author Yvehenry Samee Julsain
-   * @param dataTable Cucumber DataTable with the container number, item type in container, date the container was added, area number, and slot number
-  */
-  @Given("the following containers exist in the system \\(f14)") //TODO
-  public void the_following_containers_exist_in_the_system_f14(
-      io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> containers = dataTable.asMaps();
 
-        List<Map<String,String>> containers = dataTable.asMaps();
-
-        for (Map<String, String> container : containers)
-          wareFlow.addItemContainer(Integer.parseInt(container.get("containerNumber")), Integer.parseInt(container.get("areaNumber")), Integer.parseInt(container.get("slotNumber")), Date.valueOf(container.get("addedOnDate")), ItemType.getWithName(container.get("type")));
-        
-  }
+        for (Map<String, String> container : containers) {
+            wareFlow.addItemContainer(Integer.parseInt(container.get("containerNumber")), Integer.parseInt(container.get("areaNumber")), Integer.parseInt(container.get("slotNumber")), Date.valueOf(container.get("addedOnDate")), ItemType.getWithName(container.get("type")));
+        }
+    }
 
     /**
      * Gherkin Scenario: Check if the following order(s) exist in the WareFlow application.
