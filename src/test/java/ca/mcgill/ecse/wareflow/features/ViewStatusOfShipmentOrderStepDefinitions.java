@@ -196,7 +196,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
             ShipmentOrder.getWithId(checkId).getShipmentNotes().clear();
         }
     }
-
 }
 
 
