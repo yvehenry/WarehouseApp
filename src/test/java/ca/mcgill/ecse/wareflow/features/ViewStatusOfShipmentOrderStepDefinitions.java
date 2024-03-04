@@ -70,10 +70,11 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
 
     }
 
-  /*Given the following item types exist in the system (f14)
-      | name        | expectedLifeSpanInDays |
-      | notfound tv |                   1800 |
-      | bed         |                   5000 | */
+  /**
+   * Gherkin step definition to add item types to the WareFlow app.
+   * @author Yvehenry Samee Julsain
+   * @param dataTable Cucumber DataTable with the name and lifespan of the items
+  */
   @Given("the following item types exist in the system \\(f14)") //TODO
   public void the_following_item_types_exist_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
@@ -81,15 +82,15 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         List<Map<String, String>> items = dataTable.asMaps();
 
         for (Map<String, String> item : items)
-          WareFlowApplication.getWareFlow().addItemType(item.get("name"), Integer.parseInt(item.get("expectedLifeSpanInDays")));
+          wareFlow.addItemType(item.get("name"), Integer.parseInt(item.get("expectedLifeSpanInDays")));
 
   }
 
-  /*Given the following containers exist in the system (f14)
-      | containerNumber | type        | addedOnDate | areaNumber | slotNumber |
-      |               1 | notfound tv |  2022-03-20 |          9 |         23 |
-      |               2 | bed         |  2010-01-30 |         10 |         35 |
-      |               3 | bed         |  2010-01-30 |          1 |         35 | */
+  /**
+   * Gherkin step definition to add containers to the WareFlow app.
+   * @author Yvehenry Samee Julsain
+   * @param dataTable Cucumber DataTable with the container number, item type in container, date the container was added, area number, and slot number
+  */
   @Given("the following containers exist in the system \\(f14)") //TODO
   public void the_following_containers_exist_in_the_system_f14(
       io.cucumber.datatable.DataTable dataTable) {
@@ -97,8 +98,8 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         List<Map<String,String>> containers = dataTable.asMaps();
 
         for (Map<String, String> container : containers)
-          WareFlowApplication.getWareFlow().addItemContainer(Integer.parseInt(container.get("containerNumber")), Integer.parseInt(container.get("areaNumber")), Integer.parseInt(container.get("slotNumber")), Date.valueOf(container.get("addedOnDate")), ItemType.getWithName(container.get("type")));
-
+          wareFlow.addItemContainer(Integer.parseInt(container.get("containerNumber")), Integer.parseInt(container.get("areaNumber")), Integer.parseInt(container.get("slotNumber")), Date.valueOf(container.get("addedOnDate")), ItemType.getWithName(container.get("type")));
+        
   }
 
     /**
