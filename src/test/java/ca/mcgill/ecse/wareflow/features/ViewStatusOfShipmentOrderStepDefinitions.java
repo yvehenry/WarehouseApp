@@ -1,8 +1,10 @@
 package ca.mcgill.ecse.wareflow.features;
 
+
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.model.Manager;
 import ca.mcgill.ecse.wareflow.model.ShipmentNote;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
@@ -10,7 +12,6 @@ import ca.mcgill.ecse.wareflow.model.WareFlow;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.ja.前提;
 
 import java.sql.Date;
 import java.util.List;
@@ -20,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ViewStatusOfShipmentOrderStepDefinitions {
+
+
+    private List<TOShipmentOrder> orders;
 
     private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
@@ -136,15 +140,63 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         }
     }
 
+    // #7
     @When("the manager attempts to view all shipment orders in the system \\(f14)")
     public void the_manager_attempts_to_view_all_shipment_orders_in_the_system_f14() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        orders = ShipmentOrderController.getOrders();
     }
 
+    // #8
     @Then("the following shipment orders shall be presented \\(f14)")
     public void the_following_shipment_orders_shall_be_presented_f14(
             io.cucumber.datatable.DataTable dataTable) {
+        List<Map<String, String>> rows = dataTable.asMaps();
+        int i = 0;
+        for (var row : rows) {
+            TOShipmentOrder cuOrder = orders.get(i);
+            int id = Integer.parseInt(row.get("id"));
+            assertEquals(id, cuOrder.getId());
+            String orderPlacer = row.get("orderPlacer");
+            assertEquals(orderPlacer, cuOrder.getOrderPlacer());
+            Date placedOnDate = Date.valueOf(row.get("placedOnDate"));
+            assertEquals(placedOnDate, cuOrder.getPlacedOnDate());
+            String description = row.get("description");
+            assertEquals(description, cuOrder.getDescription());
+            String itemName = row.get("itemName");
+            assertEquals(itemName, cuOrder.getItemName());
+            int expectedLifeSpanInDays = Integer.parseInt(row.get("expectedLifeSpanInDays"));
+            assertEquals(expectedLifeSpanInDays, cuOrder.getExpectedLifeSpanInDays());
+
+            String addedOnDateStr = row.get("addedOnDate");
+            Date addedOnDate = null;
+            if (addedOnDateStr != null) {
+                addedOnDate = Date.valueOf(addedOnDateStr);
+            }
+            assertEquals(addedOnDate, cuOrder.getAddedOnDate());
+
+            String areaNumberStr = row.get("areaNumber");
+            int areaNumber = -1;
+            if (areaNumberStr != null) {
+                areaNumber = Integer.parseInt(areaNumberStr);
+            }
+            assertEquals(areaNumber, cuOrder.getAreaNumber());
+
+            String slotNumberStr = row.get("slotNumber");
+            int slotNumber = -1;
+            if (slotNumberStr != null) {
+                slotNumber = Integer.parseInt(slotNumberStr);
+            }
+            assertEquals(slotNumber, cuOrder.getSlotNumber());
+
+            String quantityStr = row.get("quantity");
+            int quantity = -1;
+            if (quantityStr != null) {
+                quantity = Integer.parseInt(quantityStr);
+            }
+            assertEquals(quantity, cuOrder.getQuantity());
+
+            i++;
+        }
         // Write code here that turns the phrase above into concrete actions
         // For automatic transformation, change DataTable to one of
         // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
@@ -152,7 +204,6 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         // Double, Byte, Short, Long, BigInteger or BigDecimal.
         //
         // For other transformations you can register a DataTableType.
-        throw new io.cucumber.java.PendingException();
     }
 
     /**
@@ -189,6 +240,4 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-
-
 }
