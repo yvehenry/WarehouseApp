@@ -102,6 +102,12 @@ public class ViewStatusOfShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  
+  /**
+   * Gherkin Scenario: Look up order ID in the table
+   * @author Ben Bouhdana
+   * @param dataTable Cucumber data table containing note taker, date and description of order ID
+   */
   @Then("the order with id {string} shall have the following notes \\(f14)")
   public void the_order_with_id_shall_have_the_following_notes_f14(String string,
       io.cucumber.datatable.DataTable dataTable) {
