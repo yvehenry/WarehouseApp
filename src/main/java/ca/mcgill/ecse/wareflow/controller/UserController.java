@@ -24,7 +24,7 @@ public class UserController {
 
 
 
-    /**
+  /**
    * @author Neeshal Imrit
    * This method is used to delete an Employee or a Guest within the WareFlow application.
    * @param username The employee or guest with the given unique username to be deleted.

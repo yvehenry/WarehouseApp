@@ -27,15 +27,12 @@ public class ShipmentOrderController {
   }
 
 
-    /**
+  /**
    * @author Neeshal Imrit
    * The method is used to get all shipment orders.
    * @return Returns a list of TOShipmentOrder objects representing all ShipmentOrders
    * in the WareFlow System.
    */
-
-
-  // returns all shipment orders
   public static List<TOShipmentOrder> getOrders() {
     WareFlow wareFlow = WareFlowApplication.getWareFlow();
     List<TOShipmentOrder> shipmentOrders = new ArrayList<TOShipmentOrder>();
