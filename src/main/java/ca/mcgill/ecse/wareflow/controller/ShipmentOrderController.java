@@ -34,7 +34,7 @@ public class ShipmentOrderController {
    * in the WareFlow System.
    */
   public static List<TOShipmentOrder> getOrders() {
-    WareFlow wareFlow = WareFlowApplication.getWareFlow();
+    final WareFlow wareFlow = WareFlowApplication.getWareFlow();
     List<TOShipmentOrder> shipmentOrders = new ArrayList<TOShipmentOrder>();
     if (wareFlow.hasOrders()){
 
