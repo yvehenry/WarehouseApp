@@ -31,6 +31,7 @@ public class UserController {
    */
   // address is ignored if the isEmployee is true
   public static String addEmployeeOrClient(String username, String password, String name, String phoneNumber, boolean isEmployee, String address) { //TODO
+    
     WareFlow wareFlow = WareFlowApplication.getWareFlow();
     List<Employee> employees = wareFlow.getEmployees();
     for (Employee employee:employees) {
@@ -42,6 +43,12 @@ public class UserController {
     for (Client client:clients) {
       if (client.getUsername() == username) {
         return "This username is already taken.";
+      }
+    }
+    char[] usernameArray = username.toCharArray();
+    for (char letter:usernameArray) {
+      if (!("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890".contains(String.valueOf(letter)))) {
+        return "The username contains an invalid character. The username can only contain letters from a to z, letters from A to Z, and numbers from 0 to 9.";
       }
     }
     if (isEmployee) {
