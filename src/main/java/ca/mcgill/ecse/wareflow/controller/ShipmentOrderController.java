@@ -45,8 +45,8 @@ public class ShipmentOrderController {
 	  if(!User.hasWithUsername(username)) {
 		  return "The order placer does not exist";
 	  }
-	  if(containerNumber == -1 && quantity != 0) {
-		  return "Order quantity must 0 when container is not specified";
+	  if(containerNumber == -1 && quantity != -1) {
+		  return "Order quantity must be -1 when container is not specified";
 	  }
 	  if(quantity < 0) {
 		  return "Order quantity must be larger than 0 when container is specified";
@@ -96,8 +96,8 @@ public class ShipmentOrderController {
 	if(!User.hasWithUsername(newUsername)) {
 		return "The order placer does not exist";
 	  }
-	if(newContainerNumber == -1 && newQuantity != 0) {
-	  return "Order quantity must 0 when container is not specified";
+	if(newContainerNumber == -1 && newQuantity != -1) {
+	  return "Order quantity must be -1 when container is not specified";
 	  }
 	if(newQuantity < 0) {
 	  return "Order quantity must be larger than 0 when container is specified";
