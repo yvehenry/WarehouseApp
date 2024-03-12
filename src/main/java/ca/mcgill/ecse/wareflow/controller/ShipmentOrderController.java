@@ -16,9 +16,7 @@ import ca.mcgill.ecse.wareflow.model.WareFlow;
  * Wareflow program.
  */
 public class ShipmentOrderController {
-	
-	private static final WareFlow wareflow = WareFlowApplication.getWareFlow();
-	
+		
 	/**
 	 * This is the method called when a user attempts to add a new
 	 * Shipment Order to the Wareflow system
@@ -41,25 +39,32 @@ public class ShipmentOrderController {
 	  if(placedOnDate == null){
 		  return "Date cannot be empty";
 	  }
-	  if(description.isEmpty()) {
+	  if(description == null || description.isEmpty()) {
 		  return "Order description cannot be empty";
 	  }
 	  if(!User.hasWithUsername(username)) {
 		  return "The order placer does not exist";
 	  }
-	  if(containerNumber < 0 && quantity != 0) {
+	  if(containerNumber == -1 && quantity != 0) {
 		  return "Order quantity must 0 when container is not specified";
 	  }
 	  if(quantity < 0) {
 		  return "Order quantity must be larger than 0 when container is specified";
 	  }
 	  try {
-		  wareflow.addOrder(id,placedOnDate,description,quantity,User.getWithUsername(username));
-	  }
-	 catch(Exception e) {
-		 return "";
-	 }
-	  return ""; 
+		  ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, WareFlowApplication.getWareFlow(), User.getWithUsername(username)); 
+		  if (containerNumber == -1){ 
+			  newOrder.setContainer(null); 
+			  } 
+		  
+		  else { 
+			  newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber)); 
+			  } 
+		  } 
+	  catch (Exception e ) { 
+		  return e.getMessage(); 
+		  } 
+	  return "";
   }
 
   /**
@@ -91,7 +96,7 @@ public class ShipmentOrderController {
 	if(!User.hasWithUsername(newUsername)) {
 		return "The order placer does not exist";
 	  }
-	if(newContainerNumber < 0 && newQuantity != 0) {
+	if(newContainerNumber == -1 && newQuantity != 0) {
 	  return "Order quantity must 0 when container is not specified";
 	  }
 	if(newQuantity < 0) {
@@ -103,12 +108,19 @@ public class ShipmentOrderController {
 		someShipmentOrder.setPlacedOnDate(newPlacedOnDate);
 		someShipmentOrder.setDescription(newDescription);
 		someShipmentOrder.setOrderPlacer(User.getWithUsername(newUsername));
-		someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
-		someShipmentOrder.setQuantity(newQuantity);
-	}
-	catch(Exception e) {
-		return "";
-	} 
+
+		if(newContainerNumber == -1){
+			someShipmentOrder.setContainer(null);
+			someShipmentOrder.setQuantity(null);
+		}
+		else{
+			someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
+			someShipmentOrder.setQuantity(newQuantity);
+		}
+			
+	 catch (Exception e ) { 
+		  return e.getMessage(); 
+		} 
 	return "";
   }
 
