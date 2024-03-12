@@ -1,5 +1,8 @@
 package ca.mcgill.ecse.wareflow.controller;
 import ca.mcgill.ecse.wareflow.model.*;
+
+import java.util.List;
+
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 
 /**
@@ -18,17 +21,29 @@ public class UserController {
 /**
    * @author Yvehenry Julsain
    * This method is used to add an employee or a client within the WareFlow application.
-   * @param username
-   * @param password
-   * @param name
-   * @param phoneNumber
-   * @param isEmployee
-   * @param address
+   * @param username the username associated to the new employee or client account
+   * @param password the password associated to the new employee or client account
+   * @param name the name associated to the new employee or client account
+   * @param phoneNumber the phone number associated to the new employee or client account
+   * @param isEmployee if the the account is an employee or a client account; parameter is true if the account created is an employee account
+   * @param address if the account is a client account, the address associated to the new client account
    * @return Returns if an employee or a client sucessfully been added to the WareFlow Application.
    */
   // address is ignored if the isEmployee is true
   public static String addEmployeeOrClient(String username, String password, String name, String phoneNumber, boolean isEmployee, String address) { //TODO
     WareFlow wareFlow = WareFlowApplication.getWareFlow();
+    List<Employee> employees = wareFlow.getEmployees();
+    for (Employee employee:employees) {
+      if (employee.getUsername() == username) {
+        return "This username is already taken.";
+      }
+    }
+    List<Client> clients = wareFlow.getClients();
+    for (Client client:clients) {
+      if (client.getUsername() == username) {
+        return "This username is already taken.";
+      }
+    }
     if (isEmployee) {
       //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
       wareFlow.addEmployee(username, name, password, phoneNumber);
@@ -40,11 +55,39 @@ public class UserController {
     }
   }
 
+  /**
+   * @author Yvehenry Julsain
+   * This method is used to update the information associated to an employee or a client account within the WareFlow application.
+   * @param username the username associated to the employee or client account we want to make modifications in
+   * @param newPassword the new password to be updated in the employee or client's account
+   * @param newName the new name to be updated in the employee or client's account
+   * @param newPhoneNumber the new phone number to be updated in the employee or client's account
+   * @param newAddress if the account is a client account, the new address to be updated in the client's account
+   * @return Returns if the information associated to an employee or a client has been sucessfully updated in the WareFlow Application.
+   */
   // newAddress is ignored if the user is an employee
-  public static String updateEmployeeOrClient(String username, String newPassword, String newName,
-      String newPhoneNumber, String newAddress) { //TODO
-    
-    throw new UnsupportedOperationException("Not Implemented!");
+  public static String updateEmployeeOrClient(String username, String newPassword, String newName, String newPhoneNumber, String newAddress) { //TODO
+    WareFlow wareFlow = WareFlowApplication.getWareFlow();
+    List<Employee> employees = wareFlow.getEmployees();
+    for (Employee employee:employees) {
+      if (employee.getUsername() == username) {
+        employee.setPassword(newPassword);
+        employee.setName(newName);
+        employee.setPhoneNumber(newPhoneNumber);
+        return "Employee account information sucessfully updated!";
+      }
+    }
+    List<Client> clients = wareFlow.getClients();
+    for (Client client:clients) {
+      if (client.getUsername() == username) {
+        client.setPassword(newPassword);
+        client.setName(newName);
+        client.setPhoneNumber(newPhoneNumber);
+        client.setAddress(newAddress);
+        return "Client account information sucessfully updated!";
+      }
+    }
+    return "The account was not found in the WareFlow application.";
   }
 
   public static void deleteEmployeeOrClient(String username) {
