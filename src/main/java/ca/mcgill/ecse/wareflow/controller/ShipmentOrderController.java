@@ -1,31 +1,26 @@
 package ca.mcgill.ecse.wareflow.controller;
 
-import ca.mcgill.ecse.wareflow.model.*;
-import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import java.sql.Date;
 import java.util.List;
-import java.util.Map;
 
 public class ShipmentOrderController {
-  private List<TOShipmentNote> orders;
-
   // containerNumber -1 means that no container is specified and quantity has to be -1 as well
   public static String addShipmentOrder(int id, Date placedOnDate, String description,
       String username, int containerNumber, int quantity) {
-         // Remove this exception when you implement this method
+    // Remove this exception when you implement this method
     throw new UnsupportedOperationException("Not Implemented!");
   }
 
   // newContainerNumber -1 means that no container is specified and newQuantity has to be -1 as well
   public static String updateShipmentOrder(int id, Date newPlacedOnDate, String newDescription,
       String newUsername, int newContainerNumber, int newQuantity) {
-         // Remove this exception when you implement this method
+    // Remove this exception when you implement this method
     throw new UnsupportedOperationException("Not Implemented!");
   }
 
   public static void deleteShipmentOrder(int id) {
-     // Remove this exception when you implement this method
-     throw new UnsupportedOperationException("Not Implemented!");
+    // Remove this exception when you implement this method
+    throw new UnsupportedOperationException("Not Implemented!");
   }
 
   // returns all shipment orders
