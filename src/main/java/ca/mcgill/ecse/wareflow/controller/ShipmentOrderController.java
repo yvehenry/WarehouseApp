@@ -50,19 +50,25 @@ public class ShipmentOrderController {
         if (containerNumber == -1 && quantity != 0) {
             return "Order quantity must 0 when container is not specified";
         }
-        if (!ItemContainer.hasWithContainerNumber(containerNumber)) {
+        if (containerNumber != -1 && !ItemContainer.hasWithContainerNumber(containerNumber)) {
             return "The container does not exist";
         }
-        if (quantity <= 0) {
+        if (quantity <= 0 && containerNumber != -1) {
             return "Order quantity must be larger than 0 when container is specified";
         }
         
 
         try {
             ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, wareFlow, User.getWithUsername(username));
-            newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
-           
-        } catch (Exception e) {
+            if(containerNumber == -1) {
+            	newOrder.setContainer(null);
+            }
+            else {
+            	newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
+            }
+
+        }
+        catch (Exception e) {
             return e.getMessage();
         }
         return "";
@@ -100,10 +106,10 @@ public class ShipmentOrderController {
         if (newContainerNumber == -1 && newQuantity != 0) {
             return "Order quantity must 0 when container is not specified";
         }
-        if (!ItemContainer.hasWithContainerNumber(newContainerNumber)) {
+        if (newContainerNumber != -1 && !ItemContainer.hasWithContainerNumber(newContainerNumber)) {
             return "The container does not exist";
         }
-        if (newQuantity <= 0) {
+        if (newQuantity <= 0 && newContainerNumber != -1) {
             return "Order quantity must be larger than 0 when container is specified";
         }
 
@@ -113,9 +119,13 @@ public class ShipmentOrderController {
             someShipmentOrder.setPlacedOnDate(newPlacedOnDate);
             someShipmentOrder.setDescription(newDescription);
             someShipmentOrder.setOrderPlacer(User.getWithUsername(newUsername));
-
-            someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
             someShipmentOrder.setQuantity(newQuantity);
+            if(newContainerNumber == -1) {
+                someShipmentOrder.setContainer(null);
+            }
+            else {
+                someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));	
+            }
 
         } catch (Exception e) {
             return e.getMessage();
