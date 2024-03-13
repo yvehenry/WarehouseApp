@@ -72,7 +72,7 @@ public class ItemTypeController {
         }
 
         if (newExpectedLifeSpanInDays <= 0) {
-            errorMessage += "The lifespan of the item must be greater than 0 days";
+            errorMessage += "The lifespan of the item must be greater than 0 days.";
         }
 
         if (!errorMessage.equalsIgnoreCase("")) {
