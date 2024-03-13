@@ -47,10 +47,13 @@ public class ShipmentOrderController {
         if (!User.hasWithUsername(username)) {
             errorMessage += "The order placer does not exist";
         }
-        if (containerNumber == -1 && quantity != -1) {
+        if (!ItemContainer.hasWithContainerNumber(containerNumber)) {
+            errorMessage += "The container does not exist";
+        }
+        if (containerNumber == -1 && quantity != 0) {
             errorMessage += "Order quantity must be 0 when container is not specified";
         }
-        if (quantity < 0) {
+        if (quantity <= 0) {
             errorMessage += "Order quantity must be larger than 0 when container is specified";
         }
         if (!errorMessage.equalsIgnoreCase("")) {
@@ -60,6 +63,7 @@ public class ShipmentOrderController {
         try {
             ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, wareFlow, User.getWithUsername(username));
             newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
+           
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -98,10 +102,10 @@ public class ShipmentOrderController {
         if (!User.hasWithUsername(newUsername)) {
             errorMessage += "The order placer does not exist";
         }
-        if (newContainerNumber == -1 && newQuantity != -1) {
+        if (newContainerNumber == -1 && newQuantity != 0) {
             errorMessage += "Order quantity must be 0 when container is not specified";
         }
-        if (newQuantity < 0) {
+        if (newQuantity <= 0) {
             errorMessage += "Order quantity must be larger than 0 when container is specified";
         }
 
