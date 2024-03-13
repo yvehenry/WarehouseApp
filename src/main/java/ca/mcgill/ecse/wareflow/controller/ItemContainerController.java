@@ -9,7 +9,7 @@ import java.sql.Date;
 
 public class ItemContainerController {
 
-    private static WareFlow wareFlow = WareFlowApplication.getWareFlow();
+    private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     /**
      * @param containerNumber the container number of the item in the container (cannot be less than 1).
