@@ -33,32 +33,30 @@ public class ShipmentOrderController {
      */
     public static String addShipmentOrder(int id, Date placedOnDate, String description,
                                           String username, int containerNumber, int quantity) {
-        String errorMessage = "";
+     
 
         if (ShipmentOrder.hasWithId(id)) {
-            errorMessage += "Order id already exists";
+            return "Order id already exists";
         }
         if (placedOnDate == null) {
-            errorMessage += "Date cannot be empty";
+            return "Date cannot be empty";
         }
         if (description == null || description.isEmpty()) {
-            errorMessage += "Order description cannot be empty";
+            return "Order description cannot be empty";
         }
         if (!User.hasWithUsername(username)) {
-            errorMessage += "The order placer does not exist";
-        }
-        if (!ItemContainer.hasWithContainerNumber(containerNumber)) {
-            errorMessage += "The container does not exist";
+            return "The order placer does not exist";
         }
         if (containerNumber == -1 && quantity != 0) {
-            errorMessage += "Order quantity must be 0 when container is not specified";
+            return "Order quantity must 0 when container is not specified";
+        }
+        if (!ItemContainer.hasWithContainerNumber(containerNumber)) {
+            return "The container does not exist";
         }
         if (quantity <= 0) {
-            errorMessage += "Order quantity must be larger than 0 when container is specified";
+            return "Order quantity must be larger than 0 when container is specified";
         }
-        if (!errorMessage.equalsIgnoreCase("")) {
-            return errorMessage;
-        }
+        
 
         try {
             ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, wareFlow, User.getWithUsername(username));
@@ -67,7 +65,7 @@ public class ShipmentOrderController {
         } catch (Exception e) {
             return e.getMessage();
         }
-        return errorMessage;
+        return "";
     }
 
     /**
@@ -88,31 +86,28 @@ public class ShipmentOrderController {
      */
     public static String updateShipmentOrder(int id, Date newPlacedOnDate, String newDescription,
                                              String newUsername, int newContainerNumber, int newQuantity) {
-        String errorMessage = "";
 
-        if (!ItemContainer.hasWithContainerNumber(newContainerNumber)) {
-            errorMessage += "The container does not exist";
-        }
+       
         if (newPlacedOnDate == null) {
-            errorMessage += "Date cannot be empty";
+             return "Date cannot be empty";
         }
         if (newDescription.isEmpty()) {
-            errorMessage += "Order description cannot be empty";
+            return "Order description cannot be empty";
         }
         if (!User.hasWithUsername(newUsername)) {
-            errorMessage += "The order placer does not exist";
+            return "The order placer does not exist";
         }
         if (newContainerNumber == -1 && newQuantity != 0) {
-            errorMessage += "Order quantity must be 0 when container is not specified";
+            return "Order quantity must 0 when container is not specified";
+        }
+        if (!ItemContainer.hasWithContainerNumber(newContainerNumber)) {
+            return "The container does not exist";
         }
         if (newQuantity <= 0) {
-            errorMessage += "Order quantity must be larger than 0 when container is specified";
+            return "Order quantity must be larger than 0 when container is specified";
         }
 
-        if (!errorMessage.equalsIgnoreCase("")) {
-            return errorMessage;
-        }
-
+        
         try {
             ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(id);
             someShipmentOrder.setPlacedOnDate(newPlacedOnDate);
@@ -125,7 +120,7 @@ public class ShipmentOrderController {
         } catch (Exception e) {
             return e.getMessage();
         }
-        return errorMessage;
+        return "";
     }
 
     /**
