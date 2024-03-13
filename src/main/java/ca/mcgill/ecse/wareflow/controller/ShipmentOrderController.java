@@ -147,7 +147,7 @@ public class ShipmentOrderController {
      */
     public static List<TOShipmentOrder> getOrders() {
         final WareFlow wareFlow = WareFlowApplication.getWareFlow();
-        List<TOShipmentOrder> shipmentOrders = new ArrayList<TOShipmentOrder>();
+        List<TOShipmentOrder> shipmentOrders = new ArrayList<>();
         if (wareFlow.hasOrders()) {
 
 
@@ -174,7 +174,7 @@ public class ShipmentOrderController {
                 int slotNumber = order.getContainer().getSlotNumber();
 
                 // Generate ToShipmentNote objects for each note in the shipment order
-                List<TOShipmentNote> notes = new ArrayList<TOShipmentNote>();
+                List<TOShipmentNote> notes = new ArrayList<>();
                 List<ShipmentNote> shipmentNotes = order.getShipmentNotes();
 
                 if (shipmentNotes != null) {
