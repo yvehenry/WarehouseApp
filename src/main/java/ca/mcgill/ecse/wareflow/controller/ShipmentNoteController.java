@@ -12,14 +12,14 @@ import java.sql.Date;
 public class ShipmentNoteController {
 
     /**
-     * @author Jason Shao
-     * This method is used to add, update, and delete the shipmentnotes
-     * @param date The date that the shipment note is created
+     * @param date        The date that the shipment note is created
      * @param description The description of the shipment note
-     * @param orderID The ID of the shipment order that the shipment note is attached to
-     * @param username The username of the WarehouseStaff that created the shipment note
+     * @param orderID     The ID of the shipment order that the shipment note is attached to
+     * @param username    The username of the WarehouseStaff that created the shipment note
      * @return Returns a string that is empty if addShipmentNote was successful and no errors were raised.
      * Returns a string with an error message otherwise.
+     * @author Jason Shao
+     * This method is used to add, update, and delete the shipmentnotes
      */
     public static String addShipmentNote(Date date, String description, int orderID,
                                          String username) {
@@ -98,10 +98,10 @@ public class ShipmentNoteController {
     }
 
     /**
-     * @author Jason Shao
      * @param orderID The ID of the shipment order that the shipment note is attached to
      * @param index   The index of the shipment note attached to the shipment order
-     * This method is used to add, update, and delete the shipment notes
+     *                This method is used to add, update, and delete the shipment notes
+     * @author Jason Shao
      */
     public static void deleteShipmentNote(int orderID, int index) {
         try {

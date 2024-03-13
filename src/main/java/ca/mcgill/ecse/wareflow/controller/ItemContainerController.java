@@ -12,15 +12,15 @@ public class ItemContainerController {
     private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     /**
-     * @author Al-Faysal Haidar
-     * This method is used to add an item in a container in WareFlow.
      * @param containerNumber the container number of the item in the container (cannot be less than 1).
-     * @param areaNumber the area number of the item in the container (cannot be less than 0).
-     * @param slotNumber the slot number of the item in the container (cannot be less than 0).
-     * @param addedOnDate the added-on date of the item in the container.
-     * @param itemTypeName the item type name.
+     * @param areaNumber      the area number of the item in the container (cannot be less than 0).
+     * @param slotNumber      the slot number of the item in the container (cannot be less than 0).
+     * @param addedOnDate     the added-on date of the item in the container.
+     * @param itemTypeName    the item type name.
      * @return Returns an empty string if the item was added successfully and no errors
      * were raised. If there are errors, an error message is returned.
+     * @author Al-Faysal Haidar
+     * This method is used to add an item in a container in WareFlow.
      */
     public static String addItemContainer(int containerNumber, int areaNumber, int slotNumber,
                                           Date addedOnDate, String itemTypeName) {
@@ -48,8 +48,7 @@ public class ItemContainerController {
 
         try {
             wareFlow.addItemContainer(containerNumber, areaNumber, slotNumber, addedOnDate, ItemType.getWithName(itemTypeName));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return e.getMessage();
         }
 
@@ -57,15 +56,15 @@ public class ItemContainerController {
     }
 
     /**
-     * @author Al-Faysal Haidar
-     * This method is used to update an item in a container in WareFlow.
      * @param containerNumber the container number of the item in the container (cannot be less than 1).
-     * @param newAreaNumber the area number of the item in the container to be updated (cannot be less than 0).
-     * @param newSlotNumber the slot number of the item in the container to be updated (cannot be less than 0).
-     * @param newAddedOnDate the added-on date of the item in the container to be updated.
+     * @param newAreaNumber   the area number of the item in the container to be updated (cannot be less than 0).
+     * @param newSlotNumber   the slot number of the item in the container to be updated (cannot be less than 0).
+     * @param newAddedOnDate  the added-on date of the item in the container to be updated.
      * @param newItemTypeName the item type name to be updated.
      * @return Returns an empty string if the item was updated successfully and no errors
      * were raised. If there are errors, an error message is returned.
+     * @author Al-Faysal Haidar
+     * This method is used to update an item in a container in WareFlow.
      */
     public static String updateItemContainer(int containerNumber, int newAreaNumber,
                                              int newSlotNumber, Date newAddedOnDate, String newItemTypeName) {
@@ -97,8 +96,7 @@ public class ItemContainerController {
             itemInContainer.setSlotNumber(newSlotNumber);
             itemInContainer.setItemType(ItemType.getWithName(newItemTypeName));
             itemInContainer.setAddedOnDate(newAddedOnDate);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return e.getMessage();
         }
 
@@ -106,16 +104,16 @@ public class ItemContainerController {
     }
 
     /**
+     * @param containerNumber the container number of the item in the container to be deleted (cannot be less than 1).
      * @author Al-Faysal Haidar
      * This method is used to delete an item in a container in WareFlow.
-     * @param containerNumber the container number of the item in the container to be deleted (cannot be less than 1).
      */
     public static void deleteItemContainer(int containerNumber) {
         if (ItemContainer.hasWithContainerNumber(containerNumber)) {
             try {
                 ItemContainer.getWithContainerNumber(containerNumber).delete();
+            } catch (Exception ignored) {
             }
-            catch (Exception ignored) {}
         }
     }
 }
