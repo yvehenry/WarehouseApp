@@ -33,37 +33,45 @@ public class ShipmentOrderController {
      */
     public static String addShipmentOrder(int id, Date placedOnDate, String description,
                                           String username, int containerNumber, int quantity) {
-        String errorMessage = "";
+     
 
         if (ShipmentOrder.hasWithId(id)) {
-            errorMessage += "Order id already exists";
+            return "Order id already exists";
         }
         if (placedOnDate == null) {
-            errorMessage += "Date cannot be empty";
+            return "Date cannot be empty";
         }
         if (description == null || description.isEmpty()) {
-            errorMessage += "Order description cannot be empty";
+            return "Order description cannot be empty";
         }
         if (!User.hasWithUsername(username)) {
-            errorMessage += "The order placer does not exist";
+            return "The order placer does not exist";
         }
-        if (containerNumber == -1 && quantity != -1) {
-            errorMessage += "Order quantity must be 0 when container is not specified";
+        if (containerNumber == -1 && quantity != 0) {
+            return "Order quantity must 0 when container is not specified";
         }
-        if (quantity < 0) {
-            errorMessage += "Order quantity must be larger than 0 when container is specified";
+        if (containerNumber != -1 && !ItemContainer.hasWithContainerNumber(containerNumber)) {
+            return "The container does not exist";
         }
-        if (!errorMessage.equalsIgnoreCase("")) {
-            return errorMessage;
+        if (quantity <= 0 && containerNumber != -1) {
+            return "Order quantity must be larger than 0 when container is specified";
         }
+        
 
         try {
             ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, wareFlow, User.getWithUsername(username));
-            newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
-        } catch (Exception e) {
+            if(containerNumber == -1) {
+            	newOrder.setContainer(null);
+            }
+            else {
+            	newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
+            }
+
+        }
+        catch (Exception e) {
             return e.getMessage();
         }
-        return errorMessage;
+        return "";
     }
 
     /**
@@ -84,44 +92,45 @@ public class ShipmentOrderController {
      */
     public static String updateShipmentOrder(int id, Date newPlacedOnDate, String newDescription,
                                              String newUsername, int newContainerNumber, int newQuantity) {
-        String errorMessage = "";
 
-        if (!ItemContainer.hasWithContainerNumber(newContainerNumber)) {
-            errorMessage += "The container does not exist";
-        }
+       
         if (newPlacedOnDate == null) {
-            errorMessage += "Date cannot be empty";
+             return "Date cannot be empty";
         }
         if (newDescription.isEmpty()) {
-            errorMessage += "Order description cannot be empty";
+            return "Order description cannot be empty";
         }
         if (!User.hasWithUsername(newUsername)) {
-            errorMessage += "The order placer does not exist";
+            return "The order placer does not exist";
         }
-        if (newContainerNumber == -1 && newQuantity != -1) {
-            errorMessage += "Order quantity must be 0 when container is not specified";
+        if (newContainerNumber == -1 && newQuantity != 0) {
+            return "Order quantity must 0 when container is not specified";
         }
-        if (newQuantity < 0) {
-            errorMessage += "Order quantity must be larger than 0 when container is specified";
+        if (newContainerNumber != -1 && !ItemContainer.hasWithContainerNumber(newContainerNumber)) {
+            return "The container does not exist";
+        }
+        if (newQuantity <= 0 && newContainerNumber != -1) {
+            return "Order quantity must be larger than 0 when container is specified";
         }
 
-        if (!errorMessage.equalsIgnoreCase("")) {
-            return errorMessage;
-        }
-
+        
         try {
             ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(id);
             someShipmentOrder.setPlacedOnDate(newPlacedOnDate);
             someShipmentOrder.setDescription(newDescription);
             someShipmentOrder.setOrderPlacer(User.getWithUsername(newUsername));
-
-            someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
             someShipmentOrder.setQuantity(newQuantity);
+            if(newContainerNumber == -1) {
+                someShipmentOrder.setContainer(null);
+            }
+            else {
+                someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));	
+            }
 
         } catch (Exception e) {
             return e.getMessage();
         }
-        return errorMessage;
+        return "";
     }
 
     /**
