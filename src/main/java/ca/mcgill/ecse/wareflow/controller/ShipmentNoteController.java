@@ -102,12 +102,12 @@ public class ShipmentNoteController {
      * @author Jason Shao
      */
     public static void deleteShipmentNote(int orderID, int index) {
-        try {
-            if (ShipmentOrder.hasWithId(orderID) && ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
+        if (ShipmentOrder.hasWithId(orderID) && ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
+            try {
                 ShipmentNote removeNote = ShipmentOrder.getWithId(orderID).getShipmentNote(index);
-                ShipmentOrder.getWithId(orderID).removeShipmentNote(removeNote);
+                removeNote.delete();
+            } catch (RuntimeException ignored) {
             }
-        } catch (RuntimeException ignored) {
         }
     }
 }
