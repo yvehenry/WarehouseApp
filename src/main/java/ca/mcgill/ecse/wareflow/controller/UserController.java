@@ -1,4 +1,6 @@
 package ca.mcgill.ecse.wareflow.controller;
+import ca.mcgill.ecse.wareflow.model.*;
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 
 public class UserController {
   public static String updateManager(String password) {
@@ -20,8 +22,32 @@ public class UserController {
     throw new UnsupportedOperationException("Not Implemented!");
   }
 
+
+
+  /**
+   * @author Neeshal Imrit
+   * This method is used to delete an Employee or a Guest within the WareFlow application.
+   * @param username The employee or guest with the given unique username to be deleted.
+   * @return Returns null
+   */
   public static void deleteEmployeeOrClient(String username) {
-    // Remove this exception when you implement this method
-    throw new UnsupportedOperationException("Not Implemented!");
+
+    WareFlow wareFlow = WareFlowApplication.getWareFlow();
+
+    // if the application contains employees or clients, try to delete the user
+    if (wareFlow.hasEmployees() || wareFlow.hasClients()){
+      User user = User.getWithUsername(username);
+      if (user != null){
+        if (user instanceof Employee) {
+          Employee employee = (Employee) user;
+          employee.delete();
+        } else if (user instanceof Client) {
+          Client client = (Client) user;
+          client.delete();
+        }
+      }
+
+    }
   }
+
 }
