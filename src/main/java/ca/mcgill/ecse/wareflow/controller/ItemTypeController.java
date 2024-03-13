@@ -21,15 +21,15 @@ public class ItemTypeController {
         String errorMessage = "";
 
         if (name.isEmpty()) {
-            errorMessage += "The Item must have a name.";
+            errorMessage += "The name must not be empty";
         }
 
         if (ItemType.hasWithName(name)) {
-            errorMessage += "This Item Type already exists in the system.";
+            errorMessage += "The item type already exists";
         }
 
         if (expectedLifeSpanInDays <= 0) {
-            errorMessage += "The lifespan of the item must be greater than 0 days.";
+            errorMessage += "The expected life span must be greater than 0 days";
         }
 
         if (!errorMessage.equalsIgnoreCase("")) {
@@ -60,19 +60,19 @@ public class ItemTypeController {
         String errorMessage = "";
 
         if (newName.isEmpty()) {
-            errorMessage += "The Item type must have a name.";
+            errorMessage += "The name must not be empty";
         }
 
         if (!ItemType.hasWithName(oldName)) {
-            errorMessage += "This old Item type does not exist.";
+            errorMessage += "The item type does not exist";
         }
 
         if (ItemType.hasWithName(newName) && !(newName.equals(oldName))) {
-            errorMessage += "The new Item type already exists";
+            errorMessage += "The item type already exists";
         }
 
         if (newExpectedLifeSpanInDays <= 0) {
-            errorMessage += "The lifespan of the item must be greater than 0 days.";
+            errorMessage += "The expected life span must be greater than 0 days";
         }
 
         if (!errorMessage.equalsIgnoreCase("")) {
