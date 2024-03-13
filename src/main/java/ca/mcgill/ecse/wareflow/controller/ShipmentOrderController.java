@@ -48,7 +48,7 @@ public class ShipmentOrderController {
             errorMessage += "The order placer does not exist";
         }
         if (containerNumber == -1 && quantity != -1) {
-            errorMessage += "Order quantity must be -1 when container is not specified";
+            errorMessage += "Order quantity must be 0 when container is not specified";
         }
         if (quantity < 0) {
             errorMessage += "Order quantity must be larger than 0 when container is specified";
@@ -86,7 +86,7 @@ public class ShipmentOrderController {
                                              String newUsername, int newContainerNumber, int newQuantity) {
         String errorMessage = "";
 
-        if (!ShipmentOrder.hasWithId(id)) {
+        if (!ItemContainer.hasWithContainerNumber(newContainerNumber)) {
             errorMessage += "The container does not exist";
         }
         if (newPlacedOnDate == null) {
@@ -99,7 +99,7 @@ public class ShipmentOrderController {
             errorMessage += "The order placer does not exist";
         }
         if (newContainerNumber == -1 && newQuantity != -1) {
-            errorMessage += "Order quantity must be -1 when container is not specified";
+            errorMessage += "Order quantity must be 0 when container is not specified";
         }
         if (newQuantity < 0) {
             errorMessage += "Order quantity must be larger than 0 when container is specified";
