@@ -9,7 +9,7 @@ import java.sql.Date;
 
 public class ItemContainerController {
 
-    private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
+    private static WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     /**
      * @param containerNumber the container number of the item in the container (cannot be less than 1).
@@ -32,7 +32,7 @@ public class ItemContainerController {
             errorMessage += "The slot number shall not be less than 0";
         } else if (containerNumber < 1) {
             errorMessage += "The container number shall not be less than 1";
-        } else if (!ItemType.hasWithName(itemTypeName) || !ItemContainer.hasWithContainerNumber(containerNumber)) {
+        } else if (!ItemType.hasWithName(itemTypeName)) {
             errorMessage += "The item type does not exist";
         }
 
