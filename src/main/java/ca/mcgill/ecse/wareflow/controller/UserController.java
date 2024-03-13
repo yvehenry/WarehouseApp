@@ -1,60 +1,64 @@
 package ca.mcgill.ecse.wareflow.controller;
-
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.*;
 
 import java.util.List;
 
 public class UserController {
+    private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
-    /**
-     * @param password the new password of the manager's account.
-     * @return Returns if the password has been successfully updated.
-     * @author Yvehenry Julsain
-     * This method is used to update the manager's password within the WareFlow application.
-     */
-    public static String updateManager(String password) {
-        WareFlow wareFlow = WareFlowApplication.getWareFlow();
-        Manager manager = wareFlow.getManager();
-        manager.setPassword(password);
-        return "Password sucessfully updated!";
+/**
+   * @author Yvehenry Julsain
+   * This method is used to update the manager's password within the WareFlow application.
+   * @param password the new password of the manager's account.
+   * @return Returns if the password has been sucessfully updated.
+   */
+  public static String updateManager(String password) { //TODO
+    Manager manager = wareFlow.getManager();
+    manager.setPassword(password);
+    return "Password sucessfully updated!";
+  }
+/**
+   * @author Yvehenry Julsain
+   * This method is used to add an employee or a client within the WareFlow application.
+   * @param username the username associated to the new employee or client account
+   * @param password the password associated to the new employee or client account
+   * @param name the name associated to the new employee or client account
+   * @param phoneNumber the phone number associated to the new employee or client account
+   * @param isEmployee if the the account is an employee or a client account; parameter is true if the account created is an employee account
+   * @param address if the account is a client account, the address associated to the new client account
+   * @return Returns if an employee or a client sucessfully been added to the WareFlow Application.
+   */
+  // address is ignored if the isEmployee is true
+  public static String addEmployeeOrClient(String username, String password, String name, String phoneNumber, boolean isEmployee, String address) { //TODO
+    List<Employee> employees = wareFlow.getEmployees();
+    for (Employee employee:employees) {
+      if (employee.getUsername() == username) {
+        return "This username is already taken.";
+      }
     }
-
-    /**
-     * @param username    the username associated to the new employee or client account
-     * @param password    the password associated to the new employee or client account
-     * @param name        the name associated to the new employee or client account
-     * @param phoneNumber the phone number associated to the new employee or client account
-     * @param isEmployee  if the the account is an employee or a client account; parameter is true if the account created is an employee account
-     * @param address     if the account is a client account, the address associated to the new client account
-     * @return Returns if an employee or a client sucessfully been added to the WareFlow Application.
-     * @author Yvehenry Julsain
-     * This method is used to add an employee or a client within the WareFlow application.
-     */
-    // address is ignored if the isEmployee is true
-    public static String addEmployeeOrClient(String username, String password, String name, String phoneNumber, boolean isEmployee, String address) { //TODO
-        WareFlow wareFlow = WareFlowApplication.getWareFlow();
-        List<Employee> employees = wareFlow.getEmployees();
-        for (Employee employee : employees) {
-            if (employee.getUsername() == username) {
-                return "This username is already taken.";
-            }
-        }
-        List<Client> clients = wareFlow.getClients();
-        for (Client client : clients) {
-            if (client.getUsername() == username) {
-                return "This username is already taken.";
-            }
-        }
-        if (isEmployee) {
-            //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
-            wareFlow.addEmployee(username, name, password, phoneNumber);
-            return "The employee has been sucessfully added!";
-        } else {
-            wareFlow.addClient(username, name, password, phoneNumber, address);
-            return "The client has been sucessfully added!";
-        }
+    List<Client> clients = wareFlow.getClients();
+    for (Client client:clients) {
+      if (client.getUsername() == username) {
+        return "This username is already taken.";
+      }
     }
+    char[] usernameArray = username.toCharArray();
+    for (char letter:usernameArray) {
+      if (!("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890".contains(String.valueOf(letter)))) {
+        return "The username contains an invalid character. The username can only contain letters from a to z, letters from A to Z, and numbers from 0 to 9.";
+      }
+    }
+    if (isEmployee) {
+      //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
+      wareFlow.addEmployee(username, name, password, phoneNumber);
+      return "The employee has been sucessfully added!";
+    }
+    else {
+      wareFlow.addClient(username, name, password, phoneNumber, address);
+      return "The client has been sucessfully added!";
+    }
+  }
 
     /**
      * @param username       the username associated to the employee or client account we want to make modifications in
