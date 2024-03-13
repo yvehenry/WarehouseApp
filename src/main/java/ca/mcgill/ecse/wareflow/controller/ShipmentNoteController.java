@@ -7,8 +7,6 @@ import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
 
 import java.sql.Date;
 
-;
-
 public class ShipmentNoteController {
 
     /**
