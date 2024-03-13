@@ -6,7 +6,6 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.*;
 import java.util.ArrayList;
 
-import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.ItemContainer;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
 import ca.mcgill.ecse.wareflow.model.User;
@@ -79,7 +78,7 @@ public class ShipmentOrderController {
    * @param newDescription - This is the updated description for the Shipment Order. Cannot be empty
    * @param newUsername - This is the updated user for the Shipment Order. User must exist in the system
    * @param newContainerNumber - This is the updated container number for the Shipment Order. Cannot be less than 0 if quantity != to 0
-   * @param newQuantity -  The is the updated quantity of items for the Shipment Order. Cannot be 0 when the container number is less than 0
+   * @param newQuantity -  This the updated quantity of items for the Shipment Order. Cannot be 0 when the container number is less than 0
    * @return String -  Returns a string containing an error message gathered during execution, if this returned string is empty, the creation of a new asset type was successful.
    * 
    * @author Jordan Buchanan
@@ -112,16 +111,15 @@ public class ShipmentOrderController {
 		someShipmentOrder.setDescription(newDescription);
 		someShipmentOrder.setOrderPlacer(User.getWithUsername(newUsername));
 
-		if(newContainerNumber == -1){
+		if (newContainerNumber == -1) {
 			someShipmentOrder.setContainer(null);
-			someShipmentOrder.setQuantity(null);
-		}
-		else{
+			someShipmentOrder.setQuantity(-1);
+		} else {
 			someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
 			someShipmentOrder.setQuantity(newQuantity);
 		}
-			
-	 catch (Exception e ) { 
+	}
+	catch (Exception e) {
 		  return e.getMessage(); 
 		} 
 	return "";
@@ -138,7 +136,7 @@ public class ShipmentOrderController {
     	try {
     		ShipmentOrder.getWithId(id).delete();
     	}
-    	catch(RuntimeException e) {}
+    	catch(RuntimeException ignored) {}
     }
   }
 

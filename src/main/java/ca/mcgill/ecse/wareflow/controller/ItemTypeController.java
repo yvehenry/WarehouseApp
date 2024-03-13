@@ -1,6 +1,13 @@
 package ca.mcgill.ecse.wareflow.controller;
 
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.model.ItemType;
+import ca.mcgill.ecse.wareflow.model.WareFlow;
+
 public class ItemTypeController {
+
+  private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
+
   /**
    * @author Benjamin Bouhdana
    * This method is used to add an item type to the WareFlow application
@@ -11,27 +18,34 @@ public class ItemTypeController {
    * If there are errors, an error message is returned
   */
   public static String addItemType(String name, int expectedLifeSpanInDays) {
+    String errorMessage = "";
 
-    if (name.isEmpty() || name == null) {
-      return "The Item must have a name"
+    if (name.isEmpty()) {
+      errorMessage += "The Item must have a name.";
     }
 
     if (ItemType.hasWithName(name)) {
-      return "This Item Type already exists in the system"
+      errorMessage += "This Item Type already exists in the system.";
     }
 
     if (expectedLifeSpanInDays <= 0) {
-      return "The lifespan of the item must be greater than 0 days"
+      errorMessage += "The lifespan of the item must be greater than 0 days.";
+    }
+
+    if (!errorMessage.equalsIgnoreCase("")) {
+      return errorMessage;
     }
 
     try {
-      ItemType newItemType = new ItemType(aName, expectedLifeSpanInDays, wareFlowApplication.getWareFlow());
+      ItemType newItemType = new ItemType(name, expectedLifeSpanInDays, wareFlow);
+      wareFlow.addItemType(newItemType);
     }
 
     catch (Exception e) {
-      throw e;
+      return e.getMessage();
     }
-    return "";
+
+    return errorMessage;
   }
 
    /**
@@ -39,28 +53,33 @@ public class ItemTypeController {
    * This method is used to update an item type to the WareFlow application
    * @param oldName the old name of the item type
    * @param newName the new name of the item type
-   * @param expectedLifeSpanInDays the expected life span in days of the updated item type
+   * @param newExpectedLifeSpanInDays the expected life span in days of the updated item type
    * @return returns an empty string if the item type was updated successfully
    * with no raised errors
    * If there are errors, an error message is returned
   */
   public static String updateItemType(String oldName, String newName, int newExpectedLifeSpanInDays) {
+    String errorMessage = "";
 
-    if (newName.isEmpty() || name == null) {
-      return "The Item type must have a name"
+    if (newName.isEmpty()) {
+      errorMessage += "The Item type must have a name.";
     }
 
     if (!ItemType.hasWithName(oldName)) {
-      return "This old Item type does not exist"
+      errorMessage += "This old Item type does not exist.";
     }
 
     if (ItemType.hasWithName(newName) && !(newName.equals(oldName))) {
-      "The new Item type already exists"
+      errorMessage += "The new Item type already exists";
     }
 
      if (newExpectedLifeSpanInDays <= 0) {
-      return "The lifespan of the item must be greater than 0 days"
+      errorMessage += "The lifespan of the item must be greater than 0 days";
     }
+
+    if (!errorMessage.equalsIgnoreCase("")) {
+       return errorMessage;
+     }
 
     try {
       ItemType anItemType = ItemType.getWithName(oldName);
@@ -69,19 +88,16 @@ public class ItemTypeController {
     }
 
     catch (Exception e) {
-      throw e;
+      return e.getMessage();
     }
 
-    return "";
+    return errorMessage;
   }
 
   /**
    * @author Benjamin Bouhdana
    * This method is used to update an item type to the WareFlow application
    * @param name the name of the item type to be deleted
-   * @return returns an empty string if the item type was deleted successfully
-   * with no raised errors
-   * If there are errors, an error message is returned
   */
   public static void deleteItemType(String name) {
     try {
@@ -89,9 +105,6 @@ public class ItemTypeController {
         ItemType.getWithName(name).delete();
       }
     }
-    catch (RuntimeException e){
-      throw e;
-    }
-    return "";
+    catch (RuntimeException ignored){}
   }
 }

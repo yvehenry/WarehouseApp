@@ -22,13 +22,10 @@ public class UserController {
     throw new UnsupportedOperationException("Not Implemented!");
   }
 
-
-
   /**
    * @author Neeshal Imrit
    * This method is used to delete an Employee or a Guest within the WareFlow application.
    * @param username The employee or guest with the given unique username to be deleted.
-   * @return Returns null
    */
   public static void deleteEmployeeOrClient(String username) {
 
@@ -38,16 +35,12 @@ public class UserController {
     if (wareFlow.hasEmployees() || wareFlow.hasClients()){
       User user = User.getWithUsername(username);
       if (user != null){
-        if (user instanceof Employee) {
-          Employee employee = (Employee) user;
+        if (user instanceof Employee employee) {
           employee.delete();
-        } else if (user instanceof Client) {
-          Client client = (Client) user;
+        } else if (user instanceof Client client) {
           client.delete();
         }
       }
-
     }
   }
-
 }

@@ -50,7 +50,7 @@ public class ItemContainerController {
             wareFlow.addItemContainer(containerNumber, areaNumber, slotNumber, addedOnDate, ItemType.getWithName(itemTypeName));
         }
         catch (Exception e) {
-            return errorMessage;
+            return e.getMessage();
         }
 
         return errorMessage;
@@ -99,7 +99,7 @@ public class ItemContainerController {
             itemInContainer.setAddedOnDate(newAddedOnDate);
         }
         catch (Exception e) {
-            return errorMessage;
+            return e.getMessage();
         }
 
         return errorMessage;
