@@ -122,8 +122,8 @@ public class UserController {
             }
         }
 
-        if (name == null) {
-            message.append("The name must not be null. ");
+        if (name.isEmpty()) {
+            message.append("The name must not be empty. ");
         }
         if (phoneNumber.isEmpty()) {
             message.append("The phone number must not be empty. ");
@@ -196,7 +196,7 @@ public class UserController {
         List<Employee> employees = wareFlow.getEmployees();
         for (Employee employee : employees) {
             if (employee.getUsername().equals(username)) {
-                if (!(newPassword == null || newPassword.isEmpty())) {
+                if (!(newPassword.isEmpty())) {
                     if (newPassword.length() < 4) {
                         message.append("Password must be at least four characters long. ");
                     }
@@ -238,7 +238,7 @@ public class UserController {
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
             if (client.getUsername().equals(username)) {
-                if (!(newPassword == null || newPassword.isEmpty())) {
+                if (!(newPassword.isEmpty())) {
                     if (newPassword.length() < 4) {
                         message.append("Password must be at least four characters long. ");
                     }
