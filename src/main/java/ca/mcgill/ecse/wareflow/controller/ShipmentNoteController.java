@@ -23,7 +23,7 @@ public class ShipmentNoteController {
           return errorMessage;
         }
         try {
-          ShipmentNote newNote = new ShipmentNote(date, description,ShipmentOrder.getWithId(orderID),WarehouseStaff.getWithUsername(username));
+          ShipmentNote newNote = new ShipmentNote(date, description,ShipmentOrder.getWithId(orderID),(WarehouseStaff) User.getWithUsername(username));
           newNote.setOrder(ShipmentOrder.getWithId(orderID));
 
         }
@@ -67,7 +67,7 @@ public class ShipmentNoteController {
           ShipmentNote noteToUpdate = ShipmentOrder.getWithId(orderID).getShipmentNote(index);
           noteToUpdate.setDate(newDate);
           noteToUpdate.setDescription(newDescription);
-          noteToUpdate.setNoteTaker(User.getWithUsername(newUsername));
+          noteToUpdate.setNoteTaker( (WarehouseStaff) User.getWithUsername(newUsername));
 
         }
         catch (RuntimeException e) {
