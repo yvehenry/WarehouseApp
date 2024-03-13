@@ -242,7 +242,7 @@ public class UserController {
         if (!(newPhoneNumber.isEmpty())) {
           employee.setPhoneNumber(newPhoneNumber);
         }
-        if (message.isEmpty()) return "Employee account information sucessfully updated.";
+        return message;
       }
     }
     List<Client> clients = wareFlow.getClients();
@@ -289,7 +289,7 @@ public class UserController {
         if (!(newAddress.isEmpty())) {
           client.setAddress(newAddress);
         }
-        if (message.isEmpty()) return "Client account information sucessfully updated.";
+        return message;
       }
     }
     return "The account was not found in the WareFlow application.";
