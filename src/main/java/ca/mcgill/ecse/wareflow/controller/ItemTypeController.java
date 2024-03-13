@@ -1,9 +1,18 @@
 package ca.mcgill.ecse.wareflow.controller;
 
 public class ItemTypeController {
+  /**
+   * @author Benjamin Bouhdana
+   * This method is used to add an item type to the WareFlow application
+   * @param name the name of the item type
+   * @param expectedLifeSpanInDays the expected life span in days of the item type
+   * @return returns an empty string if the item type was added successfully
+   * with no raised errors
+   * If there are errors, an error message is returned
+  */
   public static String addItemType(String name, int expectedLifeSpanInDays) {
 
-    if (name.isEmpty()) {
+    if (name.isEmpty() || name == null) {
       return "The Item must have a name"
     }
 
@@ -16,19 +25,33 @@ public class ItemTypeController {
     }
 
     try {
-      ItemType newItemType = new ItemType(aName, expectedLifeSpanInDays, wareFlowApplication.getItemContainer());
+      ItemType newItemType = new ItemType(aName, expectedLifeSpanInDays, wareFlowApplication.getWareFlow());
+    }
+
+    catch (Exception e) {
+      throw e;
     }
     return "";
   }
 
+   /**
+   * @author Benjamin Bouhdana
+   * This method is used to update an item type to the WareFlow application
+   * @param oldName the old name of the item type
+   * @param newName the new name of the item type
+   * @param expectedLifeSpanInDays the expected life span in days of the updated item type
+   * @return returns an empty string if the item type was updated successfully
+   * with no raised errors
+   * If there are errors, an error message is returned
+  */
   public static String updateItemType(String oldName, String newName, int newExpectedLifeSpanInDays) {
 
-    if (newName.isEmpty()) {
+    if (newName.isEmpty() || name == null) {
       return "The Item type must have a name"
     }
 
     if (!ItemType.hasWithName(oldName)) {
-      return "This old Item type does not  exist"
+      return "This old Item type does not exist"
     }
 
     if (ItemType.hasWithName(newName) && !(newName.equals(oldName))) {
@@ -45,15 +68,30 @@ public class ItemTypeController {
       anItemType.setExpectedLifeSpanInDays(newExpectedLifeSpanInDays);
     }
 
+    catch (Exception e) {
+      throw e;
+    }
+
     return "";
   }
 
+  /**
+   * @author Benjamin Bouhdana
+   * This method is used to update an item type to the WareFlow application
+   * @param name the name of the item type to be deleted
+   * @return returns an empty string if the item type was deleted successfully
+   * with no raised errors
+   * If there are errors, an error message is returned
+  */
   public static void deleteItemType(String name) {
     try {
       if (ItemType.hasWithName(name)) {
         ItemType.getWithName(name).delete();
       }
     }
-    catch (RuntimeException e){}
+    catch (RuntimeException e){
+      throw e;
+    }
+    return "";
   }
 }
