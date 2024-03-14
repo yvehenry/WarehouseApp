@@ -176,29 +176,40 @@ public class ShipmentOrderController {
                 Date placedOnDate = order.getPlacedOnDate();
                 String description = order.getDescription();
                 String orderPlacer = order.getOrderPlacer().getUsername();
-                String itemName = order.getContainer().getItemType().getName();
-                int expectedLifeSpanInDays = order.getContainer().getItemType().getExpectedLifeSpanInDays();
-                Date addedOnDate = order.getContainer().getAddedOnDate();
-                int areaNumber = order.getContainer().getAreaNumber();
-                int slotNumber = order.getContainer().getSlotNumber();
+                
+
+                // verify if the order has an item
+                String itemName = null;
+                int expectedLifeSpanInDays=-1;
+                Date addedOnDate = null;
+                int areaNumber=-1;
+                int slotNumber=-1;
+
+                if (order.getContainer() != null) {
+                    itemName = order.getContainer().getItemType().getName();
+                    expectedLifeSpanInDays = order.getContainer().getItemType().getExpectedLifeSpanInDays();
+                    addedOnDate = order.getContainer().getAddedOnDate();
+                    areaNumber = order.getContainer().getAreaNumber();
+                    slotNumber = order.getContainer().getSlotNumber();
+                }
 
                 // Generate ToShipmentNote objects for each note in the shipment order
-                List<TOShipmentNote> notes = new ArrayList<>();
-                List<ShipmentNote> shipmentNotes = order.getShipmentNotes();
-
-                if (shipmentNotes != null) {
+                TOShipmentNote[] toNotes = new TOShipmentNote[order.numberOfShipmentNotes()];
+                
+                int i = 0;
+                if (order.hasShipmentNotes()) {
+                    List<ShipmentNote> shipmentNotes = order.getShipmentNotes();
                     for (ShipmentNote note : shipmentNotes) {
                         Date date = note.getDate();
                         String noteTakerUsername = note.getNoteTaker().getUsername();
                         String noteDescription = note.getDescription();
-                        TOShipmentNote shipmentNote = new TOShipmentNote(date, noteDescription, noteTakerUsername);
-                        notes.add(shipmentNote);
+                        toNotes[i] = new TOShipmentNote(date, noteDescription, noteTakerUsername);
+                        i++;
                     }
                 }
-
+                
                 // Create a new TOShipmentOrder object and add it to the list of shipment orders
-                TOShipmentNote[] noteArray = new TOShipmentNote[notes.size()];
-                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, noteArray);
+                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
                 shipmentOrders.add(shipmentOrder);
             }
         }
