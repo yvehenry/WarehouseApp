@@ -14,7 +14,6 @@ public class UserController {
      * @author Yvehenry Julsain
      * This method is used to update the manager's password within the WareFlow application.
      */
-
     public static String updateManager(String password) {
         Manager manager = wareFlow.getManager();
         String message = "";
@@ -58,7 +57,6 @@ public class UserController {
         return message;
     }
 
-
     /**
      * @param username    the username associated to the new employee or client account
      * @param password    the password associated to the new employee or client account
@@ -70,7 +68,6 @@ public class UserController {
      * @author Yvehenry Julsain
      * This method is used to add an employee or a client within the WareFlow application.
      */
-
     public static String addEmployeeOrClient(String username, String password, String name, String phoneNumber, boolean isEmployee, String address) { //TODO
 
         StringBuilder message = new StringBuilder();
@@ -79,8 +76,8 @@ public class UserController {
         }
         if (username.isEmpty()) {
             message.append("Username cannot be empty");
-            }
-        
+        }
+
         if (!username.isEmpty()) {
             char[] usernameArray = username.toCharArray();
             for (char letter : usernameArray) {
@@ -93,7 +90,6 @@ public class UserController {
         if (password.isEmpty()) {
             message.append("Password cannot be empty");
         }
-       
 
         List<Employee> employees = wareFlow.getEmployees();
         for (Employee employee : employees) {
@@ -110,9 +106,8 @@ public class UserController {
                 break;
             }
         }
-        
 
-        if (message.length() == 0) {
+        if (message.isEmpty()) {
             if (isEmployee) {
                 wareFlow.addEmployee(username, name, password, phoneNumber);
                 return "Employee added successfully.";
@@ -124,7 +119,6 @@ public class UserController {
         return message.toString();
     }
 
-
     /**
      * @param username       the username associated to the employee or client account we want to make modifications in
      * @param newPassword    the new password to be updated in the employee or client's account
@@ -135,17 +129,15 @@ public class UserController {
      * @author Yvehenry Julsain
      * This method is used to update the information associated to an employee or a client account within the WareFlow application.
      */
-
     public static String updateEmployeeOrClient(String username, String newPassword, String newName, String newPhoneNumber, String newAddress) { //TODO
-
         StringBuilder message = new StringBuilder();
         if (username.equals("manager")) {
             message.append("Username cannot be manager");
         }
         if (username.isEmpty()) {
             message.append("Username cannot be empty");
-            }
-        
+        }
+
         if (!username.isEmpty()) {
             char[] usernameArray = username.toCharArray();
             for (char letter : usernameArray) {
@@ -162,11 +154,7 @@ public class UserController {
         List<Employee> employees = wareFlow.getEmployees();
         for (Employee employee : employees) {
             if (employee.getUsername().equals(username)) {
-                if (!(newPassword == null || newPassword.isEmpty())) {
-                   
-                   
-                    if (message.isEmpty()) employee.setPassword(newPassword);
-                }
+                if (message.isEmpty()) employee.setPassword(newPassword);
                 if ((newName.isEmpty())) {
                     employee.setName("");
                 }
@@ -180,20 +168,15 @@ public class UserController {
                     employee.setPhoneNumber(newPhoneNumber);
                 }
                 if (!message.isEmpty()) {
-                	return message.toString();
+                    return message.toString();
                 }
             }
         }
-        
-        
+
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
             if (client.getUsername().equals(username)) {
-                if (!(newPassword == null || newPassword.isEmpty())) {
-                   
-                   
-                    if (message.isEmpty()) client.setPassword(newPassword);
-                }
+                if (message.isEmpty()) client.setPassword(newPassword);
                 if ((newName.isEmpty())) {
                     client.setName("");
                 }
@@ -213,7 +196,7 @@ public class UserController {
                     client.setAddress(newAddress);
                 }
                 if (!message.isEmpty()) {
-                	return message.toString();
+                    return message.toString();
                 }
             }
         }
@@ -226,9 +209,6 @@ public class UserController {
      * This method is used to delete an Employee or a Guest within the WareFlow application.
      */
     public static void deleteEmployeeOrClient(String username) {
-
-        WareFlow wareFlow = WareFlowApplication.getWareFlow();
-
         // if the application contains employees or clients, try to delete the user
         if (wareFlow.hasEmployees() || wareFlow.hasClients()) {
             User user = User.getWithUsername(username);
