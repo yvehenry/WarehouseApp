@@ -19,14 +19,14 @@ public class UserController {
         Manager manager = wareFlow.getManager();
         String message = "";
         if (password.isEmpty()) {
-            message += "The password must not be empty. ";
+            message += "Password cannot be empty";
         }
         if (!(password.isEmpty())) {
             if (password.length() < 4) {
-                message += "Password must be at least four characters long. ";
+                message += "Password must be at least four characters long.";
             }
             if (!(password.contains("!") || password.contains("#") || password.contains("$"))) {
-                message += "Password must contain a special character out of <!#$> ";
+                message += "Password must contain one character out of !#$";
             }
             char[] passwordArray = password.toCharArray();
             boolean containsUppercase = false;
@@ -44,10 +44,10 @@ public class UserController {
                 }
             }
             if (!containsUppercase) {
-                message += "Password must contain an upper case character. ";
+                message += "Password must contain one upper-case character. ";
             }
             if (!containsLowercase) {
-                message += "Password must contain an lower case character. ";
+                message += "Password must contain one lower-case character. ";
             }
         }
 
@@ -115,15 +115,14 @@ public class UserController {
             //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
             if (message.isEmpty()) {
                 wareFlow.addEmployee(username, name, password, phoneNumber);
-                return "The employee has been successfully added!";
             }
-        } else {
+        }
+         else {
             if (address.isEmpty()) {
                 message.append("The address must not be empty. ");
             }
             if (message.isEmpty()) {
                 wareFlow.addClient(username, name, password, phoneNumber, address);
-                return "The client has been successfully added!";
             }
         }
         return message.toString();
