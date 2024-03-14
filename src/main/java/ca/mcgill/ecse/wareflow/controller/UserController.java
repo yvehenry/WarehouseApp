@@ -19,14 +19,14 @@ public class UserController {
         Manager manager = wareFlow.getManager();
         String message = "";
         if (password.isEmpty()) {
-            message += "The password must not be empty. ";
+            message += "Password cannot be empty";
         }
         if (!(password.isEmpty())) {
             if (password.length() < 4) {
-                message += "Password must be at least four characters long. ";
+                message += "Password must be at least four characters long.";
             }
             if (!(password.contains("!") || password.contains("#") || password.contains("$"))) {
-                message += "Password must contain a special character out of <!#$> ";
+                message += "Password must contain one character out of !#$";
             }
             char[] passwordArray = password.toCharArray();
             boolean containsUppercase = false;
@@ -44,10 +44,10 @@ public class UserController {
                 }
             }
             if (!containsUppercase) {
-                message += "Password must contain an upper case character. ";
+                message += "Password must contain one upper-case character. ";
             }
             if (!containsLowercase) {
-                message += "Password must contain an lower case character. ";
+                message += "Password must contain one lower-case character. ";
             }
         }
 
@@ -75,72 +75,38 @@ public class UserController {
 
         StringBuilder message = new StringBuilder();
         if (username.equals("manager")) {
-            message.append("The username cannot be 'manager'. ");
+            message.append("Username cannot be manager");
         }
         if (username.isEmpty()) {
-            message.append("The username must not be empty. ");
-        }
+            message.append("Username cannot be empty");
+            }
+        
         if (!username.isEmpty()) {
             char[] usernameArray = username.toCharArray();
             for (char letter : usernameArray) {
-                if (!("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890 ".contains(String.valueOf(letter)))) {
-                    message.append("The username contains an invalid character. The username can only contain letters from a to z, letters from A to Z, and numbers from 0 to 9. ");
+                if (("!@#$%^&*( )".contains(String.valueOf(letter)))) {
+                    message.append("Invalid username");
                 }
             }
         }
 
         if (password.isEmpty()) {
-            message.append("The password must not be empty. ");
+            message.append("Password cannot be empty");
         }
-        if (!password.isEmpty()) {
-            if (password.length() < 4) {
-                message.append("Password must be at least four characters long. ");
-            }
-            if (!(password.contains("!") || password.contains("#") || password.contains("$"))) {
-                message.append("Password must contain a special character out of <!#$> ");
-            }
-            char[] passwordArray = password.toCharArray();
-            boolean containsUppercase = false;
-            boolean containsLowercase = false;
-            for (char letter : passwordArray) {
-                if (Character.isUpperCase(letter)) {
-                    containsUppercase = true;
-                    break;
-                }
-            }
-            for (char letter : passwordArray) {
-                if (Character.isLowerCase(letter)) {
-                    containsLowercase = true;
-                    break;
-                }
-            }
-            if (!containsUppercase) {
-                message.append("Password must contain an upper case character. ");
-            }
-            if (!containsLowercase) {
-                message.append("Password must contain an lower case character. ");
-            }
-        }
-
-        if (name == null) {
-            message.append("The name must not be null. ");
-        }
-        if (phoneNumber.isEmpty()) {
-            message.append("The phone number must not be empty. ");
-        }
+       
 
         List<Employee> employees = wareFlow.getEmployees();
         for (Employee employee : employees) {
             if (username.equals("manager") || username.isEmpty()) break;
             if (employee.getUsername().equals(username)) {
-                message.append("This username is already taken. ");
+                message.append("Username already linked to an employee account");
                 break;
             }
         }
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
             if (client.getUsername().equals(username) || (message.isEmpty())) {
-                message.append("This username is already taken. ");
+                message.append("Username already linked to a client account");
                 break;
             }
         }
@@ -149,15 +115,14 @@ public class UserController {
             //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
             if (message.isEmpty()) {
                 wareFlow.addEmployee(username, name, password, phoneNumber);
-                return "The employee has been successfully added!";
             }
-        } else {
+        }
+         else {
             if (address.isEmpty()) {
                 message.append("The address must not be empty. ");
             }
             if (message.isEmpty()) {
                 wareFlow.addClient(username, name, password, phoneNumber, address);
-                return "The client has been successfully added!";
             }
         }
         return message.toString();
@@ -179,105 +144,81 @@ public class UserController {
 
         StringBuilder message = new StringBuilder();
         if (username.equals("manager")) {
-            message.append("The username cannot be 'manager'. ");
+            message.append("Username cannot be manager");
         }
         if (username.isEmpty()) {
-            message.append("The username must not be empty. ");
-        }
+            message.append("Username cannot be empty");
+            }
+        
         if (!username.isEmpty()) {
             char[] usernameArray = username.toCharArray();
             for (char letter : usernameArray) {
-                if (!("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890 ".contains(String.valueOf(letter)))) {
-                    message.append("The username contains an invalid character. The username can only contain letters from a to z, letters from A to Z, and numbers from 0 to 9. ");
+                if (("!@#$%^&*( )".contains(String.valueOf(letter)))) {
+                    message.append("Invalid username");
                 }
             }
+        }
+        if (newPassword.isEmpty()) {
+            message.append("Password cannot be empty");
+            return message.toString();
         }
 
         List<Employee> employees = wareFlow.getEmployees();
         for (Employee employee : employees) {
             if (employee.getUsername().equals(username)) {
                 if (!(newPassword == null || newPassword.isEmpty())) {
-                    if (newPassword.length() < 4) {
-                        message.append("Password must be at least four characters long. ");
-                    }
-                    if (!(newPassword.contains("!") || newPassword.contains("#") || newPassword.contains("$"))) {
-                        message.append("Password must contain a special character out of <!#$> ");
-                    }
-                    char[] passwordArray = newPassword.toCharArray();
-                    boolean containsUppercase = false;
-                    boolean containsLowercase = false;
-                    for (char letter : passwordArray) {
-                        if (Character.isUpperCase(letter)) {
-                            containsUppercase = true;
-                            break;
-                        }
-                    }
-                    for (char letter : passwordArray) {
-                        if (Character.isLowerCase(letter)) {
-                            containsLowercase = true;
-                            break;
-                        }
-                    }
-                    if (!containsUppercase) {
-                        message.append("Password must contain an upper case character. ");
-                    }
-                    if (!containsLowercase) {
-                        message.append("Password must contain an lower case character. ");
-                    }
+                   
+                   
                     if (message.isEmpty()) employee.setPassword(newPassword);
+                }
+                if ((newName.isEmpty())) {
+                    employee.setName("");
                 }
                 if (!(newName.isEmpty())) {
                     employee.setName(newName);
                 }
+                if ((newPhoneNumber.isEmpty())) {
+                    employee.setPhoneNumber("");
+                }
                 if (!(newPhoneNumber.isEmpty())) {
                     employee.setPhoneNumber(newPhoneNumber);
                 }
-                if (message.isEmpty()) return "Employee account information successfully updated.";
+                if (!message.isEmpty()) {
+                	return message.toString();
+                }
             }
         }
+        
+        
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
             if (client.getUsername().equals(username)) {
                 if (!(newPassword == null || newPassword.isEmpty())) {
-                    if (newPassword.length() < 4) {
-                        message.append("Password must be at least four characters long. ");
-                    }
-                    if (!(newPassword.contains("!") || newPassword.contains("#") || newPassword.contains("$"))) {
-                        message.append("Password must contain a special character out of <!#$> ");
-                    }
-                    char[] passwordArray = newPassword.toCharArray();
-                    boolean containsUppercase = false;
-                    boolean containsLowercase = false;
-                    for (char letter : passwordArray) {
-                        if (Character.isUpperCase(letter)) {
-                            containsUppercase = true;
-                            break;
-                        }
-                    }
-                    for (char letter : passwordArray) {
-                        if (Character.isLowerCase(letter)) {
-                            containsLowercase = true;
-                            break;
-                        }
-                    }
-                    if (!containsUppercase) {
-                        message.append("Password must contain an upper case character. ");
-                    }
-                    if (!containsLowercase) {
-                        message.append("Password must contain an lower case character. ");
-                    }
+                   
+                   
                     if (message.isEmpty()) client.setPassword(newPassword);
+                }
+                if ((newName.isEmpty())) {
+                    client.setName("");
                 }
                 if (!(newName.isEmpty())) {
                     client.setName(newName);
                 }
+                if ((newPhoneNumber.isEmpty())) {
+                    client.setPhoneNumber("");
+                }
                 if (!(newPhoneNumber.isEmpty())) {
                     client.setPhoneNumber(newPhoneNumber);
+                }
+                if ((newAddress.isEmpty())) {
+                    client.setAddress("");
                 }
                 if (!(newAddress.isEmpty())) {
                     client.setAddress(newAddress);
                 }
-                if (message.isEmpty()) return "Client account information successfully updated.";
+                if (!message.isEmpty()) {
+                	return message.toString();
+                }
             }
         }
         return "The account was not found in the WareFlow application.";

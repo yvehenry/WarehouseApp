@@ -23,13 +23,13 @@ public class ShipmentNoteController {
                                          String username) {
         String errorMessage = "";
         if (description == null || description.isEmpty()) {
-            errorMessage += "Note description cannot be empty";
+            errorMessage += "Order description cannot be empty";
         }
         if (!WarehouseStaff.hasWithUsername(username)) {
-            errorMessage += "The note placer does not exist";
+            errorMessage += "Staff does not exist";
         }
         if (!ShipmentOrder.hasWithId(orderID)) {
-            errorMessage += "The shipment order does not exist";
+            errorMessage += "Order does not exist";
         }
         if (!errorMessage.isEmpty()) {
             return errorMessage;
@@ -66,19 +66,19 @@ public class ShipmentNoteController {
                                             String newDescription, String newUsername) {
         String errorMessage = "";
         if (!WarehouseStaff.hasWithUsername(newUsername)) {
-            errorMessage += "The note taker does not exist";
+            errorMessage += "Staff does not exist";
         }
         if (newDescription == null || newDescription.isEmpty()) {
-            errorMessage += "Note description cannot be empty";
+            errorMessage += "Order description cannot be empty";
         }
-        if (ShipmentOrder.hasWithId(orderID) && ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
+        /*if (ShipmentOrder.hasWithId(orderID) && ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
             errorMessage += "The shipment order or notes does not exist";
-        }
+        }*/
         if (!ShipmentOrder.hasWithId(orderID)) {
-            errorMessage += "The shipment order does not exist";
+            errorMessage += "Order does not exist";
         }
-        if (index < 0) {
-            errorMessage += "Note index does not exist";
+        if (index > 0) {
+            errorMessage += "Note does not exist";
         }
         if (!errorMessage.isEmpty()) {
             return errorMessage;
