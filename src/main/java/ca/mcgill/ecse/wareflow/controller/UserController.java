@@ -105,24 +105,20 @@ public class UserController {
         }
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
-            if (client.getUsername().equals(username) || (message.isEmpty())) {
+            if (client.getUsername().equals(username) && message.isEmpty()) {
                 message.append("Username already linked to a client account");
                 break;
             }
         }
+        
 
-        if (isEmployee) {
-            //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
-            if (message.isEmpty()) {
+        if (message.length() == 0) {
+            if (isEmployee) {
                 wareFlow.addEmployee(username, name, password, phoneNumber);
-            }
-        }
-         else {
-            if (address.isEmpty()) {
-                message.append("The address must not be empty. ");
-            }
-            if (message.isEmpty()) {
+                return "Employee added successfully.";
+            } else {
                 wareFlow.addClient(username, name, password, phoneNumber, address);
+                return "Client added successfully.";
             }
         }
         return message.toString();
