@@ -4,7 +4,7 @@
 package ca.mcgill.ecse.wareflow.controller;
 import java.sql.Date;
 
-// line 21 "../../../../../WareFlowTransferObjects.ump"
+// line 29 "../../../../../WareFlowTransferObjects.ump"
 public class TOShipmentNote
 {
 

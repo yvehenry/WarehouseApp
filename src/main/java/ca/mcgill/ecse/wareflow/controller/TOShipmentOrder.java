@@ -19,6 +19,11 @@ public class TOShipmentOrder
   private Date placedOnDate;
   private String description;
   private String orderPlacer;
+  private String status;
+  private String processedBy;
+  private String timeToResolve;
+  private String priority;
+  private boolean approvalRequired;
   private String itemName;
   private int expectedLifeSpanInDays;
   private Date addedOnDate;
@@ -35,13 +40,18 @@ public class TOShipmentOrder
   // CONSTRUCTOR
   //------------------------
 
-  public TOShipmentOrder(int aId, int aQuantity, Date aPlacedOnDate, String aDescription, String aOrderPlacer, String aItemName, int aExpectedLifeSpanInDays, Date aAddedOnDate, int aAreaNumber, int aSlotNumber, TOShipmentNote... allNotes)
+  public TOShipmentOrder(int aId, int aQuantity, Date aPlacedOnDate, String aDescription, String aOrderPlacer, String aStatus, String aProcessedBy, String aTimeToResolve, String aPriority, boolean aApprovalRequired, String aItemName, int aExpectedLifeSpanInDays, Date aAddedOnDate, int aAreaNumber, int aSlotNumber, TOShipmentNote... allNotes)
   {
     id = aId;
     quantity = aQuantity;
     placedOnDate = aPlacedOnDate;
     description = aDescription;
     orderPlacer = aOrderPlacer;
+    status = aStatus;
+    processedBy = aProcessedBy;
+    timeToResolve = aTimeToResolve;
+    priority = aPriority;
+    approvalRequired = aApprovalRequired;
     itemName = aItemName;
     expectedLifeSpanInDays = aExpectedLifeSpanInDays;
     addedOnDate = aAddedOnDate;
@@ -85,6 +95,34 @@ public class TOShipmentOrder
     return orderPlacer;
   }
 
+  public String getStatus()
+  {
+    return status;
+  }
+
+  /**
+   * the following three attributes are set to null if no one has been assigned to the order
+   */
+  public String getProcessedBy()
+  {
+    return processedBy;
+  }
+
+  public String getTimeToResolve()
+  {
+    return timeToResolve;
+  }
+
+  public String getPriority()
+  {
+    return priority;
+  }
+
+  public boolean getApprovalRequired()
+  {
+    return approvalRequired;
+  }
+
   /**
    * the following five attributes are set to null (String/Date) / -1 (Integer) if no item container is specified for the order yet
    */
@@ -111,6 +149,11 @@ public class TOShipmentOrder
   public int getSlotNumber()
   {
     return slotNumber;
+  }
+  /* Code from template attribute_IsBoolean */
+  public boolean isApprovalRequired()
+  {
+    return approvalRequired;
   }
   /* Code from template association_GetMany */
   public TOShipmentNote getNote(int index)
@@ -185,6 +228,11 @@ public class TOShipmentOrder
             "quantity" + ":" + getQuantity()+ "," +
             "description" + ":" + getDescription()+ "," +
             "orderPlacer" + ":" + getOrderPlacer()+ "," +
+            "status" + ":" + getStatus()+ "," +
+            "processedBy" + ":" + getProcessedBy()+ "," +
+            "timeToResolve" + ":" + getTimeToResolve()+ "," +
+            "priority" + ":" + getPriority()+ "," +
+            "approvalRequired" + ":" + getApprovalRequired()+ "," +
             "itemName" + ":" + getItemName()+ "," +
             "expectedLifeSpanInDays" + ":" + getExpectedLifeSpanInDays()+ "," +
             "areaNumber" + ":" + getAreaNumber()+ "," +
