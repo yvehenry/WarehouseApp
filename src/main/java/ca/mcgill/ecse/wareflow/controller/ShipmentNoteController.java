@@ -71,9 +71,6 @@ public class ShipmentNoteController {
         if (newDescription == null || newDescription.isEmpty()) {
             errorMessage += "Order description cannot be empty";
         }
-        /*if (ShipmentOrder.hasWithId(orderID) && ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
-            errorMessage += "The shipment order or notes does not exist";
-        }*/
         if (!ShipmentOrder.hasWithId(orderID)) {
             errorMessage += "Order does not exist";
         }
