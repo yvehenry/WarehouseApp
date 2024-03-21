@@ -584,19 +584,19 @@ public class ShipmentOrder
     setPriority(priorityLevel);
   }
 
-  // line 33 "../../../../../WareFlowStates.ump"
+  // line 34 "../../../../../WareFlowStates.ump"
    private void setTimeEstimate(TimeEstimate timeEstimate){
     setTimeToFullfill(timeEstimate);
   }
 
-  // line 36 "../../../../../WareFlowStates.ump"
+  // line 38 "../../../../../WareFlowStates.ump"
    private void setRequiresManagerApproval(boolean isRequired){
     if (isRequired) {
             setOrderApprover(getWareFlow().getManager());
         }
   }
 
-  // line 41 "../../../../../WareFlowStates.ump"
+  // line 43 "../../../../../WareFlowStates.ump"
    private boolean requiresManagerApproval(){
     return hasOrderApprover();
   }
