@@ -1,11 +1,11 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.33.0.6934.a386b0a58 modeling language!*/
+/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 22 "../../../../../WareFlow.ump"
+// line 24 "../../../../../WareFlow.ump"
 public abstract class WarehouseStaff extends User
 {
 

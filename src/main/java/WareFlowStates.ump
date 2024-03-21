@@ -1,185 +1,45 @@
-//%% NEW FILE ShipmentOrder BEGINS HERE %%
-
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.33.0.6934.a386b0a58 modeling language!*/
-
-
-
-// line 2 "model.ump"
-// line 48 "model.ump"
-public class ShipmentOrder
-{
-
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //ShipmentOrder State Machines
-  public enum TicketStatus { Open, Assigned, InProgress, Completed, Closed }
-  private TicketStatus ticketStatus;
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-  public ShipmentOrder()
-  {
-    setTicketStatus(TicketStatus.Open);
-  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  public String getTicketStatusFullName()
-  {
-    String answer = ticketStatus.toString();
-    return answer;
-  }
-
-  public TicketStatus getTicketStatus()
-  {
-    return ticketStatus;
-  }
-
-  public boolean assign(WarehouseStaff orderFixer,PriorityLevel priorityLevel,TimeEstimate timeEstimate,boolean isRequired)
-  {
-    boolean wasEventProcessed = false;
-    
-    TicketStatus aTicketStatus = ticketStatus;
-    switch (aTicketStatus)
-    {
-      case Open:
-        // line 5 "model.ump"
-        assignTo(orderFixer);
+class ShipmentOrder {
+	ticketStatus {
+      Open {
+      	assign(WarehouseStaff orderFixer, PriorityLevel priorityLevel, TimeEstimate timeEstimate, boolean isRequired) / {
+            assignTo(orderFixer);
             setPriorityLevel(priorityLevel);
             setTimeEstimate(timeEstimate);
             setRequiresManagerApproval(isRequired);
-        setTicketStatus(TicketStatus.Assigned);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
+        } -> Assigned;
+      }
+      Assigned {
+        startWork() -> InProgress;
+      }
+      InProgress {
+      	markAsResolved() [!requiresManagerApproval()] -> Closed;
+        markAsResolved() [requiresManagerApproval()] -> Completed;
+      }
+      Completed {
+      	approveWork() -> Closed;
+        disapproveWork(Date date, String reason) -> InProgress;
+      }
+      Closed {
+      }
     }
 
-    return wasEventProcessed;
-  }
-
-  public boolean startWork()
-  {
-    boolean wasEventProcessed = false;
-    
-    TicketStatus aTicketStatus = ticketStatus;
-    switch (aTicketStatus)
-    {
-      case Assigned:
-        setTicketStatus(TicketStatus.InProgress);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
+    private void assignTo(WarehouseStaff warehouseStaff) {
+        setOrderPicker(warehouseStaff);
     }
-
-    return wasEventProcessed;
-  }
-
-  public boolean markAsResolved()
-  {
-    boolean wasEventProcessed = false;
+    private void setPriorityLevel(PriorityLevel priorityLevel) {
+        setPriority(priorityLevel);
+    }
     
-    TicketStatus aTicketStatus = ticketStatus;
-    switch (aTicketStatus)
-    {
-      case InProgress:
-        if (!(requiresManagerApproval()))
-        {
-          setTicketStatus(TicketStatus.Closed);
-          wasEventProcessed = true;
-          break;
+    private void setTimeEstimate(TimeEstimate timeEstimate) {
+        setTimeToFullfill(timeEstimate);
+    }
+    
+    private void setRequiresManagerApproval(boolean isRequired) {
+        if (isRequired) {
+            setOrderApprover(getWareFlow().getManager());
         }
-        if (requiresManagerApproval())
-        {
-          setTicketStatus(TicketStatus.Completed);
-          wasEventProcessed = true;
-          break;
-        }
-        break;
-      default:
-        // Other states do respond to this event
     }
-
-    return wasEventProcessed;
-  }
-
-  public boolean approveWork()
-  {
-    boolean wasEventProcessed = false;
-    
-    TicketStatus aTicketStatus = ticketStatus;
-    switch (aTicketStatus)
-    {
-      case Completed:
-        setTicketStatus(TicketStatus.Closed);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
+  	private boolean requiresManagerApproval() {
+        return hasOrderApprover();
     }
-
-    return wasEventProcessed;
-  }
-
-  public boolean disapproveWork(Date date,String reason)
-  {
-    boolean wasEventProcessed = false;
-    
-    TicketStatus aTicketStatus = ticketStatus;
-    switch (aTicketStatus)
-    {
-      case Completed:
-        setTicketStatus(TicketStatus.InProgress);
-        wasEventProcessed = true;
-        break;
-      default:
-        // Other states do respond to this event
-    }
-
-    return wasEventProcessed;
-  }
-
-  private void setTicketStatus(TicketStatus aTicketStatus)
-  {
-    ticketStatus = aTicketStatus;
-  }
-
-  public void delete()
-  {}
-
-  // line 28 "model.ump"
-   private void assignTo(WareHouseStaff warehouseStaff){
-    setOrderFixer(warehouseStaff);
-  }
-
-  // line 31 "model.ump"
-   private void setPriorityLevel(PriorityLevel priorityLevel){
-    setPriority(priorityLevel);
-  }
-
-  // line 34 "model.ump"
-   private void setTimeEstimate(TimeEstimate timeEstimate){
-    setTimeToResolve(timeEstimate);
-  }
-
-  // line 37 "model.ump"
-   private void setRequiresManagerApproval(boolean isRequired){
-    if (isRequired) {
-            setFixApprover(getWareFlow().getManager());
-        }
-  }
-
-  // line 42 "model.ump"
-   private boolean requiresManagerApproval(){
-    return hasManagerApprover();
-  }
-
 }
