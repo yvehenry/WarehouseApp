@@ -1,15 +1,11 @@
 package ca.mcgill.ecse.wareflow.controller;
 
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
-import ca.mcgill.ecse.wareflow.model.Employee;
-import ca.mcgill.ecse.wareflow.model.ShipmentNote;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
+import ca.mcgill.ecse.wareflow.model.*;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
-import ca.mcgill.ecse.wareflow.model.WareFlow;
-import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
-
 import java.util.List;
+import java.sql.Date;
 
 public class OrderController {
 
@@ -204,6 +200,11 @@ public class OrderController {
         else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")){
             errorMessage += "Cannot approve a shipment order that is in progress.";
         }
+
+        if (!errorMessage.isEmpty()){
+          return errorMessage;
+        }
+
         try {
             approveOrder.approveWork();
         }
@@ -225,7 +226,7 @@ public class OrderController {
      * @author Jason Shao
      */
 
-    public static String disapproveShipmentOrder(ShipmentOrder dissaproveOrder, String reason, String date) {
+    public static String disapproveShipmentOrder(ShipmentOrder dissaproveOrder, String reason, Date date) {
         String errorMessage = "";   
         if (dissaproveOrder == null || !ShipmentOrder.hasWithId(dissaproveOrder.getId())){
             errorMessage += "Shipment order does not exist.";
@@ -242,6 +243,11 @@ public class OrderController {
         else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")){
             errorMessage += "Cannot disapprove a shipment order that is in progress.";
         }
+
+        if (!errorMessage.isEmpty()){
+            return errorMessage;
+        }
+
         try {
             dissaproveOrder.approveWork();
             ShipmentNote newNote = new ShipmentNote(date,reason,dissaproveOrder, dissaproveOrder.getWareFlow().getManager());
@@ -251,6 +257,5 @@ public class OrderController {
         }
         return errorMessage;
     }
-
 
 }
