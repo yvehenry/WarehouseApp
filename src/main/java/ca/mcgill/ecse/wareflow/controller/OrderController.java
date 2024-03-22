@@ -37,7 +37,34 @@ private static WareFlow wareFlow = WareFlowApplication.getWareFlow();
   * @author Neeshal Imrit
   */
   public static String startShipmentOrder(ShipmentOrder startOrder){
-    return "";
+    
+    String errorMessage = "";
+
+    if (startOrder == null || !ShipmentOrder.hasWithId(startOrder.getId())) {
+        errorMessage += "shipment order does not exist.";
+    } else if (startOrder.getTicketStatusFullName().equalsIgnoreCase("open")) {
+        errorMessage += "Cannot start a shipment order which is open.";
+    } else if (startOrder.getTicketStatusFullName().equalsIgnoreCase("completed")) {
+        errorMessage += "Cannot start a shipment order which is completed.";
+    } else if (startOrder.getTicketStatusFullName().equalsIgnoreCase("closed")) {
+        errorMessage += "Cannot start a shipment order which is closed.";
+    } else if (startOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")) {
+        errorMessage += "The shipment order is already in progress.";
+    }
+
+    if(!errorMessage.isEmpty()){
+        return errorMessage;
+    }
+
+    try {
+      startOrder.startWork();
+    }
+
+    catch(Exception e) {
+     errorMessage += "Other exception";
+    }
+
+    return errorMessage;
   }
 
 
@@ -54,26 +81,21 @@ private static WareFlow wareFlow = WareFlowApplication.getWareFlow();
     String errorMessage = "";
 
     if (completeOrder == null){
-      errorMessage += "Shipment order does not exist.";
-    }
-    if (!ShipmentOrder.hasWithId(completeOrder.getId())) {
-      errorMessage += "Shipment order does not exist.";
-    }
-    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("open")) {
-    errorMessage += "Cannot complete a shipment order which is open.";
-    }
-    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")) {
-    errorMessage += "Cannot complete a shipment order which is assigned.";
-    }
-    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("closed")) {
-    errorMessage += "The shipment order is already closed.";
-    }
-    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("resolved")) {
-    errorMessage += "The shipment order is already resolved.";
+        errorMessage += "Shipment order does not exist.";
+    } else if (!ShipmentOrder.hasWithId(completeOrder.getId())) {
+        errorMessage += "Shipment order does not exist.";
+    } else if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("open")) {
+        errorMessage += "Cannot complete a shipment order which is open.";
+    } else if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")) {
+        errorMessage += "Cannot complete a shipment order which is assigned.";
+    } else if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("closed")) {
+        errorMessage += "The shipment order is already closed.";
+    } else if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("resolved")) {
+        errorMessage += "The shipment order is already resolved.";
     }
 
     if(!errorMessage.isEmpty()){
-    return errorMessage;
+        return errorMessage;
     }
 
     try {
