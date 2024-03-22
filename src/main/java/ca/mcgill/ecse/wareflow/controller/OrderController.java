@@ -51,7 +51,40 @@ private static WareFlow wareFlow = WareFlowApplication.getWareFlow();
   * @author Ben Bouhdana
   */
   public static String completeShipmentOrder(ShipmentOrder completeOrder){
-    return "";
+    String errorMessage = "";
+
+    if (completeOrder == null){
+      errorMessage += "Shipment order does not exist.";
+    }
+    if (!ShipmentOrder.hasWithId(completeOrder.getId())) {
+      errorMessage += "Shipment order does not exist.";
+    }
+    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("open")) {
+    errorMessage += "Cannot complete a shipment order which is open.";
+    }
+    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")) {
+    errorMessage += "Cannot complete a shipment order which is assigned.";
+    }
+    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("closed")) {
+    errorMessage += "The shipment order is already closed.";
+    }
+    if (completeOrder.getTicketStatusFullName().equalsIgnoreCase("resolved")) {
+    errorMessage += "The shipment order is already resolved.";
+    }
+
+    if(!errorMessage.isEmpty()){
+    return errorMessage;
+    }
+
+    try {
+      completeOrder.markAsResolved();
+    }
+
+    catch(Exception e) {
+     errorMessage += "Other exception";
+    }
+
+    return errorMessage;
   }
 
 
