@@ -194,7 +194,7 @@ public class ShipmentOrderController {
                 }
 
                 // Create a new TOShipmentOrder object and add it to the list of shipment orders
-                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
+                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer,"","","","",true,itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
                 shipmentOrders.add(shipmentOrder);
             }
         }
