@@ -1,5 +1,16 @@
 package ca.mcgill.ecse.wareflow.features;
 
+import java.util.List;
+import java.util.Map;
+
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.model.Manager;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
+import ca.mcgill.ecse.wareflow.model.WareFlow;
+import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,17 +29,19 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * This step initializes the manager account with the information found in the dataTable.
+   * @author Benjamin Bouhdana 
+   * @param dataTable This table contains the ID and password of the manager to be initialized
+   */
   @Given("the following manager exists in the system")
-  public void the_following_manager_exists_in_the_system(
-      io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+  public void the_following_manager_exists_in_the_system(io.cucumber.datatable.DataTable dataTable) {
+    List<Map<String, String>> rows = dataTable.asMaps();
+
+    for (var row : rows) {
+      new Manager(row.get("email"), "", row.get("password"), "", wareFlow);
+    }
+
   }
 
   @Given("the following items exist in the system")
@@ -87,10 +100,39 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * This step sets the Shipment Order with the provided ID to the provided state.
+   * @author Benjamin Bouhdana 
+   * @param orderID The order ID number
+   * @param state The state of the order
+   */
   @Given("order {string} is marked as {string}")
-  public void order_is_marked_as(String string, String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void order_is_marked_as(String orderID, String state) {
+    ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(orderID));
+
+    WarehouseStaff orderPicker = (WarehouseStaff) wareFlow.getManager(); // Here we chose the manager as the assigned hotel staff to a ticket as there's always a manager but we are unaware of the existing employees and it is possible that no employees other than the manager exists.
+    PriorityLevel priorityLevel = PriorityLevel.Low; // Initialise at lowest possible value.
+    TimeEstimate timeEstimate = TimeEstimate.LessThanADay; // Initialise at lowest possible value.
+    Boolean requiresApproval = order.hasShipmentNotes();
+
+    if (state.equalsIgnoreCase("assigned")) {
+      order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
+    }
+    if (state.equalsIgnoreCase("inprogess")) {
+      order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
+      order.startWork();
+    }
+    if (state.equalsIgnoreCase("resolved")) {
+      requiresApproval = true;
+      order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
+      order.startWork();
+       order.markAsResolved();
+    }
+    if (state.equalsIgnoreCase("closed")) {
+      order.assign(orderPicker, priorityLevel, timeEstimate, false);
+      order.startWork();
+      order.markAsResolved();
+    }
   }
 
   @When("the manager attempts to view all shipment orders in the system")
@@ -125,11 +167,15 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
-
+  /** 
+   * Sets the shipment order status to approved
+   * @Author Benjamin  Bouhdana
+   * @param orderID order ID of desired ticket
+   */
   @When("the manager attempts to approve the order {string}")
-  public void the_manager_attempts_to_approve_the_order(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  public void the_manager_attempts_to_approve_the_order(String orderID) {
+    ShipmentOrder aprovalOrder = ShipmentOrder.getWithId(Integer.parseInt(orderID));
+    WareFlowApplication.approveShipmentOrder(aprovalOrder);
   }
 
   @Then("the following shipment orders shall be presented")
