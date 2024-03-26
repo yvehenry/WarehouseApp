@@ -4,12 +4,11 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.*;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
-import java.util.List;
+
 import java.sql.Date;
+import java.util.List;
 
 public class OrderController {
-
-
     private static final WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
     /**
@@ -131,10 +130,8 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Other exception";
         }
-
         return errorMessage;
     }
-
 
     /**
      * This method is called to complete the work on a shipment order.  This method will be called by the staff member assigned to the order.
@@ -170,10 +167,8 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Other exception";
         }
-
         return errorMessage;
     }
-
 
     /**
      * This method is called to approve the work on a shipment order.  This method will be called by a manager to approve an order.
@@ -185,33 +180,27 @@ public class OrderController {
      */
     public static String approveShipmentOrder(ShipmentOrder approveOrder) {
         String errorMessage = "";
-        if (approveOrder == null || !ShipmentOrder.hasWithId(approveOrder.getId())){
+        if (approveOrder == null || !ShipmentOrder.hasWithId(approveOrder.getId())) {
             errorMessage += "Shipment order does not exist.";
-        }
-        else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("open")){
+        } else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("open")) {
             errorMessage += "Cannot approve a shipment order that is open.";
-        }
-        else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")){
+        } else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")) {
             errorMessage += "Cannot approve a shipment order that is assigned.";
-        }
-        else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("closed")){
+        } else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("closed")) {
             errorMessage += "The shipment order is already closed";
-        }
-        else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")){
+        } else if (approveOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")) {
             errorMessage += "Cannot approve a shipment order that is in progress.";
         }
 
-        if (!errorMessage.isEmpty()){
-          return errorMessage;
+        if (!errorMessage.isEmpty()) {
+            return errorMessage;
         }
 
         try {
             approveOrder.approveWork();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             errorMessage += "Other exceptions.";
         }
-
         return errorMessage;
     }
 
@@ -225,37 +214,30 @@ public class OrderController {
      * if this returned string is empty, the assignment of a staff member to a ticket was successful.
      * @author Jason Shao
      */
-
     public static String disapproveShipmentOrder(ShipmentOrder dissaproveOrder, String reason, Date date) {
-        String errorMessage = "";   
-        if (dissaproveOrder == null || !ShipmentOrder.hasWithId(dissaproveOrder.getId())){
+        String errorMessage = "";
+        if (dissaproveOrder == null || !ShipmentOrder.hasWithId(dissaproveOrder.getId())) {
             errorMessage += "Shipment order does not exist.";
-        }
-        else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("open")){
+        } else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("open")) {
             errorMessage += "Cannot disapprove a shipment order that is open.";
-        }
-        else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")){
+        } else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("assigned")) {
             errorMessage += "Cannot disapprove a shipment order that is assigned.";
-        }
-        else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("closed")){
+        } else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("closed")) {
             errorMessage += "The shipment order is already closed";
-        }
-        else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")){
+        } else if (dissaproveOrder.getTicketStatusFullName().equalsIgnoreCase("InProgress")) {
             errorMessage += "Cannot disapprove a shipment order that is in progress.";
         }
 
-        if (!errorMessage.isEmpty()){
+        if (!errorMessage.isEmpty()) {
             return errorMessage;
         }
 
         try {
             dissaproveOrder.approveWork();
-            ShipmentNote newNote = new ShipmentNote(date,reason,dissaproveOrder, dissaproveOrder.getWareFlow().getManager());
-        }
-        catch (Exception e){
+            new ShipmentNote(date, reason, dissaproveOrder, dissaproveOrder.getWareFlow().getManager());
+        } catch (Exception e) {
             errorMessage += "Other exceptions.";
         }
         return errorMessage;
     }
-
 }
