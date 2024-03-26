@@ -162,6 +162,26 @@ public class ShipmentOrderController {
                 Date placedOnDate = order.getPlacedOnDate();
                 String description = order.getDescription();
                 String orderPlacer = order.getOrderPlacer().getUsername();
+                String status = order.getTicketStatusFullName();
+                
+                String processedBy = null;
+                if (order.hasOrderPicker()){
+                    processedBy = order.getOrderPicker().getName();
+                }
+                String timeToResolve = null;
+                if (order.getTimeToFullfill() != null) {
+                    timeToResolve = order.getTimeToFullfill().toString();
+                }
+                
+                String priority = null;
+                if (order.getPriority() != null){
+                    priority = order.getPriority().toString();
+                }
+                
+                Boolean approvalRequired = false;
+                if (order.hasOrderApprover()){
+                    approvalRequired = true;
+                }
 
                 // verify if the order has an item
                 String itemName = null;
@@ -169,6 +189,7 @@ public class ShipmentOrderController {
                 Date addedOnDate = null;
                 int areaNumber = -1;
                 int slotNumber = -1;
+                
 
                 if (order.getContainer() != null) {
                     itemName = order.getContainer().getItemType().getName();
@@ -194,7 +215,7 @@ public class ShipmentOrderController {
                 }
 
                 // Create a new TOShipmentOrder object and add it to the list of shipment orders
-                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
+                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description,orderPlacer,status,processedBy,timeToResolve,priority,approvalRequired, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
                 shipmentOrders.add(shipmentOrder);
             }
         }
