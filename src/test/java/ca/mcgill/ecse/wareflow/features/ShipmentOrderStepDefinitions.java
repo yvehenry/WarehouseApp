@@ -1,10 +1,23 @@
 package ca.mcgill.ecse.wareflow.features;
 
+import static org.junit.Assert.assertEquals;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.model.*;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import ca.mcgill.ecse.wareflow.controller.OrderController;
 
 public class ShipmentOrderStepDefinitions {
+
+  private final WareFlow wareFlow = WareFlowApplication.getWareFlow();
   @Given("the following employees exist in the system")
   public void the_following_employees_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
@@ -63,16 +76,29 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Intialize the orders in the system with the given data table.
+   * @author Neeshal
+   * @param dataTable This table contains an id, orderPlacer, placedOnDate, description, quantity, containerNumber.
+   */
   @Given("the following orders exist in the system")
   public void the_following_orders_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+    List<Map<String,String>> rows = dataTable.asMaps();
+    for (var row : rows) {
+
+      int id = Integer.parseInt(row.get("id"));
+      String orderPlacer = row.get("orderPlacer");
+      Date placedOnDate = Date.valueOf(row.get("placedOnDate"));
+      String description = row.get("description");
+      int quantity = Integer.parseInt(row.get("quantity"));
+      ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, wareFlow, User.getWithUsername(orderPlacer));
+      
+      if (newOrder != null) {
+        int containerNumber = Integer.parseInt(row.get("containerNumber"));
+        newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
+      }
+
+    }
   }
 
   @Given("the following notes exist in the system")
@@ -105,11 +131,26 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Assigns WareHouse Staff member to an order with a time estimate, a priority and whether it requires manager approval to be closed.
+   * @author Neeshal Imrit
+   * @param string id of the shipment order.
+   * @param string2 the username of the employee that will be assigned to the ticket.
+   * @param string3 time estimate of the given order.
+   * @param string4 priority of the given order.
+   * @param string5 whether or not the ticket that will be assigned need manager approval.
+   */
   @When("the manager attempts to assign the order {string} to {string} with estimated time {string}, priority {string}, and requires approval {string}")
   public void the_manager_attempts_to_assign_the_order_to_with_estimated_time_priority_and_requires_approval(
       String string, String string2, String string3, String string4, String string5) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+
+    int id = Integer.parseInt(string);
+    String orderFixer = string2;
+    TimeEstimate timeEstimate = TimeEstimate.valueOf(string3);
+    PriorityLevel priorityLevel = PriorityLevel.valueOf(string4);
+    boolean requiresApproval = Boolean.parseBoolean(string5);
+
+    OrderController.assign(id, orderFixer, timeEstimate, priorityLevel, requiresApproval);
   }
 
   @When("the warehouse staff attempts to complete the order {string}")
@@ -182,16 +223,30 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Checks if the order has the corrrct status.
+   * @author Neeshal Imrit
+   * @param string the order id.
+   * @param string2 the employee username.
+   */
   @Then("the order {string} shall be marked as {string}")
   public void the_order_shall_be_marked_as(String string, String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(string));
+    String orderStatus = order.getTicketStatusFullName();
+    assertEquals(string2, orderStatus);
   }
 
+  /**
+   * Checks if the order has been assigned to the right employee.
+   * @author Neeshal Imrit
+   * @param string the order id.
+   * @param string2 the employee username.
+   */
   @Then("the order {string} shall be assigned to {string}")
   public void the_order_shall_be_assigned_to(String string, String string2) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(string));
+    String orderFixer = order.getOrderPicker().getUsername();
+    assertEquals(string2, orderFixer);
   }
 
   @Then("the order {string} shall have estimated time {string}, priority {string}, and requires approval {string}")
