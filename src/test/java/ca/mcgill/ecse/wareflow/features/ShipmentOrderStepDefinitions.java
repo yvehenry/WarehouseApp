@@ -54,6 +54,14 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Gherkin step definition method to assign the order with orderId a marking marking,
+   * and if necessary, a ticket approver.
+   * 
+   * @param orderId String containing the order ID for a specific shipment order.
+   * @param marking String containing the state of the order.
+   * @param requiresApproval String containing "true" if the order needs the manager's approval and "false" otherwise.
+   */
   @Given("order {string} is marked as {string} with requires approval {string}") //TODO
   public void order_is_marked_as_with_requires_approval(String orderId, String marking,
       String requiresApproval) {
@@ -81,7 +89,6 @@ public class ShipmentOrderStepDefinitions {
       markedOrderApproval.markAsResolved();
     }
     
-
     if (requiresApproval.equalsIgnoreCase("true"))
     markedOrderApproval.setOrderApprover(wareFlow.getManager());
   }
@@ -148,6 +155,12 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Gherkin step definition method to set the order status as completed.
+   *
+   * @author Yvehenry Julsain
+   * @param string String containing the order ID of the shipment order to mark as completed.
+   */
   @When("the warehouse staff attempts to complete the order {string}") //TODO
   public void the_warehouse_staff_attempts_to_complete_the_order(String string) {
     ShipmentOrder completedOrder = ShipmentOrder.getWithId(Integer.parseInt(string));
@@ -194,13 +207,25 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * Gherkin step definition method to verify if the order with the ID "string" has 0 notes.
+   * 
+   * @author Yvehenry Julsain
+   * @param string String containing the order ID of the shipment order containing 0 notes.
+   */
   @Then("the order with id {string} shall have no notes") //TODO
   public void the_order_with_id_shall_have_no_notes(String string) {
     ShipmentOrder orderWithNoNotes = ShipmentOrder.getWithId(Integer.parseInt(string));
     if (orderWithNoNotes.numberOfShipmentNotes() != 0)
-    throw new AssertionError();
+      throw new AssertionError();
   }
 
+  /**
+   * Gherkin step definition method to verify if an order with the ID "string" exists.
+   * 
+   * @author Yvehenry Julsain
+   * @param string String containing the order ID for the shipment order which is being searched.
+   */
   @Then("the order {string} shall not exist in the system") //TODO
   public void the_order_shall_not_exist_in_the_system(String string) {
     //ShipmentOrder nonExistantOrder = ShipmentOrder.getWithId(Integer.parseInt(string));
