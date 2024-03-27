@@ -21,6 +21,8 @@ import ca.mcgill.ecse.wareflow.model.WareFlow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import ca.mcgill.ecse.wareflow.model.*;
+import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.model.ItemContainer;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -78,15 +80,11 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
   /**
-     * Initializes shipment order with a specific containerNumber, type, purchaseDate, areaNumber, and slotNumber for future testing
-     * @author Jason Shao
-     * @param dataTable
-     */
-  //   Given the following containers exist in the system
-  //     | containerNumber | type        | purchaseDate | areaNumber | slotNumber |
-  //     |               1 | NotFound TV |   2022-03-20 |          9 |         23 |
-  //     |               2 | Bed         |   2010-01-30 |         10 |         35 |
-  //     |               3 | Bed         |   2010-01-30 |          1 |         35 |
+  * Initializes shipment order with a specific containerNumber, type, purchaseDate, areaNumber, and slotNumber for future testing
+  * @author Jason Shao
+  * @param dataTable containing container number, type, purchase date, area number, and slot number
+  */
+
   @Given("the following containers exist in the system")
   public void the_following_containers_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
@@ -97,6 +95,8 @@ public class ShipmentOrderStepDefinitions {
             Date purchaseDate = Date.valueOf(row.get("purchaseDate"));
             int areaNumber = Integer.parseInt(row.get("areaNumber"));
             int slotNumber = Integer.parseInt(row.get("slotNumber"));
+
+            new ItemContainer(containerNumber, areaNumber, slotNumber, purchaseDate, wareFlow, type);
         }
   }
 
@@ -206,10 +206,10 @@ public class ShipmentOrderStepDefinitions {
 
 
   /**
-     * Checks if the shipment order are present in the system. Checks if they have all of the same features (ie ticketID, raisedByEmail, etc).
-     * @author Jason Shao
-     * @param dataTable
-     */
+  * Checks if the shipment order are present in the system. Checks if they have all of the same features (ie ticketID, raisedByEmail, etc).
+  * @author Jason Shao
+  * @param dataTable
+  */
   @Then("the following shipment orders shall be presented")
   public void the_following_shipment_orders_shall_be_presented(
       io.cucumber.datatable.DataTable dataTable) {
