@@ -24,7 +24,7 @@ import io.cucumber.java.en.When;
 
 public class ShipmentOrderStepDefinitions {
   private List<TOShipmentOrder> orders;
-
+  private WareFlow wareFlow = WareFlowApplication.getWareFlow();
 
   @Given("the following employees exist in the system")
   public void the_following_employees_exist_in_the_system(
@@ -282,7 +282,7 @@ public class ShipmentOrderStepDefinitions {
   @Then("the number of orders in the system shall be {string}")
   public void the_number_of_orders_in_the_system_shall_be(String string) {
     int expectedNumOfTickets = Integer.parseInt(string);
-    int actualNumOfTickets = WareFlow.numberOfOrders();   // get the actual number of orders
+    int actualNumOfTickets = wareFlow.numberOfOrders();   // get the actual number of orders
     Assertions.assertEquals(expectedNumOfTickets, actualNumOfTickets);
   }
 /**
