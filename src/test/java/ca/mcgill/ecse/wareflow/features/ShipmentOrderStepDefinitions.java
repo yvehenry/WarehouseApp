@@ -12,13 +12,9 @@ import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentNote;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.model.WareFlow;
-import static org.junit.Assert.assertEquals;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 
-import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+
 import ca.mcgill.ecse.wareflow.model.*;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
@@ -28,11 +24,10 @@ import io.cucumber.java.en.When;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
 
 public class ShipmentOrderStepDefinitions {
-	  private WareFlow wareFlow = WareFlowApplication.getWareFlow();
-	  private List<TOShipmentOrder> orders;
 	  
-
+	private List<TOShipmentOrder> orders;
   private final WareFlow wareFlow = WareFlowApplication.getWareFlow();
+
   @Given("the following employees exist in the system")
   public void the_following_employees_exist_in_the_system(
       io.cucumber.datatable.DataTable dataTable) {
