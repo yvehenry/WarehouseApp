@@ -26,7 +26,7 @@ public class UserController {
                 message += "Password must be at least four characters long. ";
             }
             if (!(password.contains("!") || password.contains("#") || password.contains("$"))) {
-                message += "Password must contain a special character out of <!#$> ";
+                message += "Password must contain one character out of !#$ ";
             }
             char[] passwordArray = password.toCharArray();
             boolean containsUppercase = false;
