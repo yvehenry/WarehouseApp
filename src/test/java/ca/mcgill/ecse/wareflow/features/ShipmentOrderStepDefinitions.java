@@ -1,5 +1,17 @@
 package ca.mcgill.ecse.wareflow.features;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.sql.Date;
+import java.util.List;
+import java.util.Map;
+
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.controller.TOShipmentNote;
+import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
+import ca.mcgill.ecse.wareflow.model.WareFlow;
 import static org.junit.Assert.assertEquals;
 
 import java.sql.Date;
@@ -16,6 +28,9 @@ import io.cucumber.java.en.When;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
 
 public class ShipmentOrderStepDefinitions {
+	  private WareFlow wareFlow = WareFlowApplication.getWareFlow();
+	  private List<TOShipmentOrder> orders;
+	  
 
   private final WareFlow wareFlow = WareFlowApplication.getWareFlow();
   @Given("the following employees exist in the system")
@@ -44,17 +59,18 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * @author Jordan Buchanan
+   * @param dataTable Cucumber DataTable containing the name and expectedLifeSpanInDays of the item
+   *        types that must exist in the system.
+   */
   @Given("the following items exist in the system")
   public void the_following_items_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
-  }
+    List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
+	for (Map<String, String> row : rows) {
+	      wareFlow.addItemType(row.get("name"), Integer.parseInt(row.get("expectedLifeSpanInDays")));
+		}
+    }
 
   @Given("order {string} is marked as {string} with requires approval {string}")
   public void order_is_marked_as_with_requires_approval(String string, String string2,
@@ -119,10 +135,12 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * @author Jordan Buchanan
+   */
   @When("the manager attempts to view all shipment orders in the system")
   public void the_manager_attempts_to_view_all_shipment_orders_in_the_system() {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+	    orders = ShipmentOrderController.getOrders();
   }
 
   @When("the warehouse staff attempts to start the order {string}")
@@ -186,17 +204,39 @@ public class ShipmentOrderStepDefinitions {
     throw new io.cucumber.java.PendingException();
   }
 
+  /**
+   * @author Jordan Buchanan
+   * 
+   * @param string the orderId of a specific order in the system.
+   * @param dataTable Cucumber DataTable containing the noteTaker, addedOnDate and description of
+   *        the notes of the order with the provided orderId.
+   */
   @Then("the order with id {string} shall have the following notes")
   public void the_order_with_id_shall_have_the_following_notes(String string,
       io.cucumber.datatable.DataTable dataTable) {
-    // Write code here that turns the phrase above into concrete actions
-    // For automatic transformation, change DataTable to one of
-    // E, List[E], List[List[E]], List[Map[K,V]], Map[K,V] or
-    // Map[K, List[V]]. E,K,V must be a String, Integer, Float,
-    // Double, Byte, Short, Long, BigInteger or BigDecimal.
-    //
-    // For other transformations you can register a DataTableType.
-    throw new io.cucumber.java.PendingException();
+	  int orderID = Integer.parseInt(string);
+	    TOShipmentOrder currOrder = null;
+	    for (var order : orders) {
+	      if (order.getId() == orderID) {
+	        currOrder = order;
+	      }
+	    }
+
+	    assertNotNull(currOrder);
+
+	    List<TOShipmentNote> currShipmentNotes = currOrder.getNotes();
+	    List<Map<String, String>> rows = dataTable.asMaps();
+	    int i = 0;
+	    for (var row : rows) {
+	      TOShipmentNote currNote = currShipmentNotes.get(i);
+	      String noteTaker = row.get("noteTaker");
+	      assertEquals(noteTaker, currNote.getNoteTakerUsername());
+	      Date date = Date.valueOf(row.get("date"));
+	      assertEquals(date, currNote.getDate());
+	      String description = row.get("description");
+	      assertEquals(description, currNote.getDescription());
+	      i++;
+	    }
   }
 
   @Then("the order with id {string} shall have no notes")
