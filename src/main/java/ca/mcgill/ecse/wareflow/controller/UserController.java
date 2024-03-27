@@ -14,19 +14,18 @@ public class UserController {
      * @author Yvehenry Julsain
      * This method is used to update the manager's password within the WareFlow application.
      */
-
     public static String updateManager(String password) {
         Manager manager = wareFlow.getManager();
         String message = "";
         if (password.isEmpty()) {
-            message += "The password must not be empty. ";
+            message += "Password cannot be empty";
         }
         if (!(password.isEmpty())) {
             if (password.length() < 4) {
-                message += "Password must be at least four characters long. ";
+                message += "Password must be at least four characters long.";
             }
             if (!(password.contains("!") || password.contains("#") || password.contains("$"))) {
-                message += "Password must contain one character out of !#$ ";
+                message += "Password must contain a special character out of <!#$> ";
             }
             char[] passwordArray = password.toCharArray();
             boolean containsUppercase = false;
@@ -44,10 +43,10 @@ public class UserController {
                 }
             }
             if (!containsUppercase) {
-                message += "Password must contain an upper case character. ";
+                message += "Password must contain one upper-case character. ";
             }
             if (!containsLowercase) {
-                message += "Password must contain an lower case character. ";
+                message += "Password must contain one lower-case character. ";
             }
         }
 
@@ -57,7 +56,6 @@ public class UserController {
         }
         return message;
     }
-
 
     /**
      * @param username    the username associated to the new employee or client account
@@ -70,21 +68,21 @@ public class UserController {
      * @author Yvehenry Julsain
      * This method is used to add an employee or a client within the WareFlow application.
      */
-
     public static String addEmployeeOrClient(String username, String password, String name, String phoneNumber, boolean isEmployee, String address) { //TODO
 
         StringBuilder message = new StringBuilder();
         if (username.equals("manager")) {
-            message.append("The username cannot be 'manager'. ");
+            message.append("Username cannot be manager");
         }
         if (username.isEmpty()) {
-            message.append("The username must not be empty. ");
+            message.append("Username cannot be empty");
         }
+
         if (!username.isEmpty()) {
             char[] usernameArray = username.toCharArray();
             for (char letter : usernameArray) {
-                if (!("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890 ".contains(String.valueOf(letter)))) {
-                    message.append("The username contains an invalid character. The username can only contain letters from a to z, letters from A to Z, and numbers from 0 to 9. ");
+                if (("!@#$%^&*( )".contains(String.valueOf(letter)))) {
+                    message.append("Invalid username");
                 }
             }
         }
@@ -122,8 +120,8 @@ public class UserController {
             }
         }
 
-        if (name.isEmpty()) {
-            message.append("The name must not be empty. ");
+        if (name == null) {
+            message.append("The name must not be null. ");
         }
         if (phoneNumber.isEmpty()) {
             message.append("The phone number must not be empty. ");
@@ -133,36 +131,29 @@ public class UserController {
         for (Employee employee : employees) {
             if (username.equals("manager") || username.isEmpty()) break;
             if (employee.getUsername().equals(username)) {
-                message.append("This username is already taken. ");
+                message.append("Username already linked to an employee account");
                 break;
             }
         }
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
-            if (client.getUsername().equals(username) || (message.isEmpty())) {
-                message.append("This username is already taken. ");
+            if (client.getUsername().equals(username) && message.isEmpty()) {
+                message.append("Username already linked to a client account");
                 break;
             }
         }
 
-        if (isEmployee) {
-            //Employee nEmployee = new Employee(username, name, password, phoneNumber, wareFlow);
-            if (message.isEmpty()) {
+        if (message.isEmpty()) {
+            if (isEmployee) {
                 wareFlow.addEmployee(username, name, password, phoneNumber);
-                return "The employee has been successfully added!";
-            }
-        } else {
-            if (address.isEmpty()) {
-                message.append("The address must not be empty. ");
-            }
-            if (message.isEmpty()) {
+                return "Employee added successfully.";
+            } else {
                 wareFlow.addClient(username, name, password, phoneNumber, address);
-                return "The client has been successfully added!";
+                return "Client added successfully.";
             }
         }
         return message.toString();
     }
-
 
     /**
      * @param username       the username associated to the employee or client account we want to make modifications in
@@ -174,29 +165,32 @@ public class UserController {
      * @author Yvehenry Julsain
      * This method is used to update the information associated to an employee or a client account within the WareFlow application.
      */
-
     public static String updateEmployeeOrClient(String username, String newPassword, String newName, String newPhoneNumber, String newAddress) { //TODO
-
         StringBuilder message = new StringBuilder();
         if (username.equals("manager")) {
-            message.append("The username cannot be 'manager'. ");
+            message.append("Username cannot be manager");
         }
         if (username.isEmpty()) {
-            message.append("The username must not be empty. ");
+            message.append("Username cannot be empty");
         }
+
         if (!username.isEmpty()) {
             char[] usernameArray = username.toCharArray();
             for (char letter : usernameArray) {
-                if (!("qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890 ".contains(String.valueOf(letter)))) {
-                    message.append("The username contains an invalid character. The username can only contain letters from a to z, letters from A to Z, and numbers from 0 to 9. ");
+                if (("!@#$%^&*( )".contains(String.valueOf(letter)))) {
+                    message.append("Invalid username");
                 }
             }
+        }
+        if (newPassword.isEmpty()) {
+            message.append("Password cannot be empty");
+            return message.toString();
         }
 
         List<Employee> employees = wareFlow.getEmployees();
         for (Employee employee : employees) {
             if (employee.getUsername().equals(username)) {
-                if (!(newPassword.isEmpty())) {
+                if (!(newPassword == null || newPassword.isEmpty())) {
                     if (newPassword.length() < 4) {
                         message.append("Password must be at least four characters long. ");
                     }
@@ -229,16 +223,22 @@ public class UserController {
                 if (!(newName.isEmpty())) {
                     employee.setName(newName);
                 }
+                if ((newPhoneNumber.isEmpty())) {
+                    employee.setPhoneNumber("");
+                }
                 if (!(newPhoneNumber.isEmpty())) {
                     employee.setPhoneNumber(newPhoneNumber);
                 }
-                if (message.isEmpty()) return "Employee account information successfully updated.";
+                if (!message.isEmpty()) {
+                    return message.toString();
+                }
             }
         }
+
         List<Client> clients = wareFlow.getClients();
         for (Client client : clients) {
             if (client.getUsername().equals(username)) {
-                if (!(newPassword.isEmpty())) {
+                if (!(newPassword == null || newPassword.isEmpty())) {
                     if (newPassword.length() < 4) {
                         message.append("Password must be at least four characters long. ");
                     }
@@ -271,13 +271,21 @@ public class UserController {
                 if (!(newName.isEmpty())) {
                     client.setName(newName);
                 }
+                if ((newPhoneNumber.isEmpty())) {
+                    client.setPhoneNumber("");
+                }
                 if (!(newPhoneNumber.isEmpty())) {
                     client.setPhoneNumber(newPhoneNumber);
+                }
+                if ((newAddress.isEmpty())) {
+                    client.setAddress("");
                 }
                 if (!(newAddress.isEmpty())) {
                     client.setAddress(newAddress);
                 }
-                if (message.isEmpty()) return "Client account information successfully updated.";
+                if (!message.isEmpty()) {
+                    return message.toString();
+                }
             }
         }
         return "The account was not found in the WareFlow application.";
@@ -289,9 +297,6 @@ public class UserController {
      * This method is used to delete an Employee or a Guest within the WareFlow application.
      */
     public static void deleteEmployeeOrClient(String username) {
-
-        WareFlow wareFlow = WareFlowApplication.getWareFlow();
-
         // if the application contains employees or clients, try to delete the user
         if (wareFlow.hasEmployees() || wareFlow.hasClients()) {
             User user = User.getWithUsername(username);

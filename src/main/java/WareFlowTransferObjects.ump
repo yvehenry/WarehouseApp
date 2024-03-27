@@ -8,6 +8,14 @@ class TOShipmentOrder {
   String description;
   String orderPlacer;
 
+  String status;
+
+  // the following three attributes are set to null if no one has been assigned to the order
+  String processedBy;
+  String timeToResolve;
+  String priority;
+  Boolean approvalRequired;
+
   // the following five attributes are set to null (String/Date) / -1 (Integer) if no item container is specified for the order yet
   String itemName;
   Integer expectedLifeSpanInDays;

@@ -33,37 +33,40 @@ public class ShipmentOrderController {
      */
     public static String addShipmentOrder(int id, Date placedOnDate, String description,
                                           String username, int containerNumber, int quantity) {
-        String errorMessage = "";
-
         if (ShipmentOrder.hasWithId(id)) {
-            errorMessage += "Order id already exists";
+            return "Order id already exists";
         }
         if (placedOnDate == null) {
-            errorMessage += "Date cannot be empty";
+            return "Date cannot be empty";
         }
         if (description == null || description.isEmpty()) {
-            errorMessage += "Order description cannot be empty";
+            return "Order description cannot be empty";
         }
         if (!User.hasWithUsername(username)) {
-            errorMessage += "The order placer does not exist";
+            return "The order placer does not exist";
         }
-        if (containerNumber == -1 && quantity != -1) {
-            errorMessage += "Order quantity must be -1 when container is not specified";
+        if (containerNumber == -1 && quantity != 0) {
+            return "Order quantity must 0 when container is not specified";
         }
-        if (quantity < 0) {
-            errorMessage += "Order quantity must be larger than 0 when container is specified";
+        if (containerNumber != -1 && !ItemContainer.hasWithContainerNumber(containerNumber)) {
+            return "The container does not exist";
         }
-        if (!errorMessage.equalsIgnoreCase("")) {
-            return errorMessage;
+        if (quantity <= 0 && containerNumber != -1) {
+            return "Order quantity must be larger than 0 when container is specified";
         }
 
         try {
             ShipmentOrder newOrder = new ShipmentOrder(id, placedOnDate, description, quantity, wareFlow, User.getWithUsername(username));
-            newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
+            if (containerNumber == -1) {
+                newOrder.setContainer(null);
+            } else {
+                newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
+            }
+
         } catch (Exception e) {
             return e.getMessage();
         }
-        return errorMessage;
+        return "";
     }
 
     /**
@@ -84,29 +87,23 @@ public class ShipmentOrderController {
      */
     public static String updateShipmentOrder(int id, Date newPlacedOnDate, String newDescription,
                                              String newUsername, int newContainerNumber, int newQuantity) {
-        String errorMessage = "";
-
-        if (!ShipmentOrder.hasWithId(id)) {
-            errorMessage += "The container does not exist";
-        }
         if (newPlacedOnDate == null) {
-            errorMessage += "Date cannot be empty";
+            return "Date cannot be empty";
         }
         if (newDescription.isEmpty()) {
-            errorMessage += "Order description cannot be empty";
+            return "Order description cannot be empty";
         }
         if (!User.hasWithUsername(newUsername)) {
-            errorMessage += "The order placer does not exist";
+            return "The order placer does not exist";
         }
-        if (newContainerNumber == -1 && newQuantity != -1) {
-            errorMessage += "Order quantity must be -1 when container is not specified";
+        if (newContainerNumber == -1 && newQuantity != 0) {
+            return "Order quantity must 0 when container is not specified";
         }
-        if (newQuantity < 0) {
-            errorMessage += "Order quantity must be larger than 0 when container is specified";
+        if (newContainerNumber != -1 && !ItemContainer.hasWithContainerNumber(newContainerNumber)) {
+            return "The container does not exist";
         }
-
-        if (!errorMessage.equalsIgnoreCase("")) {
-            return errorMessage;
+        if (newQuantity <= 0 && newContainerNumber != -1) {
+            return "Order quantity must be larger than 0 when container is specified";
         }
 
         try {
@@ -114,14 +111,17 @@ public class ShipmentOrderController {
             someShipmentOrder.setPlacedOnDate(newPlacedOnDate);
             someShipmentOrder.setDescription(newDescription);
             someShipmentOrder.setOrderPlacer(User.getWithUsername(newUsername));
-
-            someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
             someShipmentOrder.setQuantity(newQuantity);
+            if (newContainerNumber == -1) {
+                someShipmentOrder.setContainer(null);
+            } else {
+                someShipmentOrder.setContainer(ItemContainer.getWithContainerNumber(newContainerNumber));
+            }
 
         } catch (Exception e) {
             return e.getMessage();
         }
-        return errorMessage;
+        return "";
     }
 
     /**
@@ -139,20 +139,15 @@ public class ShipmentOrderController {
         }
     }
 
-
     /**
      * @return Returns a list of TOShipmentOrder objects representing all ShipmentOrders in the WareFlow System.
      * @author Neeshal Imrit
      * The method is used to get all shipment orders.
      */
     public static List<TOShipmentOrder> getOrders() {
-        final WareFlow wareFlow = WareFlowApplication.getWareFlow();
         List<TOShipmentOrder> shipmentOrders = new ArrayList<>();
         if (wareFlow.hasOrders()) {
-
-
             List<ShipmentOrder> orders = wareFlow.getOrders();
-
 
             // If there are no orders, return an empty list
             if (orders.isEmpty()) {
@@ -167,29 +162,60 @@ public class ShipmentOrderController {
                 Date placedOnDate = order.getPlacedOnDate();
                 String description = order.getDescription();
                 String orderPlacer = order.getOrderPlacer().getUsername();
-                String itemName = order.getContainer().getItemType().getName();
-                int expectedLifeSpanInDays = order.getContainer().getItemType().getExpectedLifeSpanInDays();
-                Date addedOnDate = order.getContainer().getAddedOnDate();
-                int areaNumber = order.getContainer().getAreaNumber();
-                int slotNumber = order.getContainer().getSlotNumber();
+                String status = order.getTicketStatusFullName();
+                
+                String processedBy = null;
+                if (order.hasOrderPicker()){
+                    processedBy = order.getOrderPicker().getName();
+                }
+                String timeToResolve = null;
+                if (order.getTimeToFullfill() != null) {
+                    timeToResolve = order.getTimeToFullfill().toString();
+                }
+                
+                String priority = null;
+                if (order.getPriority() != null){
+                    priority = order.getPriority().toString();
+                }
+                
+                Boolean approvalRequired = false;
+                if (order.hasOrderApprover()){
+                    approvalRequired = true;
+                }
+
+                // verify if the order has an item
+                String itemName = null;
+                int expectedLifeSpanInDays = -1;
+                Date addedOnDate = null;
+                int areaNumber = -1;
+                int slotNumber = -1;
+                
+
+                if (order.getContainer() != null) {
+                    itemName = order.getContainer().getItemType().getName();
+                    expectedLifeSpanInDays = order.getContainer().getItemType().getExpectedLifeSpanInDays();
+                    addedOnDate = order.getContainer().getAddedOnDate();
+                    areaNumber = order.getContainer().getAreaNumber();
+                    slotNumber = order.getContainer().getSlotNumber();
+                }
 
                 // Generate ToShipmentNote objects for each note in the shipment order
-                List<TOShipmentNote> notes = new ArrayList<>();
-                List<ShipmentNote> shipmentNotes = order.getShipmentNotes();
+                TOShipmentNote[] toNotes = new TOShipmentNote[order.numberOfShipmentNotes()];
 
-                if (shipmentNotes != null) {
+                int i = 0;
+                if (order.hasShipmentNotes()) {
+                    List<ShipmentNote> shipmentNotes = order.getShipmentNotes();
                     for (ShipmentNote note : shipmentNotes) {
                         Date date = note.getDate();
                         String noteTakerUsername = note.getNoteTaker().getUsername();
                         String noteDescription = note.getDescription();
-                        TOShipmentNote shipmentNote = new TOShipmentNote(date, noteDescription, noteTakerUsername);
-                        notes.add(shipmentNote);
+                        toNotes[i] = new TOShipmentNote(date, noteDescription, noteTakerUsername);
+                        i++;
                     }
                 }
 
                 // Create a new TOShipmentOrder object and add it to the list of shipment orders
-                TOShipmentNote[] noteArray = new TOShipmentNote[notes.size()];
-                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, noteArray);
+                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description,orderPlacer,status,processedBy,timeToResolve,priority,approvalRequired, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
                 shipmentOrders.add(shipmentOrder);
             }
         }

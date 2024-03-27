@@ -1,11 +1,12 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.33.0.6934.a386b0a58 modeling language!*/
+/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
-// line 44 "../../../../../WareFlow.ump"
+// line 1 "../../../../../WareFlowStates.ump"
+// line 46 "../../../../../WareFlow.ump"
 public class ShipmentOrder
 {
 
@@ -33,6 +34,10 @@ public class ShipmentOrder
   private int quantity;
   private TimeEstimate timeToFullfill;
   private PriorityLevel priority;
+
+  //ShipmentOrder State Machines
+  public enum TicketStatus { Open, Assigned, InProgress, Completed, Closed }
+  private TicketStatus ticketStatus;
 
   //ShipmentOrder Associations
   private List<ShipmentNote> shipmentNotes;
@@ -66,6 +71,7 @@ public class ShipmentOrder
     {
       throw new RuntimeException("Unable to create placedOrder due to orderPlacer. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
+    setTicketStatus(TicketStatus.Open);
   }
 
   //------------------------
@@ -169,6 +175,127 @@ public class ShipmentOrder
   public PriorityLevel getPriority()
   {
     return priority;
+  }
+
+  public String getTicketStatusFullName()
+  {
+    String answer = ticketStatus.toString();
+    return answer;
+  }
+
+  public TicketStatus getTicketStatus()
+  {
+    return ticketStatus;
+  }
+
+  public boolean assign(WarehouseStaff orderFixer,PriorityLevel priorityLevel,TimeEstimate timeEstimate,boolean isRequired)
+  {
+    boolean wasEventProcessed = false;
+    
+    TicketStatus aTicketStatus = ticketStatus;
+    switch (aTicketStatus)
+    {
+      case Open:
+        // line 4 "../../../../../WareFlowStates.ump"
+        assignTo(orderFixer);
+            setPriorityLevel(priorityLevel);
+            setTimeEstimate(timeEstimate);
+            setRequiresManagerApproval(isRequired);
+        setTicketStatus(TicketStatus.Assigned);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean startWork()
+  {
+    boolean wasEventProcessed = false;
+    
+    TicketStatus aTicketStatus = ticketStatus;
+    switch (aTicketStatus)
+    {
+      case Assigned:
+        setTicketStatus(TicketStatus.InProgress);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean markAsResolved()
+  {
+    boolean wasEventProcessed = false;
+    
+    TicketStatus aTicketStatus = ticketStatus;
+    switch (aTicketStatus)
+    {
+      case InProgress:
+        if (!(requiresManagerApproval()))
+        {
+          setTicketStatus(TicketStatus.Closed);
+          wasEventProcessed = true;
+          break;
+        }
+        if (requiresManagerApproval())
+        {
+          setTicketStatus(TicketStatus.Completed);
+          wasEventProcessed = true;
+          break;
+        }
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean approveWork()
+  {
+    boolean wasEventProcessed = false;
+    
+    TicketStatus aTicketStatus = ticketStatus;
+    switch (aTicketStatus)
+    {
+      case Completed:
+        setTicketStatus(TicketStatus.Closed);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  public boolean disapproveWork(Date date,String reason)
+  {
+    boolean wasEventProcessed = false;
+    
+    TicketStatus aTicketStatus = ticketStatus;
+    switch (aTicketStatus)
+    {
+      case Completed:
+        setTicketStatus(TicketStatus.InProgress);
+        wasEventProcessed = true;
+        break;
+      default:
+        // Other states do respond to this event
+    }
+
+    return wasEventProcessed;
+  }
+
+  private void setTicketStatus(TicketStatus aTicketStatus)
+  {
+    ticketStatus = aTicketStatus;
   }
   /* Code from template association_GetMany */
   public ShipmentNote getShipmentNote(int index)
@@ -445,6 +572,33 @@ public class ShipmentOrder
       this.orderApprover = null;
       placeholderOrderApprover.removeOrdersForApproval(this);
     }
+  }
+
+  // line 27 "../../../../../WareFlowStates.ump"
+   private void assignTo(WarehouseStaff warehouseStaff){
+    setOrderPicker(warehouseStaff);
+  }
+
+  // line 30 "../../../../../WareFlowStates.ump"
+   private void setPriorityLevel(PriorityLevel priorityLevel){
+    setPriority(priorityLevel);
+  }
+
+  // line 34 "../../../../../WareFlowStates.ump"
+   private void setTimeEstimate(TimeEstimate timeEstimate){
+    setTimeToFullfill(timeEstimate);
+  }
+
+  // line 38 "../../../../../WareFlowStates.ump"
+   private void setRequiresManagerApproval(boolean isRequired){
+    if (isRequired) {
+            setOrderApprover(getWareFlow().getManager());
+        }
+  }
+
+  // line 43 "../../../../../WareFlowStates.ump"
+   private boolean requiresManagerApproval(){
+    return hasOrderApprover();
   }
 
 

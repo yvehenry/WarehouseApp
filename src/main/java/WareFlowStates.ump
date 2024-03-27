@@ -1,0 +1,45 @@
+class ShipmentOrder {
+	ticketStatus {
+      Open {
+      	assign(WarehouseStaff orderFixer, PriorityLevel priorityLevel, TimeEstimate timeEstimate, boolean isRequired) / {
+            assignTo(orderFixer);
+            setPriorityLevel(priorityLevel);
+            setTimeEstimate(timeEstimate);
+            setRequiresManagerApproval(isRequired);
+        } -> Assigned;
+      }
+      Assigned {
+        startWork() -> InProgress;
+      }
+      InProgress {
+      	markAsResolved() [!requiresManagerApproval()] -> Closed;
+        markAsResolved() [requiresManagerApproval()] -> Completed;
+      }
+      Completed {
+      	approveWork() -> Closed;
+        disapproveWork(Date date, String reason) -> InProgress;
+      }
+      Closed {
+      }
+    }
+
+    private void assignTo(WarehouseStaff warehouseStaff) {
+        setOrderPicker(warehouseStaff);
+    }
+    private void setPriorityLevel(PriorityLevel priorityLevel) {
+        setPriority(priorityLevel);
+    }
+    
+    private void setTimeEstimate(TimeEstimate timeEstimate) {
+        setTimeToFullfill(timeEstimate);
+    }
+    
+    private void setRequiresManagerApproval(boolean isRequired) {
+        if (isRequired) {
+            setOrderApprover(getWareFlow().getManager());
+        }
+    }
+  	private boolean requiresManagerApproval() {
+        return hasOrderApprover();
+    }
+}

@@ -26,20 +26,14 @@ public class ItemContainerController {
                                           Date addedOnDate, String itemTypeName) {
         String errorMessage = "";
 
-        if (!ItemContainer.hasWithContainerNumber(containerNumber)) {
-            errorMessage += "The item in the container already exists!";
-        }
-        if (!ItemType.hasWithName(itemTypeName)) {
-            errorMessage += "The item type doesn't exist!";
-        }
-        if (containerNumber < 1) {
-            errorMessage += "The container number must be greater or equal to 1!";
-        }
         if (areaNumber < 0) {
-            errorMessage += "The area number must be greater or equal to 0!";
-        }
-        if (slotNumber < 0) {
-            errorMessage += "The slot number must be greater or equal to 0!";
+            errorMessage += "The area number shall not be less than 0";
+        } else if (slotNumber < 0) {
+            errorMessage += "The slot number shall not be less than 0";
+        } else if (containerNumber < 1) {
+            errorMessage += "The container number shall not be less than 1";
+        } else if (!ItemType.hasWithName(itemTypeName)) {
+            errorMessage += "The item type does not exist";
         }
 
         if (!errorMessage.equalsIgnoreCase("")) {
@@ -49,7 +43,7 @@ public class ItemContainerController {
         try {
             wareFlow.addItemContainer(containerNumber, areaNumber, slotNumber, addedOnDate, ItemType.getWithName(itemTypeName));
         } catch (Exception e) {
-            return e.getMessage();
+            return errorMessage;
         }
 
         return errorMessage;
@@ -70,20 +64,14 @@ public class ItemContainerController {
                                              int newSlotNumber, Date newAddedOnDate, String newItemTypeName) {
         String errorMessage = "";
 
-        if (!ItemContainer.hasWithContainerNumber(containerNumber)) {
-            errorMessage += "The item in the container already exists!";
-        }
-        if (!ItemType.hasWithName(newItemTypeName)) {
-            errorMessage += "The item type doesn't exist!";
-        }
-        if (containerNumber < 1) {
-            errorMessage += "The container number must be greater or equal to 1!";
-        }
         if (newAreaNumber < 0) {
-            errorMessage += "The area number must be greater or equal to 0!";
-        }
-        if (newSlotNumber < 0) {
-            errorMessage += "The slot number must be greater or equal to 0!";
+            errorMessage += "The area number shall not be less than 0";
+        } else if (newSlotNumber < 0) {
+            errorMessage += "The slot number shall not be less than 0";
+        } else if (containerNumber < 1) {
+            errorMessage += "The container number shall not be less than 1";
+        } else if (!ItemType.hasWithName(newItemTypeName) || !ItemContainer.hasWithContainerNumber(containerNumber)) {
+            errorMessage += "The item type does not exist";
         }
 
         if (!errorMessage.equalsIgnoreCase("")) {
@@ -97,7 +85,7 @@ public class ItemContainerController {
             itemInContainer.setItemType(ItemType.getWithName(newItemTypeName));
             itemInContainer.setAddedOnDate(newAddedOnDate);
         } catch (Exception e) {
-            return e.getMessage();
+            return errorMessage;
         }
 
         return errorMessage;
