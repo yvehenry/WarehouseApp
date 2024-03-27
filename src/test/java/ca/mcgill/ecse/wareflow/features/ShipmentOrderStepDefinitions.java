@@ -3,13 +3,15 @@ package ca.mcgill.ecse.wareflow.features;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Order;
 
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TicketStatus;
+
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
@@ -25,14 +27,7 @@ import ca.mcgill.ecse.wareflow.model.*;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.model.ItemContainer;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
-import org.junit.Assert;
 
-import java.sql.Date;
-import java.util.List;
-import java.util.Map;
 
 public class ShipmentOrderStepDefinitions {
 	  
