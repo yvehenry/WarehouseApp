@@ -215,11 +215,7 @@ public class ShipmentOrderController {
                 }
 
                 // Create a new TOShipmentOrder object and add it to the list of shipment orders
-<<<<<<< HEAD
                 TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description,orderPlacer,status,processedBy,timeToResolve,priority,approvalRequired, itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
-=======
-                TOShipmentOrder shipmentOrder = new TOShipmentOrder(id, quantity, placedOnDate, description, orderPlacer,itemName, expectedLifeSpanInDays, addedOnDate, areaNumber, slotNumber, toNotes);
->>>>>>> Jordan-ShipmentOrderStepDef
                 shipmentOrders.add(shipmentOrder);
             }
         }
