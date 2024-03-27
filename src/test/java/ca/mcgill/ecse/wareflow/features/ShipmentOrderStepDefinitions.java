@@ -27,6 +27,15 @@ import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
 import ca.mcgill.ecse.wareflow.model.ItemContainer;
 
 
+import javafx.scene.layout.Priority;
+import ca.mcgill.ecse.wareflow.*;
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.controller.OrderController;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
+import ca.mcgill.ecse.wareflow.model.WareFlow;
+import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
 
 public class ShipmentOrderStepDefinitions {
 	  
@@ -83,11 +92,43 @@ public class ShipmentOrderStepDefinitions {
 		}
     }
 
-  @Given("order {string} is marked as {string} with requires approval {string}")
-  public void order_is_marked_as_with_requires_approval(String string, String string2,
-      String string3) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+  /**
+   * Gherkin step definition method to assign the order with orderId a marking marking,
+   * and if necessary, a ticket approver.
+   * 
+   * @param orderId String containing the order ID for a specific shipment order.
+   * @param marking String containing the state of the order.
+   * @param requiresApproval String containing "true" if the order needs the manager's approval and "false" otherwise.
+   */
+  @Given("order {string} is marked as {string} with requires approval {string}") //TODO
+  public void order_is_marked_as_with_requires_approval(String orderId, String marking,
+      String requiresApproval) {
+    ShipmentOrder markedOrderApproval = ShipmentOrder.getWithId(Integer.parseInt(orderId));
+
+    WarehouseStaff orderFixer = (WarehouseStaff) wareFlow.getManager();
+    PriorityLevel priorityLevel = PriorityLevel.Low;
+    TimeEstimate timeEstimate = TimeEstimate.LessThanADay;
+    
+    if (marking.equalsIgnoreCase("assigned"))
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, false);
+    else if (marking.equalsIgnoreCase("open"));
+    else if (marking.equalsIgnoreCase("inprogress")) {
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, false);
+      markedOrderApproval.startWork();
+    }
+    else if (marking.equalsIgnoreCase("resolved")) {
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, true);
+      markedOrderApproval.startWork();
+      markedOrderApproval.markAsResolved();
+    }
+    else if (marking.equalsIgnoreCase("closed")) {
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, false);
+      markedOrderApproval.startWork();
+      markedOrderApproval.markAsResolved();
+    }
+    
+    if (requiresApproval.equalsIgnoreCase("true"))
+    markedOrderApproval.setOrderApprover(wareFlow.getManager());
   }
   /**
   * Initializes shipment order with a specific containerNumber, type, purchaseDate, areaNumber, and slotNumber for future testing
@@ -229,11 +270,17 @@ public class ShipmentOrderStepDefinitions {
     OrderController.assign(id, orderFixer, timeEstimate, priorityLevel, requiresApproval);
   }
 
-    @When("the warehouse staff attempts to complete the order {string}")
-    public void the_warehouse_staff_attempts_to_complete_the_order(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
+  /**
+   * Gherkin step definition method to set the order status as completed.
+   *
+   * @author Yvehenry Julsain
+   * @param string String containing the order ID of the shipment order to mark as completed.
+   */
+  @When("the warehouse staff attempts to complete the order {string}") //TODO
+  public void the_warehouse_staff_attempts_to_complete_the_order(String string) {
+    ShipmentOrder completedOrder = ShipmentOrder.getWithId(Integer.parseInt(string));
+    OrderController.completeShipmentOrder(completedOrder);
+  }
 
     /**
      * Attempts to disapprove work on an order on a specific date and for a specific reason.
@@ -378,16 +425,30 @@ public class ShipmentOrderStepDefinitions {
 	    }
   }
 
-    @Then("the order with id {string} shall have no notes")
-    public void the_order_with_id_shall_have_no_notes(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
+  /**
+   * Gherkin step definition method to verify if the order with the ID "string" has 0 notes.
+   * 
+   * @author Yvehenry Julsain
+   * @param string String containing the order ID of the shipment order containing 0 notes.
+   */
+  @Then("the order with id {string} shall have no notes") //TODO
+  public void the_order_with_id_shall_have_no_notes(String string) {
+    ShipmentOrder orderWithNoNotes = ShipmentOrder.getWithId(Integer.parseInt(string));
+    if (orderWithNoNotes.numberOfShipmentNotes() != 0)
+      throw new AssertionError();
+  }
 
-  @Then("the order {string} shall not exist in the system")
+  /**
+   * Gherkin step definition method to verify if an order with the ID "string" exists.
+   * 
+   * @author Yvehenry Julsain
+   * @param string String containing the order ID for the shipment order which is being searched.
+   */
+  @Then("the order {string} shall not exist in the system") //TODO
   public void the_order_shall_not_exist_in_the_system(String string) {
-    // Write code here that turns the phrase above into concrete actions
-    throw new io.cucumber.java.PendingException();
+    //ShipmentOrder nonExistantOrder = ShipmentOrder.getWithId(Integer.parseInt(string));
+    if (ShipmentOrder.hasWithId(Integer.parseInt(string)))
+      throw new AssertionError();
   }
 /**
  * This step checks that the number of orders in the system is the expected amount
