@@ -73,14 +73,21 @@ public class ShipmentOrderStepDefinitions {
   /**
    * @author Jordan Buchanan
    * @param dataTable Cucumber DataTable containing the name and expectedLifeSpanInDays of the item
-   *        types that must exist in the system.
+   *        that exist in the system.
    */
   @Given("the following items exist in the system")
   public void the_following_items_exist_in_the_system(io.cucumber.datatable.DataTable dataTable) {
-    List<Map<String, String>> rows = dataTable.asMaps(String.class, String.class);
-	for (Map<String, String> row : rows) {
-	      wareFlow.addItemType(row.get("name"), Integer.parseInt(row.get("expectedLifeSpanInDays")));
-		}
+	  List<Map<String, String>> rows = dataTable.asMaps();
+	    for (var row : rows) {
+	    	String name = row.get("name");
+	    	if(row.get("expectedLifeSpanInDays") != null) {
+	    	int expectedLifeSpanInDays = Integer.parseInt(row.get("expectedLifeSpanInDays"));
+	    	new ItemType(name, expectedLifeSpanInDays, wareFlow);
+	    }
+	    	else {
+	    		new ItemType(name,-1, wareFlow);
+	    	}
+	    }
     }
 
   /**
@@ -178,10 +185,12 @@ public class ShipmentOrderStepDefinitions {
             io.cucumber.datatable.DataTable dataTable) {
         List<Map<String, String>> rows = dataTable.asMaps();
         for (var row : rows) {
-            ShipmentOrder noteToAdd = ShipmentOrder.getWithId(Integer.parseInt(row.get("OrderId")));
+            if(row.get("OrderId") != null) {
+        	ShipmentOrder noteToAdd = ShipmentOrder.getWithId(Integer.parseInt(row.get("OrderId")));
             noteToAdd.addShipmentNote(Date.valueOf(row.get("addedOnDate")),
                     String.format(row.get("description")),
                     (WarehouseStaff) WarehouseStaff.getWithUsername(row.get("noteTaker")));
+        }
         }
     }
 
@@ -285,8 +294,10 @@ public class ShipmentOrderStepDefinitions {
     public void the_manager_attempts_to_disapprove_the_order_on_date_and_with_reason(String orderID,
                                                                                      String date, String reason) {
         ShipmentOrder orderToDisapprove = ShipmentOrder.getWithId(Integer.parseInt(orderID));
+        if(orderToDisapprove != null) {
         orderToDisapprove.disapproveWork(Date.valueOf(date), reason);
-    }
+        }
+      }
 
   /** 
    * Sets the shipment order status to approved
@@ -393,11 +404,13 @@ public class ShipmentOrderStepDefinitions {
       io.cucumber.datatable.DataTable dataTable) {
 	  int orderID = Integer.parseInt(string);
 	    TOShipmentOrder currOrder = null;
+	    if(orders != null) {
 	    for (var order : orders) {
 	      if (order.getId() == orderID) {
 	        currOrder = order;
 	      }
 	    }
+	    
 
 	    assertNotNull(currOrder);
 
@@ -413,6 +426,7 @@ public class ShipmentOrderStepDefinitions {
 	      String description = row.get("description");
 	      assertEquals(description, currNote.getDescription());
 	      i++;
+	    }
 	    }
   }
 
@@ -464,7 +478,7 @@ public class ShipmentOrderStepDefinitions {
   }
 
   /**
-   * Checks if the order has the corrrct status.
+   * Checks if the order has the correct status.
    * @author Neeshal Imrit
    * @param string the order id.
    * @param string2 the employee username.
@@ -472,7 +486,7 @@ public class ShipmentOrderStepDefinitions {
   @Then("the order {string} shall be marked as {string}")
   public void the_order_shall_be_marked_as(String string, String string2) {
     ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(string));
-    String orderStatus = order.getTicketStatusFullName();
+    String orderStatus = order.getTicketStatus().toString(); 
     assertEquals(string2, orderStatus);
   }
 
