@@ -16,24 +16,15 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentNote;
 import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.ItemType;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.User;
-import ca.mcgill.ecse.wareflow.model.WareFlow;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import ca.mcgill.ecse.wareflow.model.*;
 import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
-import ca.mcgill.ecse.wareflow.model.ItemContainer;
-
-
 import javafx.scene.layout.Priority;
 import ca.mcgill.ecse.wareflow.*;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
-import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
-import ca.mcgill.ecse.wareflow.model.WareFlow;
-import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
 
@@ -205,9 +196,9 @@ public class ShipmentOrderStepDefinitions {
     ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(orderID));
 
     WarehouseStaff orderPicker = (WarehouseStaff) wareFlow.getManager(); // Here we chose the manager as the assigned hotel staff to a ticket as there's always a manager but we are unaware of the existing employees and it is possible that no employees other than the manager exists.
-    PriorityLevel priorityLevel = PriorityLevel.Low; // Initialise at lowest possible value.
-    TimeEstimate timeEstimate = TimeEstimate.LessThanADay; // Initialise at lowest possible value.
-    Boolean requiresApproval = order.hasShipmentNotes();
+    PriorityLevel priorityLevel = PriorityLevel.Low; 
+    TimeEstimate timeEstimate = TimeEstimate.ThreeToSevenDays; 
+    Boolean requiresApproval = order.hasOrderApprover();
 
     if (state.equalsIgnoreCase("assigned")) {
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
@@ -216,7 +207,7 @@ public class ShipmentOrderStepDefinitions {
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
       order.startWork();
     }
-    if (state.equalsIgnoreCase("resolved")) {
+    if (state.equalsIgnoreCase("completed")) {
       requiresApproval = true;
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
       order.startWork();
