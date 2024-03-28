@@ -74,7 +74,7 @@ public class ShipmentOrderStepDefinitions {
     List<Map<String, String>> rows = dataTable.asMaps();
 
     for (var row : rows) {
-      new Manager(row.get("email"), "", row.get("password"), "", wareFlow);
+      new Manager(row.get("username"), "", row.get("password"), "", wareFlow);
     }
 
   }
