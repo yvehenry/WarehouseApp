@@ -276,7 +276,7 @@ public class ShipmentOrderStepDefinitions {
    * @author Yvehenry Julsain
    * @param string String containing the order ID of the shipment order to mark as completed.
    */
-  @When("the warehouse staff attempts to complete the order {string}") //TODO
+  @When("the warehouse staff attempts to complete the order {string}")
   public void the_warehouse_staff_attempts_to_complete_the_order(String string) {
     ShipmentOrder completedOrder = ShipmentOrder.getWithId(Integer.parseInt(string));
     OrderController.completeShipmentOrder(completedOrder);

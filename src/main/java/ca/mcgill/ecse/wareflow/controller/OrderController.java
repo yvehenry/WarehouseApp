@@ -233,7 +233,7 @@ public class OrderController {
         }
 
         try {
-            dissaproveOrder.approveWork();
+            dissaproveOrder.disapproveWork(date,reason);
             new ShipmentNote(date, reason, dissaproveOrder, dissaproveOrder.getWareFlow().getManager());
         } catch (Exception e) {
             errorMessage += "Other exceptions.";
