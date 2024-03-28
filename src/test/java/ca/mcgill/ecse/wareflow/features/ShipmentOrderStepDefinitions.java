@@ -212,7 +212,7 @@ public class ShipmentOrderStepDefinitions {
     if (state.equalsIgnoreCase("assigned")) {
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
     }
-    if (state.equalsIgnoreCase("inprogess")) {
+    if (state.equalsIgnoreCase("inprogress")) {
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
       order.startWork();
     }
