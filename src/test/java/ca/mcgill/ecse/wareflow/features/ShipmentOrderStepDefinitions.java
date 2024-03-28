@@ -87,39 +87,44 @@ public class ShipmentOrderStepDefinitions {
    * Gherkin step definition method to assign the order with orderId a marking marking,
    * and if necessary, a ticket approver.
    * 
+   * @author Yvehenry Julsain
    * @param orderId String containing the order ID for a specific shipment order.
    * @param marking String containing the state of the order.
    * @param requiresApproval String containing "true" if the order needs the manager's approval and "false" otherwise.
    */
-  @Given("order {string} is marked as {string} with requires approval {string}") //TODO
-  public void order_is_marked_as_with_requires_approval(String orderId, String marking,
-      String requiresApproval) {
-    ShipmentOrder markedOrderApproval = ShipmentOrder.getWithId(Integer.parseInt(orderId));
+  @Given("order {string} is marked as {string} with requires approval {string}") 
+  public void order_is_marked_as_with_requires_approval(String string ,String string2,
+      String string3) {
+    ShipmentOrder markedOrderApproval = ShipmentOrder.getWithId(Integer.parseInt(string));
 
     WarehouseStaff orderFixer = (WarehouseStaff) wareFlow.getManager();
     PriorityLevel priorityLevel = PriorityLevel.Low;
     TimeEstimate timeEstimate = TimeEstimate.LessThanADay;
+
+    if (string3.equalsIgnoreCase("true")){
+     markedOrderApproval.setOrderApprover(wareFlow.getManager());
+    }
+    Boolean requiresApproval = Boolean.parseBoolean(string3);
     
-    if (marking.equalsIgnoreCase("assigned"))
-      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, false);
-    else if (marking.equalsIgnoreCase("open"));
-    else if (marking.equalsIgnoreCase("inprogress")) {
-      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, false);
+    if (string2.equalsIgnoreCase("assigned")){
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, requiresApproval);
+    }
+    else if (string2.equalsIgnoreCase("inprogress")) {
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, requiresApproval);
       markedOrderApproval.startWork();
     }
-    else if (marking.equalsIgnoreCase("resolved")) {
-      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, true);
+    else if (string2.equalsIgnoreCase("completed")) {
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, requiresApproval);
       markedOrderApproval.startWork();
       markedOrderApproval.markAsResolved();
     }
-    else if (marking.equalsIgnoreCase("closed")) {
-      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, false);
+    else if (string2.equalsIgnoreCase("closed")) {
+      markedOrderApproval.assign(orderFixer, priorityLevel, timeEstimate, requiresApproval);
       markedOrderApproval.startWork();
       markedOrderApproval.markAsResolved();
     }
     
-    if (requiresApproval.equalsIgnoreCase("true"))
-    markedOrderApproval.setOrderApprover(wareFlow.getManager());
+
   }
   /**
   * Initializes shipment order with a specific containerNumber, type, purchaseDate, areaNumber, and slotNumber for future testing
@@ -391,7 +396,9 @@ public class ShipmentOrderStepDefinitions {
   @Then("the order with id {string} shall have the following notes")
   public void the_order_with_id_shall_have_the_following_notes(String string,
       io.cucumber.datatable.DataTable dataTable) {
-	  int orderID = Integer.parseInt(string);
+	    
+      int orderID = Integer.parseInt(string);
+      
 	    TOShipmentOrder currOrder = null;
 	    for (var order : orders) {
 	      if (order.getId() == orderID) {
