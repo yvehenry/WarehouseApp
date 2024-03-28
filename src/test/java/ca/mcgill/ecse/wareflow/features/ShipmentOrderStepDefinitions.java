@@ -27,6 +27,7 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TicketStatus;
 
 public class ShipmentOrderStepDefinitions {
 	  
@@ -176,6 +177,34 @@ public class ShipmentOrderStepDefinitions {
         newOrder.setContainer(ItemContainer.getWithContainerNumber(containerNumber));
       }
 
+      // Check status of shipment order
+      TicketStatus status = TicketStatus.valueOf(row.get("status"));
+      if (status != TicketStatus.Open){
+
+        User orderPicker = User.getWithUsername(row.get("processedBy"));
+        TimeEstimate timeEstimate = TimeEstimate.valueOf(row.get("timeToResolve"));
+        PriorityLevel priorityLevel = PriorityLevel.valueOf(row.get("priority"));
+        boolean requiresApproval = Boolean.parseBoolean(row.get("approvalRequired"));
+
+        if (status == TicketStatus.Assigned){
+          newOrder.assign((WarehouseStaff) orderPicker, priorityLevel, timeEstimate, requiresApproval);
+        }
+        else if (status == TicketStatus.InProgress){
+          newOrder.assign((WarehouseStaff) orderPicker, priorityLevel, timeEstimate, requiresApproval);
+          newOrder.startWork();
+        }
+        else if (status == TicketStatus.Completed){
+          newOrder.assign((WarehouseStaff) orderPicker, priorityLevel, timeEstimate, requiresApproval);
+          newOrder.startWork();
+          newOrder.markAsResolved();
+        }
+        else if (status == TicketStatus.Closed){
+          newOrder.assign((WarehouseStaff) orderPicker, priorityLevel, timeEstimate, requiresApproval);
+          newOrder.startWork();
+          newOrder.markAsResolved();
+          newOrder.approveWork();
+        }
+      }
     }
   }
 
@@ -202,32 +231,32 @@ public class ShipmentOrderStepDefinitions {
   /**
    * This step sets the Shipment Order with the provided ID to the provided state.
    * @author Benjamin Bouhdana 
-   * @param orderID The order ID number
-   * @param state The state of the order
+   * @param string The order ID number
+   * @param string2 The state of the order
    */
   @Given("order {string} is marked as {string}")
-  public void order_is_marked_as(String orderID, String state) {
-    ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(orderID));
+  public void order_is_marked_as(String string, String string2) {
+    ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(string));
 
     WarehouseStaff orderPicker = (WarehouseStaff) wareFlow.getManager(); // Here we chose the manager as the assigned hotel staff to a ticket as there's always a manager but we are unaware of the existing employees and it is possible that no employees other than the manager exists.
     PriorityLevel priorityLevel = PriorityLevel.Low; 
-    TimeEstimate timeEstimate = TimeEstimate.ThreeToSevenDays; 
+    TimeEstimate timeEstimate = TimeEstimate.OneToThreeDays; 
     Boolean requiresApproval = order.hasOrderApprover();
 
-    if (state.equalsIgnoreCase("assigned")) {
+    if (string2.equalsIgnoreCase("assigned")) {
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
     }
-    if (state.equalsIgnoreCase("inprogress")) {
+    if (string2.equalsIgnoreCase("inprogress")) {
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
       order.startWork();
     }
-    if (state.equalsIgnoreCase("completed")) {
+    if (string2.equalsIgnoreCase("completed")) {
       requiresApproval = true;
       order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
       order.startWork();
        order.markAsResolved();
     }
-    if (state.equalsIgnoreCase("closed")) {
+    if (string2.equalsIgnoreCase("closed")) {
       order.assign(orderPicker, priorityLevel, timeEstimate, false);
       order.startWork();
       order.markAsResolved();
