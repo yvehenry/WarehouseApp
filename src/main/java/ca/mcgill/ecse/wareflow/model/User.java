@@ -5,6 +5,10 @@ package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
+/**
+ * implement reinitialize methods for each class that has a 'unique' attribute
+ */
+// line 12 "../../../../../WareFlowPersistence.ump"
 // line 15 "../../../../../WareFlow.ump"
 public abstract class User
 {
@@ -231,6 +235,18 @@ public abstract class User
       ShipmentOrder aPlacedOrder = placedOrders.get(i - 1);
       aPlacedOrder.delete();
     }
+  }
+
+  // line 14 "../../../../../WareFlowPersistence.ump"
+   public static  void reinitializeUniqueUsername(List<Manager> manager, List<Employee> employees, List<Client> clients){
+    usersByUsername.clear();
+        usersByUsername.put(manager.getUsername(), manager);
+        for (var employee: employees) {
+            usersByUsername.put(employee.getUsername(), employee);
+        }
+        for (var client: clients) {
+            usersByUsername.put(client.getUsername(), client);
+        }
   }
 
 

@@ -5,6 +5,10 @@ package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
+/**
+ * TODO add this umple file
+ */
+// line 2 "../../../../../WareFlowPersistence.ump"
 // line 5 "../../../../../WareFlow.ump"
 public class WareFlow
 {
@@ -630,6 +634,15 @@ public class WareFlow
       itemContainers.remove(aItemContainer);
     }
     
+  }
+
+  // line 4 "../../../../../WareFlowPersistence.ump"
+   public void reinitialize(){
+    // all classes with IDS need to be reinitialized here
+    User.reinitializeUniqueUsername(getManager(), getEmployees(), getClients());
+    ShipmentOrder.reinitializeUniqueId(getShipmentOrders());
+    ItemContainer.reinitializeUniqueConatainerNumber(getItemContainers());
+    ItemType.reinitializeUniqueName(getItemTypes());
   }
 
 }

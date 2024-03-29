@@ -1,6 +1,6 @@
 namespace ca.mcgill.ecse.wareflow.model;
 use WareFlowStates.ump;
-
+use WareFlowPersistence.ump;
 
 class WareFlow
 {
