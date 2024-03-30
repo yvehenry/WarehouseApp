@@ -90,7 +90,7 @@ public class OrderController {
             return errorMessage;
         }
         try {
-            rightOrder.setOrderApprover(wareFlow.getManager());
+            //rightOrder.setOrderApprover(wareFlow.getManager());
             rightOrder.assign(rightEmployee, priorityLevel, timeEstimate, requiresApproval);
         } catch (Exception e) {
             errorMessage += "Unknown error";
