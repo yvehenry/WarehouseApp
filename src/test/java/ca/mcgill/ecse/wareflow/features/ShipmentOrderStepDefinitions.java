@@ -221,9 +221,9 @@ public class ShipmentOrderStepDefinitions {
     public void order_is_marked_as(String orderID, String orderState) {
         ShipmentOrder order = ShipmentOrder.getWithId(Integer.parseInt(orderID));
 
-        WarehouseStaff orderPicker = wareFlow.getManager(); // Here we chose the manager as the assigned hotel staff to a ticket as there's always a manager but we are unaware of the existing employees and it is possible that no employees other than the manager exists.
-        PriorityLevel priorityLevel = PriorityLevel.Low;
+        
         TimeEstimate timeEstimate = TimeEstimate.OneToThreeDays;
+        WarehouseStaff orderPicker = wareFlow.getManager(); 
         boolean requiresApproval = order.hasOrderApprover();
 
         if (orderState.equalsIgnoreCase("assigned")) {
