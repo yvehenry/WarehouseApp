@@ -3,7 +3,7 @@ package ca.mcgill.ecse.wareflow.persistence;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.WareFlow;
 
-// TODO refactor this file for your own project
+
 public class WareFlowPersistence {
 
 	// update this to be consistent with instructions on myCourses
