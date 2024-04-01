@@ -5,6 +5,7 @@ package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
+// line 12 "WareFlowPersistence.ump"
 // line 15 "../../../../../WareFlow.ump"
 public abstract class User
 {
@@ -233,6 +234,17 @@ public abstract class User
     }
   }
 
+  // line 14 "WareFlowPersistence.ump"
+  public static  void reinitializeUniqueUsername(Manager manager, List<Employee> employees, List<Client> clients){
+    usersByUsername.clear();
+        usersByUsername.put(manager.getUsername(), manager);
+        for (var employee: employees) {
+            usersByUsername.put(employee.getUsername(), employee);
+        }
+        for (var client: clients) {
+            usersByUsername.put(client.getUsername(), client);
+        }
+  }
 
   public String toString()
   {
@@ -242,4 +254,5 @@ public abstract class User
             "password" + ":" + getPassword()+ "," +
             "phoneNumber" + ":" + getPhoneNumber()+ "]";
   }
+  
 }

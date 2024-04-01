@@ -5,6 +5,7 @@ package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
+// line 43 "WareFlowPersistence.ump"
 // line 76 "../../../../../WareFlow.ump"
 public class ItemType
 {
@@ -239,6 +240,13 @@ public class ItemType
     }
   }
 
+  // line 45 "WareFlowPersistence.ump"
+  public static  void reinitializeUniqueName(List<ItemType> itemTypes){
+    itemtypesByName.clear();
+        for (var itemType: itemTypes) {
+            itemtypesByName.put(itemType.getName(), itemType);
+        }
+  }
 
   public String toString()
   {
