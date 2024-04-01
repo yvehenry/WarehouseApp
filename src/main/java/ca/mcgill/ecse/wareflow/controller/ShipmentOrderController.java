@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.wareflow.controller;
 
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
 import ca.mcgill.ecse.wareflow.model.*;
 
 import java.sql.Date;
@@ -66,6 +67,7 @@ public class ShipmentOrderController {
         } catch (Exception e) {
             return e.getMessage();
         }
+        WareFlowPersistence.save();
         return "";
     }
 
@@ -121,6 +123,7 @@ public class ShipmentOrderController {
         } catch (Exception e) {
             return e.getMessage();
         }
+        WareFlowPersistence.save();
         return "";
     }
 
@@ -134,6 +137,7 @@ public class ShipmentOrderController {
         if (ShipmentOrder.hasWithId(id)) {
             try {
                 ShipmentOrder.getWithId(id).delete();
+                WareFlowPersistence.save();
             } catch (RuntimeException ignored) {
             }
         }
@@ -219,6 +223,7 @@ public class ShipmentOrderController {
                 shipmentOrders.add(shipmentOrder);
             }
         }
+        WareFlowPersistence.save();
         return shipmentOrders;
     }
 }

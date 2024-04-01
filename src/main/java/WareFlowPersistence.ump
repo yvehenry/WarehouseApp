@@ -1,0 +1,50 @@
+//TODO add this umple file
+class WareFlow {
+  public void reinitialize() {
+  	// all classes with IDS need to be reinitialized here
+    User.reinitializeUniqueUsername(getManager(), getEmployees(), getClients());
+    ShipmentOrder.reinitializeUniqueId(getShipmentOrders());
+    ItemContainer.reinitializeUniqueConatainerNumber(getItemContainers());
+    ItemType.reinitializeUniqueName(getItemTypes());
+  }
+}
+// implement reinitialize methods for each class that has a 'unique' attribute
+class User {
+    public static void reinitializeUniqueUsername(List<Manager> manager, List<Employee> employees, List<Client> clients) {
+        usersByUsername.clear();
+        usersByUsername.put(manager.getUsername(), manager);
+        for (var employee: employees) {
+            usersByUsername.put(employee.getUsername(), employee);
+        }
+        for (var client: clients) {
+            usersByUsername.put(client.getUsername(), client);
+        }
+    }
+}
+
+class ShipmentOrder {
+    public static void reinitializeUniqueId(List<ShipmentOrder> orders) {
+        shipmentordersById.clear();
+        for (var order: orders) {
+            shipmentordersById.put(order.getId(), order);
+        }
+    }
+}
+
+class ItemContainer {
+    public static void reinitializeUniqueConatinerNumber(List<ItemContainer> itemContainers) {
+        itemcontainersByContainerNumber.clear();
+        for (var itemContainer: itemContainers) {
+            itemcontainersByContainerNumber.put(itemContainer.getConatinerNumber(), itemContainer);
+        }
+    }
+}
+
+class ItemType {
+    public static void reinitializeUniqueName(List<ItemType> itemType) {
+        itemtypesByName.clear();
+        for (var itemType: itemTypes) {
+            itemtypesByName.put(itemType.getName(), itemType);
+        }
+    }
+}

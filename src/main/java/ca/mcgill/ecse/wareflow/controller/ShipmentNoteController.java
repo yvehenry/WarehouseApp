@@ -4,6 +4,8 @@ import ca.mcgill.ecse.wareflow.model.ShipmentNote;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
 import ca.mcgill.ecse.wareflow.model.User;
 import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
+import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
+
 
 import java.sql.Date;
 
@@ -49,6 +51,7 @@ public class ShipmentNoteController {
                 errorMessage += "Unable to create takedNote due to noteTaker";
             }
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 
@@ -89,6 +92,7 @@ public class ShipmentNoteController {
         } catch (RuntimeException e) {
             return e.getMessage();
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 
@@ -103,6 +107,7 @@ public class ShipmentNoteController {
             try {
                 ShipmentNote removeNote = ShipmentOrder.getWithId(orderID).getShipmentNote(index);
                 removeNote.delete();
+                WareFlowPersistence.save();
             } catch (RuntimeException ignored) {
             }
         }

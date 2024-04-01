@@ -1,6 +1,7 @@
 package ca.mcgill.ecse.wareflow.controller;
 
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
 import ca.mcgill.ecse.wareflow.model.*;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class UserController {
             manager.setPassword(password);
             return "Password successfully updated!";
         }
+        WareFlowPersistence.save();
         return message;
     }
 
@@ -116,6 +118,7 @@ public class UserController {
                 return "Client added successfully.";
             }
         }
+        WareFlowPersistence.save();
         return message.toString();
     }
 
@@ -215,8 +218,10 @@ public class UserController {
             if (user != null) {
                 if (user instanceof Employee employee) {
                     employee.delete();
+                    WareFlowPersistence.save();
                 } else if (user instanceof Client client) {
                     client.delete();
+                    WareFlowPersistence.save();
                 }
             }
         }

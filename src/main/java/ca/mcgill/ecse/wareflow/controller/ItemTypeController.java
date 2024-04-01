@@ -3,6 +3,8 @@ package ca.mcgill.ecse.wareflow.controller;
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.ItemType;
 import ca.mcgill.ecse.wareflow.model.WareFlow;
+import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
+
 
 public class ItemTypeController {
 
@@ -39,6 +41,7 @@ public class ItemTypeController {
         try {
             ItemType newItemType = new ItemType(name, expectedLifeSpanInDays, wareFlow);
             wareFlow.addItemType(newItemType);
+            WareFlowPersistence.save();
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -83,6 +86,7 @@ public class ItemTypeController {
             ItemType anItemType = ItemType.getWithName(oldName);
             anItemType.setName(newName);
             anItemType.setExpectedLifeSpanInDays(newExpectedLifeSpanInDays);
+            WareFlowPersistence.save();
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -100,6 +104,7 @@ public class ItemTypeController {
             if (ItemType.hasWithName(name)) {
                 ItemType.getWithName(name).delete();
             }
+            WareFlowPersistence.save();
         } catch (RuntimeException ignored) {
         }
     }
