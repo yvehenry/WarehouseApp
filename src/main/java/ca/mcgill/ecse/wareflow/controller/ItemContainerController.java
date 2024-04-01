@@ -4,6 +4,8 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.ItemContainer;
 import ca.mcgill.ecse.wareflow.model.ItemType;
 import ca.mcgill.ecse.wareflow.model.WareFlow;
+import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
+
 
 import java.sql.Date;
 
@@ -42,6 +44,7 @@ public class ItemContainerController {
 
         try {
             wareFlow.addItemContainer(containerNumber, areaNumber, slotNumber, addedOnDate, ItemType.getWithName(itemTypeName));
+            WareFlowPersistence.save();
         } catch (Exception e) {
             return errorMessage;
         }
@@ -84,6 +87,7 @@ public class ItemContainerController {
             itemInContainer.setSlotNumber(newSlotNumber);
             itemInContainer.setItemType(ItemType.getWithName(newItemTypeName));
             itemInContainer.setAddedOnDate(newAddedOnDate);
+            WareFlowPersistence.save();
         } catch (Exception e) {
             return errorMessage;
         }
@@ -103,5 +107,6 @@ public class ItemContainerController {
             } catch (Exception ignored) {
             }
         }
+        WareFlowPersistence.save();
     }
 }

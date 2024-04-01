@@ -4,6 +4,7 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.*;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
+import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
 
 import java.sql.Date;
 import java.util.List;
@@ -74,6 +75,7 @@ public class OrderController {
             } catch (Exception e) {
                 errorMessage += "Unknown exception";
             }
+            WareFlowPersistence.save();
             return errorMessage;
         }
         WarehouseStaff rightEmployee = null;
@@ -95,6 +97,7 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Unknown error";
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 
@@ -130,6 +133,7 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Other exception";
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 
@@ -167,6 +171,7 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Other exception";
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 
@@ -201,6 +206,7 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Other exceptions.";
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 
@@ -238,6 +244,7 @@ public class OrderController {
         } catch (Exception e) {
             errorMessage += "Other exceptions.";
         }
+        WareFlowPersistence.save();
         return errorMessage;
     }
 }
