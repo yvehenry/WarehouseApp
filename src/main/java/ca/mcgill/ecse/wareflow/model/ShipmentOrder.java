@@ -6,6 +6,7 @@ import java.util.*;
 import java.sql.Date;
 
 // line 1 "../../../../../WareFlowStates.ump"
+// line 25 "WareFlowPersistence.ump"
 // line 46 "../../../../../WareFlow.ump"
 public class ShipmentOrder
 {
@@ -572,6 +573,14 @@ public class ShipmentOrder
       this.orderApprover = null;
       placeholderOrderApprover.removeOrdersForApproval(this);
     }
+  }
+
+  // line 27 "WareFlowPersistence.ump"
+  public static  void reinitializeUniqueId(List<ShipmentOrder> orders){
+    shipmentordersById.clear();
+        for (var order: orders) {
+            shipmentordersById.put(order.getId(), order);
+        }
   }
 
   // line 27 "../../../../../WareFlowStates.ump"

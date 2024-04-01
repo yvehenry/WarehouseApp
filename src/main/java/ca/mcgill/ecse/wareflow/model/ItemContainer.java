@@ -5,6 +5,7 @@ package ca.mcgill.ecse.wareflow.model;
 import java.util.*;
 import java.sql.Date;
 
+// line 34 "WareFlowPersistence.ump"
 // line 68 "../../../../../WareFlow.ump"
 public class ItemContainer
 {
@@ -303,6 +304,13 @@ public class ItemContainer
     }
   }
 
+  // line 36 "WareFlowPersistence.ump"
+  public static  void reinitializeUniqueConatainerNumber(List<ItemContainer> itemContainers){
+    itemcontainersByContainerNumber.clear();
+        for (var itemContainer: itemContainers) {
+            itemcontainersByContainerNumber.put(itemContainer.getContainerNumber(), itemContainer);
+        }
+  }
 
   public String toString()
   {
