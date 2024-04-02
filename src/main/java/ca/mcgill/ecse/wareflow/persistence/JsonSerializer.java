@@ -13,7 +13,6 @@ import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
 /**
  * Serializes model elements to/from JSON.
  */
-// TODO copy/paste this file into your project
 public class JsonSerializer {
 
 	private XStream xStream;
