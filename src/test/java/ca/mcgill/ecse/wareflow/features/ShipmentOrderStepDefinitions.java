@@ -225,6 +225,7 @@ public class ShipmentOrderStepDefinitions {
         TimeEstimate timeEstimate = TimeEstimate.OneToThreeDays;
         WarehouseStaff orderPicker = wareFlow.getManager(); 
         boolean requiresApproval = order.hasOrderApprover();
+        PriorityLevel priorityLevel = PriorityLevel.Low;
 
         if (orderState.equalsIgnoreCase("assigned")) {
             order.assign(orderPicker, priorityLevel, timeEstimate, requiresApproval);
