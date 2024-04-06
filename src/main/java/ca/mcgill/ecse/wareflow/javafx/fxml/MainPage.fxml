@@ -14,9 +14,9 @@
 				<fx:include source="pages/UsersPage.fxml" />
                </content>
           </Tab>
-          <Tab text="Orders">
+          <Tab text="ItemType">
                <content>
-				<fx:include source="pages/OrderPage.fxml" />
+				<fx:include source="pages/ItemType.fxml" />
                </content>
           </Tab>
         </tabs>
