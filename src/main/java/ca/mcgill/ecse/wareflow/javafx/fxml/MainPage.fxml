@@ -19,6 +19,11 @@
 				<fx:include source="pages/ItemType.fxml" />
                </content>
           </Tab>
+          <Tab text="Shipment Order">
+               <content>
+        <fx:include source="pages/ShipmentOrder.fxml" />  
+                </content>
+          </Tab>           
         </tabs>
       </TabPane>
       <Separator prefHeight="0.0" prefWidth="851.0" VBox.vgrow="ALWAYS" />
