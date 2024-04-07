@@ -30,7 +30,7 @@ public class WareFlowFxmlView extends Application {
       primaryStage.setMinWidth(800);
       primaryStage.setMinHeight(600);
 
-      primaryStage.setTitle("FMS");
+      primaryStage.setTitle("WareFlow");
       primaryStage.show();
       refresh();
     } catch (IOException e) {

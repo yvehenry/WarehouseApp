@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="851.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="851.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TabPane prefWidth="851.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+      <TabPane prefHeight="494.0" prefWidth="622.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
-          <Tab text="Users">
+          <Tab text="Users"> <!-- Create Account, Update Account, Update Manager  -->
                <content>
 				<fx:include source="pages/UsersPage.fxml" />
                </content>
           </Tab>
-          <Tab text="ItemType">
+          <Tab text="Containers"> <!-- Add, update, and delete item container  -->
+               <content>
+				<fx:include source="pages/ContainersPage.fxml" />
+               </content>
+          </Tab>
+          <Tab text="Item Types"> <!-- Add, update, remove Item Type-->
                <content>
 				<fx:include source="pages/ItemType.fxml" />
                </content>
           </Tab>
-          <Tab text="Shipment Order">
+          <Tab text="Shipment Order"> <!-- Add,update, remove shipment order and Add, update, and delete note to shipment order -->
                <content>
         <fx:include source="pages/ShipmentOrder.fxml" />  
                 </content>
-          </Tab>           
+          </Tab>
+            <Tab text="Assignments"> <!--Update Shipment order status (Assign, Start..) -->
+              <content>
+                  <fx:include source="pages/AssignOrder.fxml" />
+              </content>
+            </Tab>           
         </tabs>
       </TabPane>
-      <Separator prefHeight="0.0" prefWidth="851.0" VBox.vgrow="ALWAYS" />
+      <Separator prefWidth="200.0" />
+      <fx:include maxWidth="1.79E308" source="pages/ListView.fxml" />
    </children>
 </VBox>

@@ -1,7 +1,8 @@
 package ca.mcgill.ecse.wareflow.javafx.fxml.controllers;
 
 import java.util.List;
-import ca.mcgill.ecse.wareflow.controller.*;
+import ca.mcgill.ecse.wareflow.controller.ShipmentOrderController;
+import ca.mcgill.ecse.wareflow.controller.TOShipmentOrder;
 import ca.mcgill.ecse.wareflow.javafx.fxml.WareFlowFxmlView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
