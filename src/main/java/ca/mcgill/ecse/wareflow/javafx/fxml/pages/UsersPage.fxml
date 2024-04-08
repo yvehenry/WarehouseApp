@@ -7,29 +7,26 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21">
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.UsersPageController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="100.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <GridPane prefHeight="400.0" prefWidth="600.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="30.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="100.0" prefHeight="40.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <Label text=" Update or Remove" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label text="Update or Remove" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="25.0" />
                </font>
@@ -203,7 +200,5 @@
                </GridPane.margin>
             </Button>
             <Button fx:id="updateEmployeeButton" mnemonicParsing="false" onAction="#updateGuestOrEmployeeClicked" text="Update Client" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP" />
-         </children>
-      </GridPane>
    </children>
-</VBox>
+</GridPane>

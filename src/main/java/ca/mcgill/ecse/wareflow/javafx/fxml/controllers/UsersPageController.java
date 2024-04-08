@@ -15,5 +15,23 @@ import javafx.scene.control.ChoiceBox;
 
 
 public class UsersPageController {
+    public void updateGuestOrEmployeeClicked(ActionEvent event) {
+        // method body
+    }
     
+    public void updateManagerClicked(ActionEvent event) {
+        // method body
+    }
+    
+    public void deleteGuestOrEmployeeClicked(ActionEvent event) {
+        // method body
+    }
+    
+    public void createGuestClicked(ActionEvent event) {
+        // method body
+    }
+    
+    public void createEmployeeClicked(ActionEvent event) {
+        // method body
+    }
 }
