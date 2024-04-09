@@ -1,5 +1,8 @@
 package ca.mcgill.ecse.wareflow.javafx.fxml.controllers;
 
+import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
+import ca.mcgill.ecse.wareflow.model.ShipmentNote;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -142,7 +145,7 @@ public class ShipmentOrderController {
         } catch (IllegalArgumentException e) {
             NoteMessage.setText("Enter a correct date format.");
         } catch (Exception e) {
-            NoteMessage.setText("Error.");
+            NoteMessage.setText(e.getMessage());
         }
     }
 
@@ -166,7 +169,7 @@ public class ShipmentOrderController {
         } catch (IllegalArgumentException e) {
             OrderMessage.setText("Enter a correct date format.");
         } catch (Exception e) {
-            OrderMessage.setText("Error.");
+            OrderMessage.setText(e.getMessage());
         }
     }
 
@@ -177,12 +180,21 @@ public class ShipmentOrderController {
             noteIndex = Integer.parseInt(NoteIndexTextField.getText());
             ca.mcgill.ecse.wareflow.controller.ShipmentNoteController
                     .deleteShipmentNote(orderID, noteIndex);
+            if (ShipmentOrder.hasWithId(orderID)) {
+                NoteMessage.setText("Order ID doesn't exist.");
+            } else if (ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
+                NoteMessage.setText("Note doesn't exist.");
+            } else {
+                NoteMessage.setText("Note has been deleted successfully!");
+            }
         } catch (NumberFormatException e) {
             NoteMessage.setText("Enter only a number in the corresponding box.");
         } catch (IllegalArgumentException e) {
             NoteMessage.setText("Enter a correct date format.");
+        } catch (IndexOutOfBoundsException e) {
+            NoteMessage.setText("Note index doesn't exist.");
         } catch (Exception e) {
-            NoteMessage.setText("Error.");
+            NoteMessage.setText(e.getMessage());
         }
     }
 
@@ -192,12 +204,17 @@ public class ShipmentOrderController {
             orderID = Integer.parseInt(OrderIDTextField.getText());
             ca.mcgill.ecse.wareflow.controller.ShipmentOrderController
                     .deleteShipmentOrder(orderID);
+            if (ShipmentOrder.hasWithId(orderID)) {
+                OrderMessage.setText("Order has been deleted successfully!");
+            } else {
+                OrderMessage.setText("Order ID doesn't exist.");
+            }
         } catch (NumberFormatException e) {
-            NoteMessage.setText("Enter only a number in the corresponding box.");
+            OrderMessage.setText("Enter only a number in the corresponding box.");
         } catch (IllegalArgumentException e) {
-            NoteMessage.setText("Enter a correct date format.");
+            OrderMessage.setText("Enter a correct date format.");
         } catch (Exception e) {
-            NoteMessage.setText("Error.");
+            OrderMessage.setText(e.getMessage());
         }
     }
 
@@ -212,7 +229,7 @@ public class ShipmentOrderController {
             String message = ca.mcgill.ecse.wareflow.controller.ShipmentNoteController
                     .updateShipmentNote(orderID, noteIndex, date, description, noteTaker);
             if (message.isEmpty()) {
-                message = "Note has been added successfully!";
+                message = "Note has been updated successfully!";
             }
             NoteMessage.setText(message);
         } catch (NumberFormatException e) {
@@ -220,7 +237,7 @@ public class ShipmentOrderController {
         } catch (IllegalArgumentException e) {
             NoteMessage.setText("Enter a correct date format.");
         } catch (Exception e) {
-            NoteMessage.setText("Error.");
+            NoteMessage.setText(e.getMessage());
         }
     }
 
@@ -236,7 +253,7 @@ public class ShipmentOrderController {
             String message = ca.mcgill.ecse.wareflow.controller.ShipmentOrderController
                     .updateShipmentOrder(orderID, placedOnDate, description, orderPlacer, containerNumber, quantity);
             if (message.isEmpty()) {
-                message = "Order has been added successfully!";
+                message = "Order has been updated successfully!";
             }
             OrderMessage.setText(message);
         } catch (NumberFormatException e) {
@@ -244,7 +261,7 @@ public class ShipmentOrderController {
         } catch (IllegalArgumentException e) {
             OrderMessage.setText("Enter a correct date format.");
         } catch (Exception e) {
-            OrderMessage.setText("Error.");
+            OrderMessage.setText(e.getMessage());
         }
     }
 }
