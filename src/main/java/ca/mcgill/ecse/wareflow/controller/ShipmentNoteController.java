@@ -6,7 +6,6 @@ import ca.mcgill.ecse.wareflow.model.User;
 import ca.mcgill.ecse.wareflow.model.WarehouseStaff;
 import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
 
-
 import java.sql.Date;
 
 public class ShipmentNoteController {
@@ -26,11 +25,9 @@ public class ShipmentNoteController {
         String errorMessage = "";
         if (description == null || description.isEmpty()) {
             errorMessage += "Order description cannot be empty";
-        }
-        if (!WarehouseStaff.hasWithUsername(username)) {
+        } else if (!WarehouseStaff.hasWithUsername(username)) {
             errorMessage += "Staff does not exist";
-        }
-        if (!ShipmentOrder.hasWithId(orderID)) {
+        } else if (!ShipmentOrder.hasWithId(orderID)) {
             errorMessage += "Order does not exist";
         }
         if (!errorMessage.isEmpty()) {
@@ -43,11 +40,9 @@ public class ShipmentNoteController {
         } catch (RuntimeException e) {
             if (e.getMessage().contains("duplicate")) {
                 errorMessage += "Cannot create due to duplicate id";
-            }
-            if (e.getMessage().contains("wareFlow")) {
+            } else if (e.getMessage().contains("wareFlow")) {
                 errorMessage += "Unable to create shipmentNote due to wareFlow";
-            }
-            if (e.getMessage().contains("takedNote")) {
+            } else if (e.getMessage().contains("takedNote")) {
                 errorMessage += "Unable to create takedNote due to noteTaker";
             }
         }
@@ -71,13 +66,13 @@ public class ShipmentNoteController {
         if (!WarehouseStaff.hasWithUsername(newUsername)) {
             errorMessage += "Staff does not exist";
         }
-        if (newDescription == null || newDescription.isEmpty()) {
+        else if (newDescription == null || newDescription.isEmpty()) {
             errorMessage += "Order description cannot be empty";
         }
-        if (!ShipmentOrder.hasWithId(orderID)) {
+        else if (!ShipmentOrder.hasWithId(orderID)) {
             errorMessage += "Order does not exist";
         }
-        if (index > 0) {
+        else if (index > 0) {
             errorMessage += "Note does not exist";
         }
         if (!errorMessage.isEmpty()) {

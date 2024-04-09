@@ -1,8 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
-
-<VBox xmlns:fx="http://javafx.com/fxml">
-    <Button text="Click me!" />
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ShipmentOrderController">
+    <children>
+        <SplitPane dividerPositions="0.21786833855799373" prefHeight="466.0" prefWidth="640.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <Button fx:id="AddOrderButton" layoutY="31.0" mnemonicParsing="false" onAction="#addOrder"
+                                text="Add Order"/>
+                        <Button fx:id="DeleteOrderButton" layoutY="83.0" mnemonicParsing="false" onAction="#deleteOrder"
+                                text="Delete Order"/>
+                        <Text fx:id="NoteToShipmentOrderText" layoutX="2.0" layoutY="227.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Note to Shipment Order" wrappingWidth="140.13671875"/>
+                        <Button fx:id="AddNoteButton" layoutY="230.0" mnemonicParsing="false" onAction="#addNote"
+                                text="Add Note"/>
+                        <Button fx:id="DeleteNoteButton" layoutY="282.0" mnemonicParsing="false" onAction="#deleteNote"
+                                text="Delete Note"/>
+                        <Button fx:id="UpdateOrderButton" layoutY="57.0" mnemonicParsing="false" onAction="#updateOrder"
+                                text="Update Order"/>
+                        <Text fx:id="ShipmentOrderText" layoutX="2.0" layoutY="26.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Shipment Order" wrappingWidth="84.615234375"/>
+                        <Button fx:id="UpdateNoteButton" layoutY="256.0" mnemonicParsing="false" onAction="#updateNote"
+                                text="Update Note"/>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="476.0">
+                    <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="398.0" prefWidth="496.0">
+                            <items>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                    <children>
+                                        <Text fx:id="OrderMessage" layoutX="168.0" layoutY="178.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" wrappingWidth="316.0625"/>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                    <children>
+                                        <Text fx:id="NoteOrderIDText" layoutX="3.0" layoutY="26.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Order ID:"/>
+                                        <TextField fx:id="NoteOrderIDTextField" layoutX="54.0" layoutY="9.0"
+                                                   prefHeight="25.0" prefWidth="38.0"/>
+                                        <Text fx:id="NoteTakerText" layoutX="3.0" layoutY="56.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Note Taker:"/>
+                                        <TextField fx:id="NoteTakerTextField" layoutX="67.0" layoutY="39.0"
+                                                   prefHeight="25.0" prefWidth="112.0"/>
+                                        <Text fx:id="DateText" layoutX="3.0" layoutY="86.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Date:"/>
+                                        <TextField fx:id="DateTextField" layoutX="34.0" layoutY="69.0" prefHeight="25.0"
+                                                   prefWidth="101.0"/>
+                                        <Text fx:id="NoteDescriptionText" layoutX="3.0" layoutY="116.0"
+                                              strokeType="OUTSIDE" strokeWidth="0.0" text="Description:"/>
+                                        <TextField fx:id="NoteDescriptionTextField" layoutX="69.0" layoutY="99.0"
+                                                   prefHeight="25.0" prefWidth="409.0"/>
+                                        <Text fx:id="NoteIndexText" layoutX="3.0" layoutY="147.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Note Index:"/>
+                                        <TextField fx:id="NoteIndexTextField" layoutX="68.0" layoutY="130.0"
+                                                   prefHeight="25.0" prefWidth="38.0"/>
+                                        <Text fx:id="NoteMessage" layoutX="168.0" layoutY="177.0" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" wrappingWidth="316.0625"/>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                        <Text fx:id="OrderIDText" layoutX="4.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Order ID:"/>
+                        <TextField fx:id="OrderIDTextField" layoutX="55.0" layoutY="10.0" prefHeight="25.0"
+                                   prefWidth="38.0"/>
+                        <Text fx:id="OrderPlacerText" layoutX="4.0" layoutY="57.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Order Placer:"/>
+                        <TextField fx:id="OrderPlacerTextField" layoutX="76.0" layoutY="40.0" prefHeight="25.0"
+                                   prefWidth="112.0"/>
+                        <Text fx:id="PlacedOnDateText" layoutX="4.0" layoutY="87.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Placed-on Date:"/>
+                        <TextField fx:id="PlacedOnDateTextField" layoutX="91.0" layoutY="70.0" prefHeight="25.0"
+                                   prefWidth="101.0"/>
+                        <Text fx:id="OrderDescriptionText" layoutX="4.0" layoutY="117.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Description:"/>
+                        <TextField fx:id="OrderDescriptionTextField" layoutX="70.0" layoutY="100.0" prefHeight="25.0"
+                                   prefWidth="409.0"/>
+                        <Text fx:id="ContainerNumberText" layoutX="4.0" layoutY="148.0" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Container Number:"/>
+                        <TextField fx:id="ContainerNumberTextField" layoutX="108.0" layoutY="131.0" prefHeight="25.0"
+                                   prefWidth="38.0"/>
+                        <Text fx:id="QuantityText" layoutX="4.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                              text="Quantity:"/>
+                        <TextField fx:id="QuantityTextField" layoutX="55.0" layoutY="162.0" prefHeight="25.0"
+                                   prefWidth="48.0"/>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
 </VBox>
