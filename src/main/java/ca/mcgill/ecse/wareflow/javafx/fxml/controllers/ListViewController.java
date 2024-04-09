@@ -184,7 +184,7 @@ public class ListViewController {
      * @author Neeshal Imrit
      */
     @FXML
-    void seeAllOrdersButtonClicked(ActionEvent event) {
+    void allOrdersButtonClicked(ActionEvent event) {
         orderTable.setItems(FXCollections.observableList(getAllOrders()));
         WareFlowFxmlView.getInstance().registerRefreshEvent(orderTable);
         WareFlowFxmlView.getInstance().refresh();
