@@ -1,9 +1,14 @@
 package ca.mcgill.ecse.wareflow.controller;
 
+import java.util.List;
+
+
 import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.model.ItemType;
 import ca.mcgill.ecse.wareflow.model.WareFlow;
 import ca.mcgill.ecse.wareflow.persistence.WareFlowPersistence;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 public class ItemTypeController {
@@ -108,4 +113,14 @@ public class ItemTypeController {
         } catch (RuntimeException ignored) {
         }
     }
+    
+    public static ObservableList<String> getItemTypes() {
+        List<String> itemTypeStrings = wareFlow.getItemTypes().stream().map(ItemType::getName).toList();
+        return FXCollections.observableList(itemTypeStrings);
+      }
+    
+    public static List<String> getItemTypesAsList() {
+        List<String> itemTypeStrings = wareFlow.getItemTypes().stream().map(ItemType::getName).toList();
+        return itemTypeStrings;
+      }
 }
