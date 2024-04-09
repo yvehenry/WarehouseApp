@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 
 import java.sql.Date;
 
-public class ShipmentOrderController {
+public class ShipmentOrderControl {
 
     @FXML
     private Button AddNoteButton;
