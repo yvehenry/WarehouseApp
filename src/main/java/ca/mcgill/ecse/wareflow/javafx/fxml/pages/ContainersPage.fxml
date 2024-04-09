@@ -9,12 +9,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="ContainersController">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ContainersController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="850.0">
          <children>
-            <Text layoutX="58.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Container" textAlignment="CENTER" wrappingWidth="125.6220703125">
+            <Text layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Container" textAlignment="CENTER" wrappingWidth="143.6220703125">
                <font>
                   <Font size="20.0" />
                </font>
