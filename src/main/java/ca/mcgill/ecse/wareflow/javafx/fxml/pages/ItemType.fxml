@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml">
-
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="850.0">
+         <children>
+            <TextField layoutX="99.0" layoutY="77.0" prefWidth="175.0" />
+            <TextField layoutX="99.0" layoutY="168.0" prefWidth="175.0" />
+            <TextField layoutX="397.0" layoutY="78.0" prefWidth="175.0" />
+            <TextField layoutX="397.0" layoutY="169.0" prefWidth="175.0" />
+            <TextField layoutX="397.0" layoutY="254.0" prefWidth="175.0" />
+            <TextField layoutX="653.0" layoutY="78.0" prefWidth="175.0" />
+            <Button layoutX="226.0" layoutY="254.0" mnemonicParsing="false" text="Add" />
+            <Button layoutX="503.0" layoutY="320.0" mnemonicParsing="false" text="Update" />
+            <Button layoutX="763.0" layoutY="138.0" mnemonicParsing="false" text="Delete" />
+            <Text layoutX="24.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's Name:" wrappingWidth="69.0" />
+            <Text layoutX="24.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lifespan (In Days)" wrappingWidth="69.0" />
+            <Text layoutX="317.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Item to be Updated:" wrappingWidth="69.0" />
+            <Text layoutX="313.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's New Name:" wrappingWidth="77.0" />
+            <Text layoutX="304.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's New Lifespan (In Days):" wrappingWidth="88.0" />
+            <Text layoutX="578.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Item to be Deleted:" wrappingWidth="69.0" />
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>
