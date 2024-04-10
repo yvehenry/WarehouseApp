@@ -16,9 +16,9 @@
             <TextField layoutX="388.0" layoutY="181.0" prefWidth="150.0" />
             <TextField layoutX="388.0" layoutY="266.0" prefWidth="150.0" />
             <TextField layoutX="676.0" layoutY="89.0" prefWidth="150.0" />
-            <Button layoutX="201.0" layoutY="264.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="469.0" layoutY="330.0" mnemonicParsing="false" text="Update" />
-            <Button layoutX="763.0" layoutY="148.0" mnemonicParsing="false" text="Delete" />
+            <Button layoutX="201.0" layoutY="226.0" mnemonicParsing="false" text="Add" />
+            <Button layoutX="469.0" layoutY="313.0" mnemonicParsing="false" text="Update" />
+            <Button layoutX="763.0" layoutY="136.0" mnemonicParsing="false" text="Delete" />
             <Text layoutX="35.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's Name:" wrappingWidth="48.0" />
             <Text layoutX="24.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lifespan (In Days)" wrappingWidth="69.0" />
             <Text layoutX="308.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Item to be Updated:" wrappingWidth="69.0" />
