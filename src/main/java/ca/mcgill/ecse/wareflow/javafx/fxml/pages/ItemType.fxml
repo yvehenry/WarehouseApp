@@ -40,6 +40,9 @@
                   <Font name="System Bold Italic" size="25.0" />
                </font>
             </Text>
+            <Text layoutX="99.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0" />
+            <Text layoutX="388.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0" />
+            <Text layoutX="676.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0" />
          </children>
       </AnchorPane>
    </children>
