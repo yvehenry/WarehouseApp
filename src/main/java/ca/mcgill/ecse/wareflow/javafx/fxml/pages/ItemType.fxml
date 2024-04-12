@@ -17,7 +17,7 @@
             <TextField fx:id="newItemName" layoutX="388.0" layoutY="181.0" prefWidth="150.0" />
             <TextField fx:id="newItemLifespan" layoutX="388.0" layoutY="266.0" prefWidth="150.0" />
             <TextField fx:id="deleteItemName" layoutX="676.0" layoutY="89.0" prefWidth="150.0" />
-            <Button fx:id="addItemTypeClicked" layoutX="201.0" layoutY="226.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="addItemTypeButton" layoutX="201.0" layoutY="226.0" mnemonicParsing="false" onAction="#addItemTypeClicked" text="Add" />
             <Button fx:id="updateItemButton" layoutX="469.0" layoutY="313.0" mnemonicParsing="false" onAction="#updateItemTypeClicked" text="Update" />
             <Button fx:id="deleteItemButton" layoutX="763.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteItemTypeClicked" text="Delete" />
             <Text layoutX="35.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's Name:" wrappingWidth="48.0" />
