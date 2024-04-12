@@ -38,7 +38,7 @@
                 <Insets left="100.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="confirmNewUserPasswordTextField" layoutX="10.0" layoutY="255.0" promptText="1 Ave." GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <TextField fx:id="updateAddressTextField" layoutX="10.0" layoutY="255.0" promptText="1 Ave." GridPane.columnIndex="1" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets left="135.0" right="5.0" />
             </GridPane.margin>
@@ -48,7 +48,7 @@
                 <Insets left="5.0" />
             </GridPane.margin>
         </Label>
-        <TextField fx:id="updateUserPasswordTextField" layoutX="10.0" layoutY="27.0" prefWidth="245.0" promptText="!Abc" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <TextField fx:id="updateUserPasswordTextField" layoutX="10.0" layoutY="27.0" prefWidth="245.0" promptText="ComplexPassword123!" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets left="90.0" right="5.0" />
             </GridPane.margin>
@@ -83,22 +83,22 @@
                 <Insets left="5.0" />
             </GridPane.margin>
         </Label>
-        <TextField fx:id="findEmailTextField" promptText="bbouhd" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <TextField fx:id="findUsernameTextField" promptText="bbouhd" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets left="85.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="updateManagerPasswordTextField" promptText="!Abc" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+        <TextField fx:id="updateManagerPasswordTextField" promptText="ComplexPassword!12" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="90.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="confirmOldManagerPasswordTextField" editable="false" promptText="#Bad" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <TextField fx:id="confirmOldManagerPasswordTextField" promptText="#Bad" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="90.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="confirmNewManagerPasswordTextField" promptText="!Abc" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+        <TextField fx:id="confirmNewManagerPasswordTextField" promptText="ComplexPassword!12" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="135.0" right="5.0" />
             </GridPane.margin>
@@ -160,7 +160,7 @@
                 <Insets />
             </GridPane.margin>
         </Button>
-        <TextField fx:id="createEmailTextField" promptText="bbouhd" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <TextField fx:id="createUsernameTextField" promptText="bbouhd" GridPane.rowIndex="1" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="85.0" right="5.0" />
             </GridPane.margin>
@@ -175,12 +175,12 @@
                 <Insets left="145.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="createUserPasswordTextField" prefHeight="26.0" prefWidth="48.0" promptText="!Abc" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+        <TextField fx:id="createUserPasswordTextField" prefHeight="26.0" prefWidth="48.0" promptText="ComplexPassword!12" GridPane.rowIndex="5" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="65.0" right="5.0" />
             </GridPane.margin>
         </TextField>
-        <TextField fx:id="confirmUserPasswordTextField" promptText="1 Ave." GridPane.rowIndex="4" GridPane.valignment="CENTER">
+        <TextField fx:id="createAddressTextField" promptText="1 Ave." GridPane.rowIndex="4" GridPane.valignment="CENTER">
             <GridPane.margin>
                 <Insets left="110.0" right="5.0" />
             </GridPane.margin>
