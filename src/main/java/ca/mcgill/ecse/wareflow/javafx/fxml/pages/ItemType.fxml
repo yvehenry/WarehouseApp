@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ItemTypeController">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ItemTypeController">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="850.0">
          <children>
-            <TextField layoutX="99.0" layoutY="87.0" prefWidth="150.0" />
-            <TextField layoutX="99.0" layoutY="178.0" prefWidth="150.0" />
-            <TextField layoutX="388.0" layoutY="90.0" prefWidth="150.0" />
-            <TextField layoutX="388.0" layoutY="181.0" prefWidth="150.0" />
-            <TextField layoutX="388.0" layoutY="266.0" prefWidth="150.0" />
-            <TextField layoutX="676.0" layoutY="89.0" prefWidth="150.0" />
-            <Button layoutX="201.0" layoutY="226.0" mnemonicParsing="false" text="Add" />
-            <Button layoutX="469.0" layoutY="313.0" mnemonicParsing="false" text="Update" />
-            <Button layoutX="763.0" layoutY="136.0" mnemonicParsing="false" text="Delete" />
+            <TextField fx:id="addItemName" layoutX="99.0" layoutY="87.0" prefWidth="150.0" />
+            <TextField fx:id="addItemLifespan" layoutX="99.0" layoutY="178.0" prefWidth="150.0" />
+            <TextField fx:id="oldItemName" layoutX="388.0" layoutY="90.0" prefWidth="150.0" />
+            <TextField fx:id="newItemName" layoutX="388.0" layoutY="181.0" prefWidth="150.0" />
+            <TextField fx:id="newItemLifespan" layoutX="388.0" layoutY="266.0" prefWidth="150.0" />
+            <TextField fx:id="deleteItemName" layoutX="676.0" layoutY="89.0" prefWidth="150.0" />
+            <Button fx:id="addItemTypeClicked" layoutX="201.0" layoutY="226.0" mnemonicParsing="false" text="Add" />
+            <Button fx:id="updateItemButton" layoutX="469.0" layoutY="313.0" mnemonicParsing="false" onAction="#updateItemTypeClicked" text="Update" />
+            <Button fx:id="deleteItemButton" layoutX="763.0" layoutY="136.0" mnemonicParsing="false" onAction="#deleteItemTypeClicked" text="Delete" />
             <Text layoutX="35.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's Name:" wrappingWidth="48.0" />
             <Text layoutX="24.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lifespan (In Days)" wrappingWidth="69.0" />
             <Text layoutX="308.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Item to be Updated:" wrappingWidth="69.0" />
