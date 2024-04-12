@@ -114,7 +114,7 @@
                </GridPane.margin>
             </Label>
             <Label text="(Employee or Client)" textFill="#656565" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
-            <Button fx:id="updateGuestButton" mnemonicParsing="false" onAction="#updateGuestOrEmployeeClicked" text="Update Employee" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="TOP">
+            <Button fx:id="updateGuestButton" mnemonicParsing="false" text="Update Employee" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -125,11 +125,6 @@
                </GridPane.margin>
             </Label>
             <Button fx:id="updateManagerButton" mnemonicParsing="false" onAction="#updateManagerClicked" text="Update" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-            <Button fx:id="deleteGuestOrEmployeeButton" mnemonicParsing="false" onAction="#deleteGuestOrEmployeeClicked" text="Delete Client" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="50.0" />
-               </GridPane.margin>
-            </Button>
             <Label text="Create Account" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font name="System Bold" size="25.0" />
@@ -160,7 +155,7 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </Label>
-            <Button fx:id="createGuestButton" mnemonicParsing="false" onAction="#createGuestClicked" text="Create Employee" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="TOP">
+            <Button fx:id="createGuestButton" mnemonicParsing="false" text="Create Employee" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -196,11 +191,11 @@
                   <Insets bottom="50.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="deleteGuestOrEmployeeButton" mnemonicParsing="false" onAction="#deleteGuestOrEmployeeClicked" text="Delete Employee" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
+            <Button fx:id="deleteGuestOrEmployeeButton" mnemonicParsing="false" text="Delete Employee" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="50.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="updateEmployeeButton" mnemonicParsing="false" onAction="#updateGuestOrEmployeeClicked" text="Update Client" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP" />
+            <Button fx:id="updateEmployeeButton" mnemonicParsing="false" text="Update Client" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7" GridPane.valignment="TOP" />
    </children>
 </GridPane>

@@ -1,7 +1,5 @@
 package ca.mcgill.ecse.wareflow.javafx.fxml.controllers;
 
-import ca.mcgill.ecse.wareflow.controller.ShipmentNoteController;
-import ca.mcgill.ecse.wareflow.model.ShipmentNote;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
