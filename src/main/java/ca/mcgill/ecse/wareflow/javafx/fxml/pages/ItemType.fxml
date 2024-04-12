@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml">
-
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="850.0">
+         <children>
+            <TextField layoutX="99.0" layoutY="87.0" prefWidth="150.0" />
+            <TextField layoutX="99.0" layoutY="178.0" prefWidth="150.0" />
+            <TextField layoutX="388.0" layoutY="90.0" prefWidth="150.0" />
+            <TextField layoutX="388.0" layoutY="181.0" prefWidth="150.0" />
+            <TextField layoutX="388.0" layoutY="266.0" prefWidth="150.0" />
+            <TextField layoutX="676.0" layoutY="89.0" prefWidth="150.0" />
+            <Button layoutX="201.0" layoutY="226.0" mnemonicParsing="false" text="Add" />
+            <Button layoutX="469.0" layoutY="313.0" mnemonicParsing="false" text="Update" />
+            <Button layoutX="763.0" layoutY="136.0" mnemonicParsing="false" text="Delete" />
+            <Text layoutX="35.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's Name:" wrappingWidth="48.0" />
+            <Text layoutX="24.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lifespan (In Days)" wrappingWidth="69.0" />
+            <Text layoutX="308.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Item to be Updated:" wrappingWidth="69.0" />
+            <Text layoutX="304.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's New Name:" wrappingWidth="77.0" />
+            <Text layoutX="295.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item's New Lifespan (In Days):" wrappingWidth="88.0" />
+            <Text layoutX="592.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Item to be Deleted:" wrappingWidth="69.0" />
+            <Text layoutX="45.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add an Item Type">
+               <font>
+                  <Font name="System Bold Italic" size="25.0" />
+               </font>
+            </Text>
+            <Text layoutX="295.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update an Item Type">
+               <font>
+                  <Font name="System Bold Italic" size="25.0" />
+               </font>
+            </Text>
+            <Text layoutX="592.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete an Item Type">
+               <font>
+                  <Font name="System Bold Italic" size="25.0" />
+               </font>
+            </Text>
+            <Text layoutX="99.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0" />
+            <Text layoutX="388.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0" />
+            <Text layoutX="676.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="150.0" />
+         </children>
+      </AnchorPane>
+   </children>
 </VBox>
