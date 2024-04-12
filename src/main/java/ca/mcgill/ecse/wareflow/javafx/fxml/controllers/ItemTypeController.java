@@ -91,7 +91,6 @@ public class ItemTypeController {
                     return;
                 }
             }
-
             deleteItemMessage.setText("The Item Type does not exist in the WareFlow system. ");
         }
 

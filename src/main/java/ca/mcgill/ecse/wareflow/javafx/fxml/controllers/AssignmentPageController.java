@@ -202,7 +202,6 @@ public class AssignmentPageController {
         }
         if (dateString == null || dateString.trim().isEmpty()) {
             ViewUtils.showError("The date cannot be empty");
-            return;
         } else {
             int orderId = Integer.parseInt(orderIdString);
             Date date = Date.valueOf(dateString);

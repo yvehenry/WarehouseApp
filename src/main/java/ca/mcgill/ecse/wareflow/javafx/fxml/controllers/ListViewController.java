@@ -247,5 +247,4 @@ public class ListViewController {
         ShipmentOrderController.getOrders();
         return FXCollections.observableList(ShipmentOrderController.getOrders());
     }
-
 }

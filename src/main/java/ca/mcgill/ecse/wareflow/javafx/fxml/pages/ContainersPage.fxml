@@ -1,61 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ContainersController">
-   <children>
-      <AnchorPane prefHeight="400.0" prefWidth="850.0">
-         <children>
-            <Text layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Container" textAlignment="CENTER" wrappingWidth="143.6220703125">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Text layoutX="351.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Container">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Text layoutX="10.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container Number:" wrappingWidth="116.35693359375" />
-            <TextField fx:id="addContainerNumtextfield" layoutX="121.0" layoutY="57.0" prefHeight="26.0" prefWidth="116.0" />
-            <Text layoutX="10.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Area Number:" wrappingWidth="116.35693359375" />
-            <TextField fx:id="addAreaNumtextfield" layoutX="121.0" layoutY="107.0" prefHeight="26.0" prefWidth="116.0" />
-            <Text layoutX="10.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slot Number:" wrappingWidth="116.35693359375" />
-            <Text layoutX="10.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Added:" wrappingWidth="116.35693359375" />
-            <Text layoutX="10.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Type:" wrappingWidth="116.35693359375" />
-            <TextField fx:id="addSlotNumtextfield" layoutX="121.0" layoutY="158.0" prefHeight="26.0" prefWidth="116.0" />
-            <TextField fx:id="addDateAddedtextfield" layoutX="121.0" layoutY="208.0" prefHeight="26.0" prefWidth="116.0" />
-            <Text layoutX="315.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container Number:" wrappingWidth="116.35693359375" />
-            <Text layoutX="315.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Area Number:" wrappingWidth="116.35693359375" />
-            <Text layoutX="315.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slot Number:" wrappingWidth="116.35693359375" />
-            <Text layoutX="315.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Added:" wrappingWidth="116.35693359375" />
-            <Text layoutX="315.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Type:" wrappingWidth="116.35693359375" />
-            <Button fx:id="addButton" layoutX="196.0" layoutY="310.0" mnemonicParsing="false" onAction="#addcontainer" text="Add" />
-            <Button fx:id="updateButton" layoutX="483.0" layoutY="310.0" mnemonicParsing="false" onAction="#updatecontainer" text="Update" />
-            <Text layoutX="624.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete Container" textAlignment="CENTER" wrappingWidth="161.0">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Text>
-            <Text layoutX="588.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container Number:" wrappingWidth="116.35693359375" />
-            <Button fx:id="deleteButton" layoutX="768.0" layoutY="105.0" mnemonicParsing="false" onAction="#deletecontainer" text="Delete" />
-            <Button fx:id="refreshButton" layoutX="704.0" layoutY="355.0" mnemonicParsing="false" onAction="#initialize" text="Refresh Item Type" />
-            <TextField fx:id="deleteContainerNumtextfield" layoutX="704.0" layoutY="57.0" prefHeight="26.0" prefWidth="116.0" />
-            <TextField fx:id="updateDateAddedtextfield" layoutX="425.0" layoutY="215.0" prefHeight="26.0" prefWidth="116.0" />
-            <TextField fx:id="updateSlotNumtextfield" layoutX="425.0" layoutY="158.0" prefHeight="26.0" prefWidth="116.0" />
-            <TextField fx:id="updateAreaNumtextfield" layoutX="425.0" layoutY="107.0" prefHeight="26.0" prefWidth="116.0" />
-            <TextField fx:id="updateContainerNumtextfield" layoutX="425.0" layoutY="57.0" prefHeight="26.0" prefWidth="116.0" />
-            <ChoiceBox fx:id="addItemTypechoicebox" layoutX="121.0" layoutY="259.0" prefHeight="25.0" prefWidth="116.0" />
-            <ChoiceBox fx:id="updateItemTypechoicebox" layoutX="425.0" layoutY="259.0" prefHeight="25.0" prefWidth="116.0" />
-            <Label fx:id="errorLabel" layoutX="393.0" layoutY="359.0" prefHeight="17.0" prefWidth="65.0" textFill="RED" />
-         </children>
-      </AnchorPane>
-   </children>
+<?import javafx.scene.text.*?>
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ContainersController">
+    <children>
+        <AnchorPane prefHeight="400.0" prefWidth="850.0">
+            <children>
+                <Text layoutX="54.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Container"
+                      textAlignment="CENTER" wrappingWidth="143.6220703125">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="351.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Container">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="10.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container Number:"
+                      wrappingWidth="116.35693359375"/>
+                <TextField fx:id="addContainerNumtextfield" layoutX="121.0" layoutY="57.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <Text layoutX="10.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Area Number:"
+                      wrappingWidth="116.35693359375"/>
+                <TextField fx:id="addAreaNumtextfield" layoutX="121.0" layoutY="107.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <Text layoutX="10.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slot Number:"
+                      wrappingWidth="116.35693359375"/>
+                <Text layoutX="10.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Added:"
+                      wrappingWidth="116.35693359375"/>
+                <Text layoutX="10.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Type:"
+                      wrappingWidth="116.35693359375"/>
+                <TextField fx:id="addSlotNumtextfield" layoutX="121.0" layoutY="158.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <TextField fx:id="addDateAddedtextfield" layoutX="121.0" layoutY="208.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <Text layoutX="315.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container Number:"
+                      wrappingWidth="116.35693359375"/>
+                <Text layoutX="315.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Area Number:"
+                      wrappingWidth="116.35693359375"/>
+                <Text layoutX="315.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Slot Number:"
+                      wrappingWidth="116.35693359375"/>
+                <Text layoutX="315.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Added:"
+                      wrappingWidth="116.35693359375"/>
+                <Text layoutX="315.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Item Type:"
+                      wrappingWidth="116.35693359375"/>
+                <Button fx:id="addButton" layoutX="196.0" layoutY="310.0" mnemonicParsing="false"
+                        onAction="#addcontainer" text="Add"/>
+                <Button fx:id="updateButton" layoutX="483.0" layoutY="310.0" mnemonicParsing="false"
+                        onAction="#updatecontainer" text="Update"/>
+                <Text layoutX="624.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete Container"
+                      textAlignment="CENTER" wrappingWidth="161.0">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Text>
+                <Text layoutX="588.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Container Number:"
+                      wrappingWidth="116.35693359375"/>
+                <Button fx:id="deleteButton" layoutX="768.0" layoutY="105.0" mnemonicParsing="false"
+                        onAction="#deletecontainer" text="Delete"/>
+                <Button fx:id="refreshButton" layoutX="704.0" layoutY="355.0" mnemonicParsing="false"
+                        onAction="#initialize" text="Refresh Item Type"/>
+                <TextField fx:id="deleteContainerNumtextfield" layoutX="704.0" layoutY="57.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <TextField fx:id="updateDateAddedtextfield" layoutX="425.0" layoutY="215.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <TextField fx:id="updateSlotNumtextfield" layoutX="425.0" layoutY="158.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <TextField fx:id="updateAreaNumtextfield" layoutX="425.0" layoutY="107.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <TextField fx:id="updateContainerNumtextfield" layoutX="425.0" layoutY="57.0" prefHeight="26.0"
+                           prefWidth="116.0"/>
+                <ChoiceBox fx:id="addItemTypechoicebox" layoutX="121.0" layoutY="259.0" prefHeight="25.0"
+                           prefWidth="116.0"/>
+                <ChoiceBox fx:id="updateItemTypechoicebox" layoutX="425.0" layoutY="259.0" prefHeight="25.0"
+                           prefWidth="116.0"/>
+                <Label fx:id="errorLabel" layoutX="393.0" layoutY="359.0" prefHeight="17.0" prefWidth="65.0"
+                       textFill="RED"/>
+            </children>
+        </AnchorPane>
+    </children>
 </VBox>

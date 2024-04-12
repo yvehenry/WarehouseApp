@@ -1,5 +1,6 @@
 package ca.mcgill.ecse.wareflow.javafx.fxml.controllers;
 
+import ca.mcgill.ecse.wareflow.javafx.fxml.WareFlowFxmlView;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -145,6 +146,7 @@ public class ShipmentOrderControl {
         } catch (Exception e) {
             NoteMessage.setText(e.getMessage());
         }
+        WareFlowFxmlView.getInstance().refresh();
     }
 
     @FXML
@@ -169,6 +171,7 @@ public class ShipmentOrderControl {
         } catch (Exception e) {
             OrderMessage.setText(e.getMessage());
         }
+        WareFlowFxmlView.getInstance().refresh();
     }
 
     @FXML
@@ -194,6 +197,7 @@ public class ShipmentOrderControl {
         } catch (Exception e) {
             NoteMessage.setText(e.getMessage());
         }
+        WareFlowFxmlView.getInstance().refresh();
     }
 
     @FXML
@@ -214,6 +218,7 @@ public class ShipmentOrderControl {
         } catch (Exception e) {
             OrderMessage.setText(e.getMessage());
         }
+        WareFlowFxmlView.getInstance().refresh();
     }
 
     @FXML
@@ -237,6 +242,7 @@ public class ShipmentOrderControl {
         } catch (Exception e) {
             NoteMessage.setText(e.getMessage());
         }
+        WareFlowFxmlView.getInstance().refresh();
     }
 
     @FXML
@@ -261,5 +267,6 @@ public class ShipmentOrderControl {
         } catch (Exception e) {
             OrderMessage.setText(e.getMessage());
         }
+        WareFlowFxmlView.getInstance().refresh();
     }
 }
