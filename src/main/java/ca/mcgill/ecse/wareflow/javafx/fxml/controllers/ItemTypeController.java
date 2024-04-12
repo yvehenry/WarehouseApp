@@ -53,7 +53,7 @@ public class ItemTypeController {
           } else {
             String errorMessage = ca.mcgill.ecse.wareflow.controller.ItemTypeController.addItemType(itemName, lifespan);
             if (errorMessage.isEmpty()){
-            ViewUtils.makePopupWindow("Result", "Item type: "+ itemName + " added successfully!");
+              ViewUtils.makePopupWindow("Result", "Item type: "+ itemName + " added successfully!");
               addItemName.setText("");
               addItemLifespan.setText("");
             } else {
