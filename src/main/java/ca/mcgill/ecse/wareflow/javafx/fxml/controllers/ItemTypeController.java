@@ -1,16 +1,13 @@
 package ca.mcgill.ecse.wareflow.javafx.fxml.controllers;
 
 
-import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
+import java.util.List;
+
 import ca.mcgill.ecse.wareflow.javafx.fxml.WareFlowFxmlView;
-import ca.mcgill.ecse.wareflow.model.ItemType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-
-import java.util.List;
 
 /**
  * Controller for ItemType Page

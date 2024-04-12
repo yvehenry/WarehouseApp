@@ -2,7 +2,6 @@
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
 package ca.mcgill.ecse.wareflow.model;
-import java.util.*;
 
 // line 36 "../../../../../WareFlow.ump"
 public class Employee extends WarehouseStaff
