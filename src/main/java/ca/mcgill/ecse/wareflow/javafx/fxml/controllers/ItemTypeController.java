@@ -106,7 +106,7 @@ public class ItemTypeController {
                 return;
               }
             }
-            ViewUtils.showError("The asset type you tried to delete does not exist");
+            ViewUtils.showError("The item type you tried to delete does not exist");
           }
         
 
