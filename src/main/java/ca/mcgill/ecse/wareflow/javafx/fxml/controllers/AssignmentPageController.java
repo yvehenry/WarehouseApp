@@ -4,6 +4,7 @@ import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.controller.OrderController;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.PriorityLevel;
 import ca.mcgill.ecse.wareflow.model.ShipmentOrder.TimeEstimate;
+import ca.mcgill.ecse.wareflow.model.ShipmentOrder;
 import ca.mcgill.ecse.wareflow.model.WareFlow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +24,7 @@ import java.sql.Date;
  */
 
 public class AssignmentPageController {
-    private static final WareFlow wflow = WareFlowApplication.getWareFlow();
+    
 
     @FXML
     private TextField assignOrderIDTextField, assignEmployeeUsernameTextField, noteDescriptionTextField, noteDateTextField;
@@ -122,7 +123,8 @@ public class AssignmentPageController {
             ViewUtils.showError("The order number cannot be empty");
         } else {
             int orderId = Integer.parseInt(orderIdString);
-            String errorMessage = OrderController.startShipmentOrder(wflow.getOrder(orderId));
+            ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(orderId);
+            String errorMessage = OrderController.startShipmentOrder(someShipmentOrder);
             if (errorMessage.isEmpty()) {
                 assignOrderIDTextField.setText("");
             } else {
@@ -147,7 +149,8 @@ public class AssignmentPageController {
             ViewUtils.showError("The order number cannot be empty");
         } else {
             int orderId = Integer.parseInt(orderIdString);
-            String errorMessage = OrderController.completeShipmentOrder(wflow.getOrder(orderId));
+            ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(orderId);
+            String errorMessage = OrderController.completeShipmentOrder(someShipmentOrder);
             if (errorMessage.isEmpty()) {
                 assignOrderIDTextField.setText("");
             } else {
@@ -170,7 +173,8 @@ public class AssignmentPageController {
             ViewUtils.showError("The order number cannot be empty");
         } else {
             int orderId = Integer.parseInt(orderIdString);
-            String errorMessage = OrderController.approveShipmentOrder(wflow.getOrder(orderId));
+            ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(orderId);
+            String errorMessage = OrderController.approveShipmentOrder(someShipmentOrder);
             if (errorMessage.isEmpty()) {
                 assignOrderIDTextField.setText("");
             } else {
@@ -205,7 +209,8 @@ public class AssignmentPageController {
         } else {
             int orderId = Integer.parseInt(orderIdString);
             Date date = Date.valueOf(dateString);
-            String errorMessage = OrderController.disapproveShipmentOrder(wflow.getOrder(orderId), note, date);
+            ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(orderId);
+            String errorMessage = OrderController.disapproveShipmentOrder(someShipmentOrder, note, date);
             if (errorMessage.isEmpty()) {
                 assignOrderIDTextField.setText("");
                 noteDescriptionTextField.setText("");
