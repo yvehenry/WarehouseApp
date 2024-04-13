@@ -55,7 +55,9 @@
                               "placedOnDate": "2023-07-20",
                               "description": "This is a dummy description 1",
                               "quantity": 10,
-                              "ticketStatus": "Open",
+                              "timeToFullfill": "LessThanADay",
+                              "priority": "Normal",
+                              "ticketStatus": "Closed",
                               "shipmentNotes": [
                                 {
                                   "ShipmentNote": [
@@ -113,83 +115,24 @@
                                           "@reference": "../../../../../../../../../../../../.."
                                         },
                                         "ordersForApproval": [
-                                          ""
-                                        ]
-                                      }
-                                    }
-                                  ]
-                                }
-                              ],
-                              "wareFlow": {
-                                "@reference": "../../../../../../../../../.."
-                              },
-                              "orderPlacer": {
-                                "@class": "Manager",
-                                "@reference": "../shipmentNotes/ShipmentNote[2]/noteTaker"
-                              },
-                              "container": {
-                                "containerNumber": 2,
-                                "areaNumber": 10,
-                                "slotNumber": 35,
-                                "addedOnDate": "2010-01-30",
-                                "wareFlow": {
-                                  "@reference": "../../../../../../../../../../.."
-                                },
-                                "shipmentOrders": [
-                                  {
-                                    "ShipmentOrder": {
-                                      "@reference": "../../.."
-                                    }
-                                  }
-                                ],
-                                "itemType": {
-                                  "name": "bed",
-                                  "expectedLifeSpanInDays": 5000,
-                                  "wareFlow": {
-                                    "@reference": "../../../../../../../../../../../.."
-                                  },
-                                  "itemContainers": [
-                                    {
-                                      "ItemContainer": [
-                                        {
-                                          "@reference": "../../.."
-                                        },
-                                        {
-                                          "containerNumber": 3,
-                                          "areaNumber": 1,
-                                          "slotNumber": 35,
-                                          "addedOnDate": "2010-01-30",
-                                          "wareFlow": {
-                                            "@reference": "../../../../../../../../../../../../../.."
-                                          },
-                                          "shipmentOrders": [
-                                            ""
-                                          ],
-                                          "itemType": {
-                                            "@reference": "../../.."
-                                          }
-                                        },
-                                        {
-                                          "containerNumber": 99,
-                                          "areaNumber": 38,
-                                          "slotNumber": 50,
-                                          "addedOnDate": "2024-04-12",
-                                          "wareFlow": {
-                                            "@reference": "../../../../../../../../../../../../../.."
-                                          },
-                                          "shipmentOrders": [
-                                            {
-                                              "ShipmentOrder": {
+                                          {
+                                            "ShipmentOrder": [
+                                              {
+                                                "@reference": "../../../../.."
+                                              },
+                                              {
                                                 "id": 10,
                                                 "placedOnDate": "2024-10-10",
                                                 "description": "Faysal Description",
                                                 "quantity": 50,
-                                                "ticketStatus": "Open",
+                                                "timeToFullfill": "LessThanADay",
+                                                "priority": "Normal",
+                                                "ticketStatus": "InProgress",
                                                 "shipmentNotes": [
                                                   ""
                                                 ],
                                                 "wareFlow": {
-                                                  "@reference": "../../../../../../../../../../../../../../../.."
+                                                  "@reference": "../../../../../../../../../../../../../../.."
                                                 },
                                                 "orderPlacer": {
                                                   "@class": "Employee",
@@ -211,23 +154,131 @@
                                                     ""
                                                   ],
                                                   "wareFlow": {
-                                                    "@reference": "../../../../../../../../../../../../../../../../.."
+                                                    "@reference": "../../../../../../../../../../../../../../../.."
+                                                  }
+                                                },
+                                                "orderPicker": {
+                                                  "@class": "Employee",
+                                                  "username": "Ben",
+                                                  "name": "Ben Boudana",
+                                                  "password": 123456,
+                                                  "phoneNumber": "",
+                                                  "placedOrders": [
+                                                    ""
+                                                  ],
+                                                  "shipmentNotes": [
+                                                    ""
+                                                  ],
+                                                  "shipmentOrders": [
+                                                    {
+                                                      "ShipmentOrder": [
+                                                        {
+                                                          "@reference": "../../../../../../../.."
+                                                        },
+                                                        {
+                                                          "@reference": "../../.."
+                                                        }
+                                                      ]
+                                                    }
+                                                  ],
+                                                  "wareFlow": {
+                                                    "@reference": "../../../../../../../../../../../../../../../.."
                                                   }
                                                 },
                                                 "container": {
+                                                  "containerNumber": 99,
+                                                  "areaNumber": 38,
+                                                  "slotNumber": 50,
+                                                  "addedOnDate": "2024-04-12",
+                                                  "wareFlow": {
+                                                    "@reference": "../../../../../../../../../../../../../../../.."
+                                                  },
+                                                  "shipmentOrders": [
+                                                    {
+                                                      "ShipmentOrder": {
+                                                        "@reference": "../../.."
+                                                      }
+                                                    }
+                                                  ],
+                                                  "itemType": {
+                                                    "name": "bed",
+                                                    "expectedLifeSpanInDays": 5000,
+                                                    "wareFlow": {
+                                                      "@reference": "../../../../../../../../../../../../../../../../.."
+                                                    },
+                                                    "itemContainers": [
+                                                      {
+                                                        "ItemContainer": [
+                                                          {
+                                                            "containerNumber": 2,
+                                                            "areaNumber": 10,
+                                                            "slotNumber": 35,
+                                                            "addedOnDate": "2010-01-30",
+                                                            "wareFlow": {
+                                                              "@reference": "../../../../../../../../../../../../../../../../../../.."
+                                                            },
+                                                            "shipmentOrders": [
+                                                              {
+                                                                "ShipmentOrder": {
+                                                                  "@reference": "../../../../../../../../../../.."
+                                                                }
+                                                              }
+                                                            ],
+                                                            "itemType": {
+                                                              "@reference": "../../.."
+                                                            }
+                                                          },
+                                                          {
+                                                            "containerNumber": 3,
+                                                            "areaNumber": 1,
+                                                            "slotNumber": 35,
+                                                            "addedOnDate": "2010-01-30",
+                                                            "wareFlow": {
+                                                              "@reference": "../../../../../../../../../../../../../../../../../../.."
+                                                            },
+                                                            "shipmentOrders": [
+                                                              ""
+                                                            ],
+                                                            "itemType": {
+                                                              "@reference": "../../.."
+                                                            }
+                                                          },
+                                                          {
+                                                            "@reference": "../../.."
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                },
+                                                "orderApprover": {
                                                   "@reference": "../../.."
                                                 }
                                               }
-                                            }
-                                          ],
-                                          "itemType": {
-                                            "@reference": "../../.."
+                                            ]
                                           }
-                                        }
-                                      ]
+                                        ]
+                                      }
                                     }
                                   ]
                                 }
+                              ],
+                              "wareFlow": {
+                                "@reference": "../../../../../../../../../.."
+                              },
+                              "orderPlacer": {
+                                "@class": "Manager",
+                                "@reference": "../shipmentNotes/ShipmentNote[2]/noteTaker"
+                              },
+                              "orderPicker": {
+                                "@class": "Employee",
+                                "@reference": "../shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/orderPicker"
+                              },
+                              "container": {
+                                "@reference": "../shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/container/itemType/itemContainers/ItemContainer"
+                              },
+                              "orderApprover": {
+                                "@reference": "../shipmentNotes/ShipmentNote[2]/noteTaker"
                               }
                             },
                             "noteTaker": {
@@ -310,7 +361,28 @@
             "@reference": "../Employee/shipmentNotes/ShipmentNote/order/orderPlacer"
           },
           {
-            "@reference": "../Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/container/itemType/itemContainers/ItemContainer[3]/shipmentOrders/ShipmentOrder/orderPlacer"
+            "@reference": "../Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/orderPlacer"
+          },
+          {
+            "username": "jason",
+            "name": "Jason Shao",
+            "password": 123456,
+            "phoneNumber": "",
+            "placedOrders": [
+              ""
+            ],
+            "shipmentNotes": [
+              ""
+            ],
+            "shipmentOrders": [
+              ""
+            ],
+            "wareFlow": {
+              "@reference": "../../.."
+            }
+          },
+          {
+            "@reference": "../Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/orderPicker"
           }
         ]
       }
@@ -334,7 +406,7 @@
             "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/placedOrders/ShipmentOrder[2]"
           },
           {
-            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/container/itemType/itemContainers/ItemContainer[3]/shipmentOrders/ShipmentOrder"
+            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]"
           }
         ]
       }
@@ -346,7 +418,7 @@
             "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/container/itemType"
           },
           {
-            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/container/itemType"
+            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/container/itemType"
           }
         ]
       }
@@ -358,13 +430,13 @@
             "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/container"
           },
           {
-            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/container"
+            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/container/itemType/itemContainers/ItemContainer"
           },
           {
-            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/container/itemType/itemContainers/ItemContainer[2]"
+            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/container/itemType/itemContainers/ItemContainer[2]"
           },
           {
-            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/container/itemType/itemContainers/ItemContainer[3]"
+            "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/orderPlacer/shipmentNotes/ShipmentNote/order/shipmentNotes/ShipmentNote[2]/noteTaker/ordersForApproval/ShipmentOrder[2]/container"
           },
           {
             "@reference": "../../employees/Employee/shipmentNotes/ShipmentNote/order/container/itemType/itemContainers/ItemContainer[2]"
