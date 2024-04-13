@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 
 import java.sql.Date;
 
-public class ShipmentOrderControl {
+public class ShipmentOrderController {
 
     @FXML
     private Button AddNoteButton;
@@ -179,13 +179,13 @@ public class ShipmentOrderControl {
         try {
             orderID = Integer.parseInt(NoteOrderIDTextField.getText());
             noteIndex = Integer.parseInt(NoteIndexTextField.getText());
-            ca.mcgill.ecse.wareflow.controller.ShipmentNoteController
-                    .deleteShipmentNote(orderID, noteIndex);
-            if (ShipmentOrder.hasWithId(orderID)) {
+            if (!ShipmentOrder.hasWithId(orderID)) {
                 NoteMessage.setText("Order ID doesn't exist.");
-            } else if (ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
+            } else if (!ShipmentOrder.getWithId(orderID).hasShipmentNotes()) {
                 NoteMessage.setText("Note doesn't exist.");
             } else {
+                ca.mcgill.ecse.wareflow.controller.ShipmentNoteController
+                .deleteShipmentNote(orderID, noteIndex);
                 NoteMessage.setText("Note has been deleted successfully!");
             }
         } catch (NumberFormatException e) {
@@ -204,9 +204,9 @@ public class ShipmentOrderControl {
     void deleteOrder(ActionEvent event) {
         try {
             orderID = Integer.parseInt(OrderIDTextField.getText());
-            ca.mcgill.ecse.wareflow.controller.ShipmentOrderController
-                    .deleteShipmentOrder(orderID);
             if (ShipmentOrder.hasWithId(orderID)) {
+                ca.mcgill.ecse.wareflow.controller.ShipmentOrderController
+                .deleteShipmentOrder(orderID);
                 OrderMessage.setText("Order has been deleted successfully!");
             } else {
                 OrderMessage.setText("Order ID doesn't exist.");

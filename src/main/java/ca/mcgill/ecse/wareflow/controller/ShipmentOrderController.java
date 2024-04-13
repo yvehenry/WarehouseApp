@@ -89,6 +89,10 @@ public class ShipmentOrderController {
      */
     public static String updateShipmentOrder(int id, Date newPlacedOnDate, String newDescription,
                                              String newUsername, int newContainerNumber, int newQuantity) {
+        if (!ShipmentOrder.hasWithId(id)) {
+            return "Order ID doesn't exist.";
+        }
+        ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(id);
         if (newPlacedOnDate == null) {
             return "Date cannot be empty";
         }
@@ -101,6 +105,7 @@ public class ShipmentOrderController {
         if (newContainerNumber == -1 && newQuantity != 0) {
             return "Order quantity must 0 when container is not specified";
         }
+        someShipmentOrder.getContainer();
         if (newContainerNumber != -1 && !ItemContainer.hasWithContainerNumber(newContainerNumber)) {
             return "The container does not exist";
         }
@@ -109,7 +114,6 @@ public class ShipmentOrderController {
         }
 
         try {
-            ShipmentOrder someShipmentOrder = ShipmentOrder.getWithId(id);
             someShipmentOrder.setPlacedOnDate(newPlacedOnDate);
             someShipmentOrder.setDescription(newDescription);
             someShipmentOrder.setOrderPlacer(User.getWithUsername(newUsername));

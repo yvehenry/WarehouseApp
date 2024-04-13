@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ShipmentOrderControl">
+      fx:controller="ca.mcgill.ecse.wareflow.javafx.fxml.controllers.ShipmentOrderController">
     <children>
         <SplitPane dividerPositions="0.21786833855799373" prefHeight="466.0" prefWidth="640.0">
             <items>
