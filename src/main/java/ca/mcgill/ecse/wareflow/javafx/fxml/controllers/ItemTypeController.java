@@ -1,13 +1,16 @@
 package ca.mcgill.ecse.wareflow.javafx.fxml.controllers;
 
 
-import java.util.List;
-
+import ca.mcgill.ecse.wareflow.application.WareFlowApplication;
 import ca.mcgill.ecse.wareflow.javafx.fxml.WareFlowFxmlView;
+import ca.mcgill.ecse.wareflow.model.ItemType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+
+import java.util.List;
 
 /**
  * Controller for ItemType Page
@@ -46,21 +49,8 @@ public class ItemTypeController {
             int lifespan = Integer.parseInt(addItemLifespan.getText());
         
 
-<<<<<<< HEAD
-        if (itemName == null || itemName.trim().isEmpty()){
-            ViewUtils.showError("The new item type field cannot be empty");
-          } else {
-            String errorMessage = ca.mcgill.ecse.wareflow.controller.ItemTypeController.addItemType(itemName, lifespan);
-            if (errorMessage.isEmpty()){
-              ViewUtils.makePopupWindow("Result", "Item type: "+ itemName + " added successfully!");
-              addItemName.setText("");
-              addItemLifespan.setText("");
-            } else {
-              ViewUtils.showError(errorMessage);
-=======
             if (itemName == null || itemName.trim().isEmpty()){
                 ViewUtils.showError("The new item type field cannot be empty.");
->>>>>>> yves-ItemTypeController
             }
             
             else {
